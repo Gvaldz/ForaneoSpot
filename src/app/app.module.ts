@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import {CardComidaComponent} from './shared/card-comida/card-comida.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-inicio.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DashboardInicioComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
