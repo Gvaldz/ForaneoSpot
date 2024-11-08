@@ -1,0 +1,55 @@
+.container{
+    background-image: linear-gradient(rgb(122, 122, 122), white, white, white, white, white);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box{
+    display: flex;
+    width: 100%; 
+    justify-content: space-between;  
+}
+
+.img{
+    width: 49%;
+}
+
+img{
+    width: 100%;
+}
+
+.info{
+    width: 50%;
+    align-items: center;
+}
+
+.buttons{
+    width: 99%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+button{
+    background-color: white;
+    height: 40px;
+    width: 120px;
+    border-radius: 10px;
+    border: 1px white;
+    margin: 15px;
+}
+
+p {
+    font-family: "Josefin Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 15px;
+    font-style: normal;
+}
+
+h1 {
+    font-family: "Josefin Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+  }
