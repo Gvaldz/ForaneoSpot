@@ -10,7 +10,7 @@
       <p class="text-sm leading-relaxed text-gray-600">
         LOREM IPSUM
       </p>
-      <button (click)="openModal()" class="mt-4 w-fit bg-[#1d3557] px-4 py-2 text-white hover:bg-[#1d3557]/90">
+      <button (click)="navegarMenuComida()" class="mt-4 w-fit bg-[#1d3557] px-4 py-2 text-white hover:bg-[#1d3557]/90">
         Ordenar comida
       </button>
     </div>
@@ -18,8 +18,4 @@
 </div>
 
 
-<app-ordenes-comida>
-  [isOpen]="isModalOpen"
-  (onClose)="closeModal()"
-  (onOrder)="handleOrder()"
-</app-ordenes-comida>
+

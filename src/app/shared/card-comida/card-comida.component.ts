@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-card-comida',
@@ -6,6 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './card-comida.component.css'
 })
 export class CardComidaComponent{
+
+  constructor(private router: Router,) {
+  }
+
   isModalOpen = false;
 
   openModal() {
@@ -20,5 +25,9 @@ export class CardComidaComponent{
     // Handle order logic here
     console.log('Order placed');
     this.closeModal();
+  }
+
+  navegarMenuComida(){
+    this.router.navigate(['/menuComida']);
   }
 }

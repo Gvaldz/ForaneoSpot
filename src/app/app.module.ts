@@ -7,25 +7,32 @@ import {ComidaHomeComponent} from './servicios/comida-home/comida-home.component
 import {OrdenesComidaComponent} from './shared/ordenes-comida/ordenes-comida.component';
 import { LoginComponent } from './login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {NavbarComponent} from './shared/navbar/navbar.component';
+import {EditarPerfilComponent} from './usuarios/editar-perfil/editar-perfil.component';
+import {MenuComidaComponent} from './menus/menu-comida/menu-comida.component';
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     CardComidaComponent,
     ComidaHomeComponent,
     OrdenesComidaComponent,
     LoginComponent,
+    NavbarComponent,
+    EditarPerfilComponent,
+    MenuComidaComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
 
   ],
   providers: [
     provideClientHydration()
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }
