@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComidaHomeComponent } from './comida-home/comida-home.component';
+import { ComidaHomeComponent } from '../menus/comida-home/comida-home.component';
 import {SharedModule} from "../shared/shared.module";
 import {NavbarComponent} from '../shared/navbar/navbar.component';
-import { CuartosHomeComponent } from './cuartos-home/cuartos-home.component';
+import { MenusModule } from '../menus/menus.module';
 
 
 @NgModule({
   declarations: [
     ComidaHomeComponent,
-    NavbarComponent,
-    CuartosHomeComponent
   ],
   exports: [
     ComidaHomeComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule, MenusModule
   ]
 })
 export class ServiciosModule { }
