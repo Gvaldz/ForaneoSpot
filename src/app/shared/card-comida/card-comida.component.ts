@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,23 +11,9 @@ export class CardComidaComponent{
   constructor(private router: Router,) {
   }
 
-  isModalOpen = false;
+  @Input() comida: any; // Recibe un objeto comida a través del decorador @Input
 
-  openModal() {
-    this.isModalOpen = true;
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
-  }
-
-  handleOrder() {
-    // Handle order logic here
-    console.log('Order placed');
-    this.closeModal();
-  }
-
-  navegarMenuComida(){
-    this.router.navigate(['/menuComida']);
+  navegarMenuComida() {
+    console.log(`Ordenar comida: ${this.comida.nombre}`);
   }
 }

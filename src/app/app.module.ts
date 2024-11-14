@@ -10,6 +10,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NavbarComponent} from './shared/navbar/navbar.component';
 import {EditarPerfilComponent} from './usuarios/editar-perfil/editar-perfil.component';
 import {MenuComidaComponent} from './menus/menu-comida/menu-comida.component';
+import {ComidaService} from './comida.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -28,11 +30,13 @@ import {MenuComidaComponent} from './menus/menu-comida/menu-comida.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule
 
 
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    ComidaService
   ]
 })
 export class AppModule { }

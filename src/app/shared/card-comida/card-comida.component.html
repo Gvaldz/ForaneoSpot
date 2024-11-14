@@ -1,5 +1,5 @@
 <div class="rounded-lg bg-gray-100 p-6">
-  <h2 class="mb-4 text-xl font-semibold">FORANEO SPOT</h2>
+  <h2 class="mb-4 text-xl font-semibold">{{comida.nombre}} {{comida.precio}} $</h2>
   <div class="flex gap-6">
     <div class="relative h-40 w-40 shrink-0 bg-gray-200 p-4">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-full w-full text-[#1d3557]" fill="currentColor">
@@ -8,7 +8,7 @@
     </div>
     <div class="flex flex-col justify-between">
       <p class="text-sm leading-relaxed text-gray-600">
-        LOREM IPSUM
+        {{comida.descripcion}}
       </p>
       <button (click)="navegarMenuComida()" class="mt-4 w-fit bg-[#1d3557] px-4 py-2 text-white hover:bg-[#1d3557]/90">
         Ordenar comida
