@@ -1,0 +1,113 @@
+<form [formGroup]="RegistrerForm"  class="space-y-6">
+  <div>
+    <label for="nombre" class="block text-2xl font-sans mb-2">
+      Nombre
+    </label>
+    <input
+      id="nombre"
+      type="text"
+      formControlName="email"
+      class="w-[500px] px-4 py-3 rounded-lg bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+      required
+    />
+  </div>
+
+  <div>
+    <label for="Apellidos" class="block text-2xl font-sans mb-2">
+      Apellidos
+    </label>
+    <input
+      id="Apellidos"
+      type="text"
+      formControlName="password"
+      class="w-[500px] px-4 py-3 rounded-lg bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+      required
+    />
+  </div>
+  <div>
+    <label for="Sexo" class="block text-2xl font-sans mb-2">
+      Sexo
+    </label>
+    <input
+      id="Sexo"
+      type="text"
+      formControlName="password"
+      class="w-[500px] px-4 py-3 rounded-lg bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+      required
+    />
+  </div>
+  <div>
+    <label for="email" class="block text-2xl font-sans mb-2">
+      Correo
+    </label>
+    <input
+      id="email"
+      type="password"
+      formControlName="password"
+      class="w-[500px] px-4 py-3 rounded-lg bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+      required
+    />
+  </div>
+  <div>
+    <label for="Numerotel" class="block text-2xl font-sans mb-2">
+      Numero Telefonico
+    </label>
+    <input
+      id="NumeroTel"
+      type="tel"
+      formControlName="password"
+      class="w-[500px] px-4 py-3 rounded-lg bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+      required
+    />
+  </div>
+  <div>
+    <label for="password" class="block text-2xl font-sans mb-2">
+      Contraseña
+    </label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      class="w-[500px] px-4 py-3 rounded-lg bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+      required
+    />
+  </div>
+  <div>
+    <label for="typeUsuario" class="block text-2xl font-sans mb-2">
+      Tipo De Usuario
+    </label>
+    <input
+      id="typeUsuario"
+      type="text"
+      formControlName="password"
+      class="w-[500px] px-4 py-3 rounded-lg bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+      required
+    />
+  </div>
+  <div>
+    <label for="descripcion" class="block text-2xl font-sans mb-2">
+      Añade una descripcion sobre ti
+    </label>
+    <input
+      id="descripcion"
+      type="text"
+      formControlName="password"
+      class="w-[500px] h-[200px] px-4 py-3 rounded-lg bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+      required
+    />
+  </div>
+
+
+
+
+
+  <div class="pt-4">
+    <button
+
+      type="submit"
+      class="bg-blue-700 text-white w-[500px] px-4 py-3 text-xl font-medium text-center text-gray-600  rounded-lg  focus:outline-none focus:ring-2 focus:ring-offset-2 "
+    >
+      CREAR CUENTA
+    </button>
+  </div>
+</form>

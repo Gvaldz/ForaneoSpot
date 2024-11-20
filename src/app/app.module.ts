@@ -12,6 +12,9 @@ import {EditarPerfilComponent} from './usuarios/editar-perfil/editar-perfil.comp
 import {MenuComidaComponent} from './menus/menu-comida/menu-comida.component';
 import {ComidaService} from './comida.service';
 import {HttpClientModule} from '@angular/common/http';
+import {MenusAlojamientosComponent} from './menus/menus-alojamientos/menus-alojamientos.component';
+import {RegistrarUsuarioComponent} from './usuarios/registrar-usuario/registrar-usuario.component';
+import {NgOptimizedImage} from '@angular/common';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -23,14 +26,17 @@ import {HttpClientModule} from '@angular/common/http';
     LoginComponent,
     NavbarComponent,
     EditarPerfilComponent,
-    MenuComidaComponent
+    MenuComidaComponent,
+    MenusAlojamientosComponent,
+    RegistrarUsuarioComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgOptimizedImage
 
 
   ],
