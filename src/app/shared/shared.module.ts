@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CardComidaComponent } from './card-comida/card-comida.component';
 import { OrdenesComidaComponent } from './ordenes-comida/ordenes-comida.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { CardAlojamientoComponent } from './card-alojamiento/card-alojamiento.component';
 
 
 
@@ -10,11 +11,13 @@ import { NavbarComponent } from './navbar/navbar.component';
     declarations: [
         CardComidaComponent,
         OrdenesComidaComponent,
-        NavbarComponent
+        NavbarComponent,
+        CardAlojamientoComponent
     ],
   exports: [
     CardComidaComponent,
-    NavbarComponent
+    NavbarComponent,
+    CardAlojamientoComponent
   ],
     imports: [
         CommonModule

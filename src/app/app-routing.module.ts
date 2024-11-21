@@ -4,7 +4,7 @@ import {LoginComponent} from './login/login.component';
 import {ComidaHomeComponent} from './servicios/comida-home/comida-home.component';
 import {EditarPerfilComponent} from './usuarios/editar-perfil/editar-perfil.component';
 import {MenuComidaComponent} from './menus/menu-comida/menu-comida.component';
-import {MenusAlojamientosComponent} from './menus/menus-alojamientos/menus-alojamientos.component';
+import {MenusAlojamientosComponent} from './inmuebles/menus-alojamientos/menus-alojamientos.component';
 import {RegistrarUsuarioComponent} from './usuarios/registrar-usuario/registrar-usuario.component';
 import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.component';
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
