@@ -15,6 +15,7 @@ import { CuartosHomeComponent } from './cuartos-home/cuartos-home.component';
   exports: [
     ComidaHomeComponent
   ],
+
   imports: [
     CommonModule,
     SharedModule

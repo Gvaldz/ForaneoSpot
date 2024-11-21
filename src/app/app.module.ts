@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {CardComidaComponent} from './shared/card-comida/card-comida.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {MenusAlojamientosComponent} from './menus/menus-alojamientos/menus-alojamientos.component';
 import {RegistrarUsuarioComponent} from './usuarios/registrar-usuario/registrar-usuario.component';
 import {NgOptimizedImage} from '@angular/common';
+import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.component';
+import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
+
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -28,7 +31,9 @@ import {NgOptimizedImage} from '@angular/common';
     EditarPerfilComponent,
     MenuComidaComponent,
     MenusAlojamientosComponent,
-    RegistrarUsuarioComponent
+    RegistrarUsuarioComponent,
+    MenuCuartosComponent,
+    MenuEdificiosComponent
 
   ],
   imports: [
@@ -40,6 +45,7 @@ import {NgOptimizedImage} from '@angular/common';
 
 
   ],
+  schemas:[NO_ERRORS_SCHEMA],
   providers: [
     provideClientHydration(),
     ComidaService

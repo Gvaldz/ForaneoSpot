@@ -27,4 +27,7 @@ export class LoginComponent {
   NavigateComida(){
     this.router.navigate(['/comida']);
   }
+  NavigateRegistrarUsuario(){
+    this.router.navigate(['/registrarUsuario']);
+  }
 }
