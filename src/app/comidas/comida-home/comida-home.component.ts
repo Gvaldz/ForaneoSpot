@@ -15,6 +15,7 @@ export class ComidaHomeComponent implements OnInit{
   ngOnInit(): void {
     this.comidaService.obtenerComidas().subscribe(
       (data) => {
+        console.log('Datos obtenidos:', data);
         this.comidas = data; 
       },
       (error) => {

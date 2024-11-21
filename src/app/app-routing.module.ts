@@ -8,24 +8,26 @@ import {MenusAlojamientosComponent} from './inmuebles/menus-alojamientos/menus-a
 import {RegistrarUsuarioComponent} from './usuarios/registrar-usuario/registrar-usuario.component';
 import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.component';
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
+import { ComidaDashComponent } from './comidas/comida-home-vendedor/comida-home.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  { path: 'comida', component: ComidaHomeComponent },
+  {path: 'login', component: LoginComponent },
+  {path: 'comida', component: ComidaHomeComponent },
   {path: 'alojamientos', component: MenusAlojamientosComponent},
-  { path: 'menuComida', component: MenuComidaComponent },
-  { path: 'editarPerfil', component: EditarPerfilComponent },
+  {path: 'menuComida', component: MenuComidaComponent },
+  {path: 'editarPerfil', component: EditarPerfilComponent },
   {path: 'registrarUsuario', component: RegistrarUsuarioComponent},
   {path: 'menuCuartos', component: MenuCuartosComponent},
   {path: 'menuEdificios', component: MenuEdificiosComponent},
-
+  {path: 'vendedor-comida', component: ComidaDashComponent},
   { path: '**', redirectTo: '/login'},
   { path: '', redirectTo: '/login', pathMatch: 'full'},
 
 ];
 
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
