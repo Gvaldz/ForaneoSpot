@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {OnInit} from '@angular/core';
-import {ComidaService} from '../../comida.service';
+import {ComidaService} from '../comida.service';
 
 @Component({
   selector: 'app-comida-home',
@@ -15,7 +15,7 @@ export class ComidaHomeComponent implements OnInit{
   ngOnInit(): void {
     this.comidaService.obtenerComidas().subscribe(
       (data) => {
-        this.comidas = data; // Guardar los datos obtenidos en el array comidas
+        this.comidas = data; 
       },
       (error) => {
         console.error('Error al obtener las comidas:', error);

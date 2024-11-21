@@ -2,17 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuCuartosComponent } from './menu-cuartos/menu-cuartos.component';
 import { MenuEdificiosComponent } from './menu-edificios/menu-edificios.component';
-import {NavbarComponent} from '../shared/navbar/navbar.component';
+import { SharedModule } from '../shared/shared.module';
+import { MenusAlojamientosComponent } from './menus-alojamientos/menus-alojamientos.component';
 
 
 @NgModule({
   declarations: [
     MenuCuartosComponent,
     MenuEdificiosComponent,
-    NavbarComponent
+    MenusAlojamientosComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ]
 })
 export class InmueblesModule { }

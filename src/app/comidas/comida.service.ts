@@ -6,14 +6,11 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class ComidaService {
-
-
-  private apiUrlComida = 'http://3.213.191.244:8000/menus/'; // Cambia esto a la URL de tu API
+  private apiUrlComida = 'http://3.213.191.244:8000/menus/'; 
 
   constructor(private http: HttpClient) {}
 
   obtenerComidas(): Observable<any[]> {
-    // Realiza una solicitud HTTP GET para obtener los datos de las comidas
     return this.http.get<any[]>(this.apiUrlComida);
   }
 }
