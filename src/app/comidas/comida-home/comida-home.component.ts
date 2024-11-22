@@ -1,26 +1,37 @@
-import { Component } from '@angular/core';
-import {OnInit} from '@angular/core';
-import {ComidaService} from '../comida.service';
+import { Component, OnInit } from '@angular/core';
+import { ComidaService } from '../comida.service';
+import { LoginserviceService } from '../../login/loginservice.service';
 
 @Component({
   selector: 'app-comida-home',
   templateUrl: './comida-home.component.html',
-  styleUrl: './comida-home.component.css'
+  styleUrls: ['./comida-home.component.css']
 })
-export class ComidaHomeComponent implements OnInit{
+export class ComidaHomeComponent implements OnInit {
   comidas: any[] = [];
+  userRole: string | null = '';
+  userId: string | null = '';
 
-  constructor(private comidaService: ComidaService) {}
+  constructor(private comidaService: ComidaService, private login: LoginserviceService) {}
 
   ngOnInit(): void {
-    this.comidaService.obtenerComidas().subscribe(
-      (data) => {
-        console.log('Datos obtenidos:', data);
-        this.comidas = data; 
-      },
-      (error) => {
-        console.error('Error al obtener las comidas:', error);
-      }
-    );
+    const token = localStorage.getItem('authToken'); // Asegúrate de usar el nombre correcto
+    
+    if (token) {
+
+  
+      this.comidaService.obtenerComidas().subscribe(
+        (data) => {
+          this.comidas = data; 
+        },
+        (error) => {
+          console.error('Error al obtener las comidas:', error);
+        }
+      );
+    } else {
+      console.error('No se encontró el token en localStorage');
+    }
   }
+  
+  
 }

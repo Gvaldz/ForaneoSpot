@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 
 export class CardComidaComponent{
 
-  constructor(private router: Router,) {
+  constructor(private router: Router) {
   }
 
   @Input() comida: any; 

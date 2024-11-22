@@ -33,14 +33,14 @@ export class LoginComponent implements OnInit {
 
       this.loginService.login(correo, contrasena).subscribe(
         (response) => {
-          console.log('Login exitoso:', response);
-          this.navigateComida();
+          console.log('Login exitoso:'); 
+          this.navigateComida()
         },
         (error) => {
-          console.error('Error de login:', error);
-          this.errorMessage = error;
+          console.error('Error en el login:', error);
         }
       );
+      
     } else {
       this.errorMessage = 'Por favor, completa el formulario correctamente.';
     }
