@@ -16,7 +16,13 @@ export class NavbarComponent {
   navigateComida(){
     this.router.navigate(['/comida']);
   }
-  navigateCuarto(){
-    this.router.navigate(['/cuartos']);
+  navigateAlojamientos(){
+    this.router.navigate(['/alojamientos']);
+  }
+  navigateCuartos(){
+    this.router.navigate(['/menuCuartos']);
+  }
+  navigateEdificios(){
+    this.router.navigate(['/menuEdificios']);
   }
 }

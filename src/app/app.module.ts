@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {CardComidaComponent} from './shared/card-comida/card-comida.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,13 @@ import {EditarPerfilComponent} from './usuarios/editar-perfil/editar-perfil.comp
 import {MenuComidaComponent} from './menus/menu-comida/menu-comida.component';
 import {ComidaService} from './comida.service';
 import {HttpClientModule} from '@angular/common/http';
+import {MenusAlojamientosComponent} from './inmuebles/menus-alojamientos/menus-alojamientos.component';
+import {RegistrarUsuarioComponent} from './usuarios/registrar-usuario/registrar-usuario.component';
+import {NgOptimizedImage} from '@angular/common';
+import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.component';
+import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
+import {SharedModule} from './shared/shared.module';
+import {CardAlojamientoComponent} from './shared/card-alojamiento/card-alojamiento.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -23,17 +30,25 @@ import {HttpClientModule} from '@angular/common/http';
     LoginComponent,
     NavbarComponent,
     EditarPerfilComponent,
-    MenuComidaComponent
+    MenuComidaComponent,
+    MenusAlojamientosComponent,
+    RegistrarUsuarioComponent,
+    MenuCuartosComponent,
+    MenuEdificiosComponent,
+    CardAlojamientoComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgOptimizedImage,
+    SharedModule
 
 
   ],
+  schemas:[NO_ERRORS_SCHEMA],
   providers: [
     provideClientHydration(),
     ComidaService
