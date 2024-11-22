@@ -9,6 +9,7 @@ import {RegistrarUsuarioComponent} from './usuarios/registrar-usuario/registrar-
 import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.component';
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
 import { ComidaDashComponent } from './comidas/comida-home-vendedor/comida-home.component';
+import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-inicio.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'vendedor-comida', component: ComidaDashComponent},
   { path: '**', redirectTo: '/login'},
   { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: 'inicio', component: DashboardInicioComponent},
 
 ];
 
