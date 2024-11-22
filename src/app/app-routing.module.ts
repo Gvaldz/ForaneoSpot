@@ -12,6 +12,7 @@ import { ComidaDashComponent } from './comidas/comida-home-vendedor/comida-home.
 import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-inicio.component';
 
 const routes: Routes = [
+  { path: '', component: DashboardInicioComponent },
   {path: 'login', component: LoginComponent },
   {path: 'comida', component: ComidaHomeComponent },
   {path: 'alojamientos', component: MenusAlojamientosComponent},

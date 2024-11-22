@@ -12,11 +12,14 @@ import { ComidasModule } from './comidas/comidas.module';
 import { InmueblesModule } from './inmuebles/inmuebles.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './servicios/auth.interceptor';
+import { DashboardInicioComponent} from './shared/dashboard-inicio/dashboard-inicio.component';
+
 
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
+    DashboardInicioComponent,
     LoginComponent,
   ],
   imports: [
