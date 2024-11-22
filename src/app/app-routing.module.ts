@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: '**', redirectTo: '/login'},
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'inicio', component: DashboardInicioComponent},
-
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ];
 
 
