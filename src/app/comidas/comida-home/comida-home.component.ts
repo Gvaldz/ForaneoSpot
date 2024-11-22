@@ -15,7 +15,7 @@ export class ComidaHomeComponent implements OnInit {
   constructor(private comidaService: ComidaService, private login: LoginserviceService) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('authToken'); // Asegúrate de usar el nombre correcto
+    const token = localStorage.getItem('authToken'); 
     
     if (token) {
 
