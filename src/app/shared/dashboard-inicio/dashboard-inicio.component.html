@@ -1,17 +1,37 @@
-<div class="container">
-    <div class="buttons">
-      <button (click)="navigateToLogin()">Iniciar sesión</button>
-      <button (click)="navigateToRegister()">Registrarse</button>
+<div class="container mx-auto p-4 relative">
+  <!-- Botones de inicio de sesión y registro -->
+  <div class="absolute top-8 right-8 flex space-x-4">
+    <button 
+      class="px-6 py-2 bg-white text-black font-semibold rounded-lg shadow-md hover:bg-gray-100"
+      (click)="navigateToLogin()">
+      Iniciar sesión
+    </button>
+    <button 
+      class="px-6 py-2 bg-white text-black font-semibold rounded-lg shadow-md hover:bg-gray-100"
+      (click)="navigateToRegister()">
+      Registrarse
+    </button>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="relative flex items-center">
+    <!-- Imagen de fondo -->
+    <div class="w-[1136px] h-[968px] relative">
+      <img src="Frame5.png" alt="Edificios" class="w-full h-full object-cover">
     </div>
-  
-    <div class="box">
-      <div class="img">
-        <img src="Edificios.svg" alt="Edificios">
+
+    <!-- Contenido del texto -->
+    <div class="absolute top-[286px] left-[680px] flex flex-col gap-8">
+      <!-- Título -->
+      <div class="flex items-center">
+        <span class="text-white text-[210px] font-normal font-['Jomhuria'] uppercase">For</span>
+        <span class="text-black text-[210px] font-normal font-['Jomhuria'] uppercase">aneoSpot</span>
       </div>
-      <div class="info">
-        <h1>FORANEOSPOT</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-      </div>
+
+      <!-- Descripción -->
+      <p class="text-black text-lg font-['Cabin'] leading-relaxed max-w-xl text-justify">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque facilisis magna, id faucibus erat. Etiam mi lacus, laoreet in dictum sit amet, condimentum ut sapien. Sed interdum imperdiet diam in dapibus. Maecenas non quam sed sapien convallis ultrices vel non metus. Sed ut nulla quam. Vivamus luctus metus id iaculis vehicula. Praesent ut accumsan velit, vel sollicitudin nulla. Etiam fermentum pulvinar elit, in faucibus ligula suscipit vel...
+      </p>
     </div>
   </div>
-  
+</div>
