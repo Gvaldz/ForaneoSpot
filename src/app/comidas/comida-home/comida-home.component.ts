@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComidaService } from '../comida.service';
 import { LoginserviceService } from '../../login/loginservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comida-home',
@@ -12,26 +13,23 @@ export class ComidaHomeComponent implements OnInit {
   userRole: string | null = '';
   userId: string | null = '';
 
-  constructor(private comidaService: ComidaService, private login: LoginserviceService) {}
+  constructor(private comidaService: ComidaService, private loginService: LoginserviceService, private router: Router,) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('authToken'); 
-    
-    if (token) {
-
+    this.userRole = this.loginService.getUserRole();
+    console.log(this.userRole);
   
-      this.comidaService.obtenerComidas().subscribe(
-        (data) => {
-          this.comidas = data; 
-        },
-        (error) => {
-          console.error('Error al obtener las comidas:', error);
-        }
-      );
-    } else {
-      console.error('No se encontró el token en localStorage');
-    }
+    this.comidaService.comidas$.subscribe(
+      (data) => {
+        this.comidas = data;
+      },
+      (error) => {
+        console.error('Error al obtener las comidas:', error);
+      }
+    );
   }
-  
-  
+
+  Agregar() {
+    this.router.navigate(['comida/agregar']);  
+  }
 }

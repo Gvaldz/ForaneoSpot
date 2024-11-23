@@ -4,19 +4,23 @@ import { CardComidaComponent } from './card-comida/card-comida.component';
 import { ComidaHomeComponent } from './comida-home/comida-home.component';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ComidaDashComponent } from './comida-home-vendedor/comida-home.component';
+import { MenuFormComponent } from './comida-form/menu-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   declarations: [
     CardComidaComponent,
     ComidaHomeComponent,
-    ComidaDashComponent,
+    MenuFormComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    ReactiveFormsModule,
+    AppRoutingModule
   ]
 })
 export class ComidasModule { }
