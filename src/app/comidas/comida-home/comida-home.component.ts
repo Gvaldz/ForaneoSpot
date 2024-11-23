@@ -17,8 +17,7 @@ export class ComidaHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRole = this.loginService.getUserRole();
-    console.log(this.userRole);
-  
+
     this.comidaService.comidas$.subscribe(
       (data) => {
         this.comidas = data;
