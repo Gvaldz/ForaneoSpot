@@ -15,8 +15,8 @@ export class MenuFormComponent implements OnInit {
   menuForm!: FormGroup; 
   isEditMode = false;
   menuId!: number;
-  selectedFile: File | null = null; // Solo una imagen seleccionada
-  selectedFilePreview: string | null = null; // Previsualización de la imagen
+  selectedFile: File | null = null; 
+  selectedFilePreview: string | null = null; 
 
   constructor(
     private fb: FormBuilder,
