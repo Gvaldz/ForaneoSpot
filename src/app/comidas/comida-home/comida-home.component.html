@@ -1,0 +1,19 @@
+<div class="min-h-screen bg-white">
+  <navbar></navbar>
+  <main class="mx-auto max-w-7xl p-8">
+    <button 
+      *ngIf="userRole === 'vendedor'"
+      (click)="Agregar()" 
+      class="rounded-2xl bg-[#04232B] px-6 py-3 text-white hover:bg-[#182e48] mb-8 ml-auto block">
+      Agregar Comida
+    </button>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <app-card-comida 
+        *ngFor="let comida of comidas" 
+        [comida]="comida" 
+        [userRole]="userRole">
+      </app-card-comida>
+    </div>
+  </main>
+</div>
