@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from './login/login.component';
-import {ComidaHomeComponent} from './servicios/comida-home/comida-home.component';
-import {EditarPerfilComponent} from './usuarios/editar-perfil/editar-perfil.component';
-import {MenuComidaComponent} from './menus/menu-comida/menu-comida.component';
+import { LoginComponent } from './login/login.component';
+import { ComidaHomeComponent } from './menus/comida-home/comida-home.component';
+import { EditarPerfilComponent } from './usuarios/editar-perfil/editar-perfil.component';
+import { MenuComidaComponent } from './menus/menu-comida/menu-comida.component';
+import { MenuFormComponent } from './menus/menu-form/menu-form.component';
 import {MenusAlojamientosComponent} from './inmuebles/menus-alojamientos/menus-alojamientos.component';
 import {RegistrarUsuarioComponent} from './usuarios/registrar-usuario/registrar-usuario.component';
 import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.component';
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent },
   { path: 'comida', component: ComidaHomeComponent },
   {path: 'alojamientos', component: MenusAlojamientosComponent},
   { path: 'menuComida', component: MenuComidaComponent },
@@ -22,10 +23,13 @@ const routes: Routes = [
   { path: '**', redirectTo: '/login'},
   { path: '', redirectTo: '/login', pathMatch: 'full'},
 
-];
+  { path: 'formulario-comida', component: MenuFormComponent },
+  { path: 'formulario-comida/:id', component: MenuFormComponent },
 
+]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
+
 export class AppRoutingModule { }

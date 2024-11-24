@@ -1,7 +1,7 @@
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {CardComidaComponent} from './shared/card-comida/card-comida.component';
-import { AppRoutingModule } from './app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ComidaHomeComponent} from './servicios/comida-home/comida-home.component';
 import {OrdenesComidaComponent} from './shared/ordenes-comida/ordenes-comida.component';
@@ -17,8 +17,12 @@ import {RegistrarUsuarioComponent} from './usuarios/registrar-usuario/registrar-
 import {NgOptimizedImage} from '@angular/common';
 import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.component';
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
-import {SharedModule} from './shared/shared.module';
 import {CardAlojamientoComponent} from './shared/card-alojamiento/card-alojamiento.component';
+import { MenusModule } from './menus/menus.module';
+import { UsuariosFormComponent } from './usuarios/usuarios-form/usuarios-form.component';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { SharedModule } from './shared/shared.module';
+import { ServiciosModule } from './servicios/servicios.module';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -42,6 +46,10 @@ import {CardAlojamientoComponent} from './shared/card-alojamiento/card-alojamien
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    MenusModule,
+    UsuariosModule,
+    SharedModule,
+    ServiciosModule,
     HttpClientModule,
     NgOptimizedImage,
     SharedModule
