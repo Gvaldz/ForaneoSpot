@@ -6,8 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        jomhuria: ['"Jomhuria"', 'sans-serif'],
-        cabin: ['"Cabin"', 'sans-serif'],
+        jomhuria: ['Jomhuria', 'sans-serif'],
+        cabin: ['Cabin', 'sans-serif'],
       },
     },
   },
