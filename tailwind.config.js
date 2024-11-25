@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        jomhuria: ['Jomhuria', 'sans-serif'],
+        cabin: ['Cabin', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
-}
+};

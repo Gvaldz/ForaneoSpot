@@ -55,7 +55,7 @@ export class EditarPerfilComponent implements OnInit {
   }
   
   deleteUserImage(image: { id: number, file_path: string }): void {
-    const entity = 'usuario'; // Define la entidad
+    const entity = 'usuario'; 
   
     this.usuarioService.deleteUserImage(image.id, entity).subscribe(
       () => {
