@@ -7,6 +7,7 @@
     <h1 class="mb-8 text-center text-3xl font-light tracking-wider">PERFIL</h1>
 
     <form [formGroup]="profileForm" class="space-y-6">
+
       <!-- Profile Image -->
       <div class="flex flex-col items-center gap-4">
         <div class="h-48 w-48 bg-gray-200">
@@ -18,77 +19,119 @@
           </div>
         </div>
         <div class="flex gap-4">
-          <button type="button" class="rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-800">
+          <button type="button" class="rounded-lg bg-blue-700 px-4 py-2 text-white hover:bg-blue-800">
             Subir foto
           </button>
-          <button type="button" class="rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300">
+          <button type="button" class="rounded-lg bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300">
             Eliminar foto
           </button>
         </div>
       </div>
 
       <!-- Form Fields -->
-      <div class="space-y-4">
-        <input
-          formControlName="nombre"
-          type="text"
-          placeholder="Nombre"
-          class="w-full rounded-lg bg-gray-200 p-3"
-        />
-
-        <input
-          formControlName="apellidos"
-          type="text"
-          placeholder="Apellidos"
-          class="w-full rounded-lg bg-gray-200 p-3"
-        />
-
-        <div class="flex gap-4">
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <!-- Nombre -->
+        <div>
           <input
-            formControlName="sexo"
+            formControlName="nombre"
             type="text"
-            placeholder="Sexo"
+            placeholder="Nombre"
             class="w-full rounded-lg bg-gray-200 p-3"
           />
-          <input
-            formControlName="tipoUsuario"
-            type="text"
-            placeholder="Tipo de usuario"
-            class="w-full rounded-lg bg-gray-200 p-3"
-          />
+          <small *ngIf="profileForm.get('nombre')?.invalid && profileForm.get('nombre')?.touched" class="text-red-600">
+            El nombre debe tener entre 2 y 50 caracteres y solo letras.
+          </small>
         </div>
 
-        <input
-          formControlName="correo"
-          type="email"
-          placeholder="Correo"
-          class="w-full rounded-lg bg-gray-200 p-3"
-        />
+        <!-- Apellidos -->
+        <div>
+          <input
+            formControlName="apellidos"
+            type="text"
+            placeholder="Apellidos"
+            class="w-full rounded-lg bg-gray-200 p-3"
+          />
+          <small *ngIf="profileForm.get('apellidos')?.invalid && profileForm.get('apellidos')?.touched" class="text-red-600">
+            Los apellidos deben tener entre 2 y 50 caracteres y solo letras.
+          </small>
+        </div>
 
-        <input
-          formControlName="contrasena"
-          type="password"
-          placeholder="Contraseña"
-          class="w-full rounded-lg bg-gray-200 p-3"
-        />
+        <!-- Sexo y Tipo de Usuario -->
+        <div class="flex gap-4">
+          <div>
+            <input
+              formControlName="sexo"
+              type="text"
+              placeholder="Sexo"
+              class="w-full rounded-lg bg-gray-200 p-3"
+            />
+            <small *ngIf="profileForm.get('sexo')?.invalid && profileForm.get('sexo')?.touched" class="text-red-600">
+              Selecciona un sexo válido.
+            </small>
+          </div>
+          <div>
+            <input
+              formControlName="tipoUsuario"
+              type="text"
+              placeholder="Tipo de usuario"
+              class="w-full rounded-lg bg-gray-200 p-3"
+            />
+            <small *ngIf="profileForm.get('tipoUsuario')?.invalid && profileForm.get('tipoUsuario')?.touched" class="text-red-600">
+              Selecciona un tipo de usuario válido.
+            </small>
+          </div>
+        </div>
 
-        <textarea
-          formControlName="descripcion"
-          placeholder="Añade una descripcion sobre ti"
-          class="w-full rounded-lg bg-gray-200 p-3"
-          rows="4"
-        ></textarea>
-      </div>
+        <!-- Correo -->
+        <div>
+          <input
+            formControlName="correo"
+            type="email"
+            placeholder="Correo"
+            class="w-full rounded-lg bg-gray-200 p-3"
+          />
+          <small *ngIf="profileForm.get('correo')?.invalid && profileForm.get('correo')?.touched" class="text-red-600">
+            Ingresa un correo válido.
+          </small>
+        </div>
 
-      <!-- Action Buttons -->
-      <div class="flex justify-center gap-4">
-        <button type="submit" class="rounded bg-blue-700 px-6 py-3 text-white hover:bg-blue-800">
-          Actualizar datos
-        </button>
-        <button type="button" class="rounded bg-gray-200 px-6 py-3 text-gray-700 hover:bg-gray-300">
-          Eliminar perfil
-        </button>
-      </div>
+        <!-- Contraseña -->
+        <div>
+          <input
+            formControlName="contrasena"
+            type="password"
+            placeholder="Contraseña"
+            class="w-full rounded-lg bg-gray-200 p-3"
+          />
+          <small *ngIf="profileForm.get('contrasena')?.invalid && profileForm.get('contrasena')?.touched" class="text-red-600">
+            La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y un carácter especial.
+          </small>
+        </div>
+
+        <!-- Descripción -->
+        <div>
+    <textarea
+      formControlName="descripcion"
+      placeholder="Añade una descripción sobre ti"
+      class="w-full rounded-lg bg-gray-200 p-3"
+      rows="4"
+    ></textarea>
+          <small *ngIf="profileForm.get('descripcion')?.invalid && profileForm.get('descripcion')?.touched" class="text-red-600">
+            La descripción no debe exceder 200 caracteres.
+          </small>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex justify-center gap-4">
+          <button type="submit" class="rounded bg-blue-700 px-6 py-3 text-white hover:bg-blue-800" [disabled]="profileForm.invalid">
+            Actualizar datos
+          </button>
+          <button type="button" class="rounded bg-gray-200 px-6 py-3 text-gray-700 hover:bg-gray-300">
+            Eliminar perfil
+          </button>
+        </div>
+      </form>
+
     </form>
   </main>
 </div>

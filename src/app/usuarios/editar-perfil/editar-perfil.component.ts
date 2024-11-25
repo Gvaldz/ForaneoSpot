@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -12,19 +12,21 @@ export class EditarPerfilComponent {
 
   constructor(private fb: FormBuilder) {
     this.profileForm = this.fb.group({
-      nombre: [''],
-      apellidos: [''],
-      sexo: [''],
-      tipoUsuario: [''],
-      correo: [''],
-      contrasena: [''],
-      descripcion: [''],
+      nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      sexo: ['', Validators.required],
+      tipoUsuario: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).+$/)]],
+      descripcion: ['', [Validators.maxLength(200)]]
     });
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      console.log(this.profileForm.value);
+      console.log('Formulario válido:', this.profileForm.value);
+    } else {
+      console.log('Formulario inválido');
     }
   }
 }

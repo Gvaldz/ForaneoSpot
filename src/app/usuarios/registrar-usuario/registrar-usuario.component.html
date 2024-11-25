@@ -1,4 +1,4 @@
-<form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto">
+<form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto" (ngSubmit)="onSubmit()">
   <div>
     <label for="nombre" class="block text-lg font-sans mb-2 text-gray-700">
       Nombre
@@ -10,6 +10,9 @@
       class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('nombre')?.invalid && RegistrerForm.get('nombre')?.touched" class="text-red-500 text-sm mt-1">
+      El nombre es requerido y debe contener solo letras.
+    </div>
   </div>
 
   <div>
@@ -23,6 +26,9 @@
       class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('apellidos')?.invalid && RegistrerForm.get('apellidos')?.touched" class="text-red-500 text-sm mt-1">
+      Los apellidos son requeridos y deben contener solo letras.
+    </div>
   </div>
 
   <div>
@@ -40,6 +46,9 @@
       <option value="Femenino">Femenino</option>
       <option value="Otro">Otro</option>
     </select>
+    <div *ngIf="RegistrerForm.get('sexo')?.invalid && RegistrerForm.get('sexo')?.touched" class="text-red-500 text-sm mt-1">
+      Selecciona un sexo válido.
+    </div>
   </div>
 
   <div>
@@ -53,6 +62,9 @@
       class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('email')?.invalid && RegistrerForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+      Ingresa un correo válido.
+    </div>
   </div>
 
   <div>
@@ -66,6 +78,9 @@
       class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('telefono')?.invalid && RegistrerForm.get('telefono')?.touched" class="text-red-500 text-sm mt-1">
+      Ingresa un número telefónico válido.
+    </div>
   </div>
 
   <div>
@@ -79,6 +94,9 @@
       class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('password')?.invalid && RegistrerForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+      La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.
+    </div>
   </div>
 
   <div>
@@ -93,9 +111,12 @@
     >
       <option value="" disabled selected>Selecciona el tipo de usuario</option>
       <option value="Foraneo">Foráneo</option>
-      <option value="Arrendador">Arrendador/option>
+      <option value="Arrendador">Arrendador</option>
       <option value="Vendedor">Vendedor de alimentos</option>
     </select>
+    <div *ngIf="RegistrerForm.get('tipoUsuario')?.invalid && RegistrerForm.get('tipoUsuario')?.touched" class="text-red-500 text-sm mt-1">
+      Selecciona un tipo de usuario válido.
+    </div>
   </div>
 
   <div>
@@ -108,6 +129,9 @@
       class="w-full h-32 px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
       required
     ></textarea>
+    <div *ngIf="RegistrerForm.get('descripcion')?.invalid && RegistrerForm.get('descripcion')?.touched" class="text-red-500 text-sm mt-1">
+      La descripción es requerida.
+    </div>
   </div>
 
   <div>
