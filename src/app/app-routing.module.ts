@@ -12,7 +12,7 @@ import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-in
 import { MenuFormComponent } from './comidas/comida-form/menu-form.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardInicioComponent },
+  { path: 'home', component: DashboardInicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'comida', component: ComidaHomeComponent},
   { path: 'comida/agregar', component: MenuFormComponent },
@@ -23,8 +23,8 @@ const routes: Routes = [
   { path: 'registrarUsuario', component: RegistrarUsuarioComponent },
   { path: 'menuCuartos', component: MenuCuartosComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
-  { path: '**', redirectTo: '/login' },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'inicio', component: DashboardInicioComponent },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ];
