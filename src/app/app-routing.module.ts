@@ -10,25 +10,21 @@ import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.compon
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
 import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-inicio.component';
 import { MenuFormComponent } from './comidas/comida-form/menu-form.component';
-import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
-import { PerfilComponent } from './usuarios/perfil/perfil.component';
-import { FormInmueblesComponent } from './inmuebles/form-inmuebles/form-inmuebles.component';
 
 const routes: Routes = [
   { path: 'home', component: DashboardInicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'comida', component: ComidaHomeComponent},
   { path: 'comida/agregar', component: MenuFormComponent },
-  { path: 'comida/editar/:id', component: MenuFormComponent, },
+  { path: 'comida/editar/:id', component: MenuFormComponent, },  
   { path: 'alojamientos', component: MenusAlojamientosComponent },
   { path: 'menuComida', component: MenuComidaComponent },
-  { path: 'perfil', component: PerfilComponent},
   { path: 'editarPerfil', component: EditarPerfilComponent },
   { path: 'registrarUsuario', component: RegistrarUsuarioComponent },
-  { path: 'menuCasas', component: MenuCasasComponent },
+  { path: 'menuCuartos', component: MenuCuartosComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
-  { path: '**', redirectTo: '/login' },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'inicio', component: DashboardInicioComponent },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ];
