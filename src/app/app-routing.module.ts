@@ -15,7 +15,7 @@ import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { FormInmueblesComponent } from './inmuebles/form-inmuebles/form-inmuebles.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardInicioComponent },
+  { path: 'home', component: DashboardInicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'comida', component: ComidaHomeComponent},
   { path: 'comida/agregar', component: MenuFormComponent },
@@ -28,8 +28,8 @@ const routes: Routes = [
   { path: 'menuCasas', component: MenuCasasComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
   { path: 'inmuebles/agregar', component: FormInmueblesComponent},
-  { path: '**', redirectTo: '/login' },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' },
+  { path: '', redirectTo: '', pathMatch: 'full' },
   { path: 'inicio', component: DashboardInicioComponent },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ];
