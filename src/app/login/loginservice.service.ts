@@ -11,7 +11,8 @@ import { DecodedToken } from './decoded-token';
 export class LoginserviceService {
   private loginUrl = 'http://3.213.191.244:8000/login';
   private authTokenKey = 'authToken';
-  private userRoleKey = 'userRole';  // Nueva clave para el rol
+  private userRoleKey = 'userRole'; 
+  private userIdKey = 'userId'; 
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
   public isLoggedIn$ = this.isLoggedInSubject.asObservable();
@@ -31,7 +32,7 @@ export class LoginserviceService {
             
             if (decodedToken && decodedToken.role) {
               this.setUserRole(decodedToken.role); 
-              console.log('Rol decodificado:', decodedToken.role); 
+              this.setUserId(decodedToken.sub)
             } else {
               console.error('Rol no encontrado en el token');
             }
@@ -45,21 +46,31 @@ export class LoginserviceService {
       );
   }
   
-
   private setToken(token: string): void {
     localStorage.setItem(this.authTokenKey, token);
   }
-
+  
   private setUserRole(role: string): void {
     localStorage.setItem(this.userRoleKey, role);  
   }
+  
+  private setUserId(id: string): void {
+    localStorage.setItem(this.userIdKey, id);  
+  }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.authTokenKey);
+  getToken(): string | null{
+    const token = localStorage.getItem('authToken')
+    return token
   }
 
   getUserRole(): string | null {
-    return localStorage.getItem(this.userRoleKey);  
+    const role = localStorage.getItem('userRole');
+    return role;
+  }
+
+  getUserId(): number | null {
+    const id = localStorage.getItem('userId');
+    return id ? parseInt(id, 10) : null;
   }
 
   logout(): void {

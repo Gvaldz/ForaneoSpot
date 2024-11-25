@@ -5,6 +5,7 @@ export interface UsuarioBase {
     correo: string;
     telefono: string;
     contrasena: string;
+    imagenes?: { id: number; file_path: string }[]; 
   }
   
   export interface Foraneo extends UsuarioBase {
