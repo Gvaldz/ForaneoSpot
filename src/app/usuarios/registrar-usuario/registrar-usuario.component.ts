@@ -1,104 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuarioService } from '../usuarios.service';
 
 @Component({
   selector: 'app-registrar-usuario',
   templateUrl: './registrar-usuario.component.html',
-  styleUrls: ['./registrar-usuario.component.css'],
+  styleUrls: ['./registrar-usuario.component.css']
 })
-export class RegistrarUsuarioComponent implements OnInit {
-  RegistrerForm!: FormGroup;
-  tipoUsuario: string = '';
+export class RegistrarUsuarioComponent {
 
-  constructor(
-    private fb: FormBuilder,
-    private usuarioService: UsuarioService,
-    private router: Router
-  ) {}
+  RegistrerForm: FormGroup;
 
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.RegistrerForm = this.fb.group({
-      nombre: [
-        '',
-        [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\\s]+$')] 
-      ],
-      apellidos: [
-        '',
-        [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\\s]+$')] 
-      ],
-      sexo: ['', Validators.required], 
-      correo: [
-        '',
-        [Validators.required, Validators.email] 
-      ],
-      telefono: [
-        '',
-        [Validators.required, Validators.pattern('^[0-9]{10}$')] 
-      ],
-      contrasena: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8), 
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$') 
-        ]
-      ],
-      tipoUsuario: [''],
-    });
-
-    this.RegistrerForm.get('tipoUsuario')?.valueChanges.subscribe(tipo => {
-      this.tipoUsuario = tipo;
-      this.actualizarFormularioSegunTipo(tipo);
+      nombre: ['', [Validators.required]],
+      apellidos: ['', [Validators.required]],
+      sexo: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      tipoUsuario: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
     });
   }
 
-  actualizarFormularioSegunTipo(tipo: string): void {
-    const camposAdicionales: Record<
-      string,
-      { [key: string]: [string, any] }
-    > = {
-      Foraneo: { nacimiento: ['', Validators.required] },
-      Vendedor: { ubicacion: ['', Validators.required] },
-      Arrendador: { descripcion: ['', Validators.required] },
-    };
-  
-    Object.keys(this.RegistrerForm.controls).forEach(control => {
-      if (control in camposAdicionales[tipo]) {
-        this.RegistrerForm.removeControl(control);
-      }
-    });
-  
-    if (camposAdicionales[tipo]) {
-      Object.entries(camposAdicionales[tipo]).forEach(([campo, config]) => {
-        this.RegistrerForm.addControl(campo, this.fb.control(...config));
-      });
+  // Método para regresar a la página anterior
+  regresar(): void {
+    this.router.navigate(['/inicio']);
+  }
+
+  // Método para enviar el formulario
+  crearCuenta(): void {
+    if (this.RegistrerForm.valid) {
+      console.log('Formulario válido. Datos:', this.RegistrerForm.value);
+      // Aquí puedes agregar la lógica para enviar los datos al backend
+      alert('Cuenta creada exitosamente');
+      this.router.navigate(['/inicio']);
+    } else {
+      alert('Por favor, completa todos los campos correctamente.');
     }
   }
-  
-  onSubmit(): void {
-    if (this.RegistrerForm.invalid) {
-      alert('Por favor completa todos los campos requeridos.');
-      return;
-    }
-  
-    const tipo = this.RegistrerForm.value.tipoUsuario;
-  
-    const formData = {
-      ...this.RegistrerForm.value,
-      nombre: `${this.RegistrerForm.value.nombre} ${this.RegistrerForm.value.apellidos}`.trim(),
-    };
-  
-    this.usuarioService.registrarUsuario(tipo, formData).subscribe(
-      response => {
-        alert('Usuario registrado con éxito.');
-        this.router.navigate(['/']);
-      },
-      error => {
-        console.error(error);
-        alert('Ocurrió un error al registrar el usuario.');
-      }
-    );
+
+  // Método para cancelar la acción
+  cancelar(): void {
+    this.router.navigate(['/inicio']);
   }
 }

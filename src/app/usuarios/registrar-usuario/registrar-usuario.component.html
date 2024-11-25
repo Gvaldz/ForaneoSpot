@@ -1,166 +1,156 @@
-<form [formGroup]="RegistrerForm" (ngSubmit)="onSubmit()" class="space-y-6 max-w-lg mx-auto">
-  <h1 class="josefin-font mb-5 mt-10 text-center text-4xl font-bold tracking-wider">
-    Crea tu cuenta
-  </h1>    
+<link href="https://fonts.googleapis.com/css2?family=Jomhuria&family=Cabin:wght@400&display=swap" rel="stylesheet"> 
+
+
+<div class="h-[268px] relative flex flex-col justify-center items-center">
+  <!-- Fondo degradado -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#154667] to-white"></div>
+
+  <!-- Contenedor del título y botón -->
+  <div class="relative flex items-center justify-between w-full px-6 z-10">
+    <!-- Botón regresar alineado a la izquierda -->
+    <button (click)="regresar()" class="text-black text-xl font-normal font-['Inter'] underline">
+      Regresar
+    </button>
+
+    <!-- Título centrado -->
+    <div class="text-black text-[70px] font-semibold font-['Cabin'] text-center w-full">
+      Crea tu cuenta
+    </div>
+  </div>
+</div>
+
+<div>
+  <form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto">
   <div>
-    <label for="nombre" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="nombre" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Nombre
     </label>
     <input
       id="nombre"
       type="text"
       formControlName="nombre"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
-    <div *ngIf="RegistrerForm.get('nombre')?.invalid && RegistrerForm.get('nombre')?.touched" class="text-red-500 text-sm mt-1">
-      El nombre es requerido y debe contener solo letras.
-    </div>
   </div>
+
   <div>
-    <label for="apellidos" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="Apellidos" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Apellidos
     </label>
     <input
-      id="apellidos"
+      id="Apellidos"
       type="text"
       formControlName="apellidos"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
-    <div *ngIf="RegistrerForm.get('apellidos')?.invalid && RegistrerForm.get('apellidos')?.touched" class="text-red-500 text-sm mt-1">
-      Los apellidos son requeridos y deben contener solo letras.
-    </div>
   </div>
+
   <div>
-    <label for="sexo" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="Sexo" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Sexo
     </label>
     <select
-      id="sexo"
+      id="Sexo"
       formControlName="sexo"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
-      <option value="" disabled>Selecciona tu sexo</option>
+      <option value="" disabled selected>Selecciona tu sexo</option>
       <option value="Masculino">Masculino</option>
       <option value="Femenino">Femenino</option>
       <option value="Otro">Otro</option>
     </select>
-    <div *ngIf="RegistrerForm.get('sexo')?.invalid && RegistrerForm.get('sexo')?.touched" class="text-red-500 text-sm mt-1">
-      Selecciona un sexo válido.
-    </div>
   </div>
+
   <div>
-    <label for="correo" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="email" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Correo
     </label>
     <input
-      id="correo"
+      id="email"
       type="email"
-      formControlName="correo"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      formControlName="email"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
-    <div *ngIf="RegistrerForm.get('email')?.invalid && RegistrerForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
-      Ingresa un correo válido.
-    </div>
   </div>
+
   <div>
-    <label for="telefono" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="NumeroTel" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Número Telefónico
     </label>
     <input
-      id="telefono"
+      id="NumeroTel"
       type="tel"
       formControlName="telefono"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
-    <div *ngIf="RegistrerForm.get('telefono')?.invalid && RegistrerForm.get('telefono')?.touched" class="text-red-500 text-sm mt-1">
-      Ingresa un número telefónico válido.
-    </div>
   </div>
+
   <div>
-    <label for="contrasena" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="password" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Contraseña
     </label>
     <input
-      id="contrasena"
+      id="password"
       type="password"
-      formControlName="contrasena"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      formControlName="password"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
-    <div *ngIf="RegistrerForm.get('password')?.invalid && RegistrerForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
-      La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.
-    </div>
   </div>
+
   <div>
-    <label for="tipoUsuario" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="typeUsuario" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Tipo De Usuario
     </label>
     <select
-      id="tipoUsuario"
+      id="typeUsuario"
       formControlName="tipoUsuario"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
-      <option value="" disabled>Selecciona el tipo de usuario</option>
+      <option value="" disabled selected>Selecciona el tipo de usuario</option>
       <option value="Foraneo">Foráneo</option>
-      <option value="Arrendador">Arrendador</option>
+      <option value="Arrendador">Arrendador/option>
       <option value="Vendedor">Vendedor de alimentos</option>
     </select>
-    <div *ngIf="RegistrerForm.get('tipoUsuario')?.invalid && RegistrerForm.get('tipoUsuario')?.touched" class="text-red-500 text-sm mt-1">
-      Selecciona un tipo de usuario válido.
-    </div>
   </div>
 
-  <div *ngIf="tipoUsuario === 'Foraneo'">
-    <label for="nacimiento" class="block text-lg font-sans mb-2 text-gray-700">
-      Fecha de Nacimiento
-    </label>
-    <input
-      id="nacimiento"
-      type="date"
-      formControlName="nacimiento"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
-      required
-    />
-  </div>
-  <div *ngIf="tipoUsuario === 'Vendedor'">
-    <label for="ubicacion" class="block text-lg font-sans mb-2 text-gray-700">
-      Ubicación
-    </label>
-    <input
-      id="ubicacion"
-      type="text"
-      formControlName="ubicacion"
-      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
-      required
-    />
-  </div>
-  <div *ngIf="tipoUsuario === 'Arrendador'">
-    <label for="descripcion" class="block text-lg font-sans mb-2 text-gray-700">
+  <div>
+    <label for="descripcion" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Añade una descripción sobre ti
     </label>
     <textarea
       id="descripcion"
       formControlName="descripcion"
-      class="w-full h-32 px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
       required
     ></textarea>
-    <div *ngIf="RegistrerForm.get('descripcion')?.invalid && RegistrerForm.get('descripcion')?.touched" class="text-red-500 text-sm mt-1">
-      La descripción es requerida.
-    </div>
   </div>
 
-  <div>
+  <div class="w-[716px] h-[100px] flex space-x-[72px] items-center">
+    <!-- Botón Crear cuenta -->
     <button
-      type="submit"
-      class="w-full bg-blue-600 text-white py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      (click)="crearCuenta()"
+      type="button"
+      class="w-[322px] h-[100px] bg-[#154667] rounded-[21px] text-white text-xl font-semibold"
     >
-      CREAR CUENTA
+      Crear cuenta
     </button>
-  </div>
+    <!-- Botón Cancelar -->
+    <button
+      (click)="cancelar()"
+      type="button"
+      class="w-[322px] h-[100px] bg-[#d9d9d9] rounded-[21px] text-black text-xl font-semibold"
+    >
+      Cancelar
+    </button>
+  </div><div><img src="Frame 58.png" alt="" class="w-[567.87px]"></div>
 </form>
+</div>
+
+
