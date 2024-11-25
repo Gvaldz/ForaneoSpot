@@ -15,8 +15,7 @@ export class FormInmueblesComponent implements OnInit {
   inmuebleForm!: FormGroup;
   isEditMode = false;
   inmuebleId!: number;
-  selectedFile: File | null = null;
-  selectedFilePreview: string | null = null;
+
   tipo: string = '';
 
   constructor(
@@ -116,7 +115,7 @@ removeFile(index: number): void {
         this.inmuebleServicio.updateInmueble(this.inmuebleId, inmuebleData).subscribe(
           (updatedInmueble) => {
             if (this.selectedFiles.length > 0) {
-              this.uploadImages('inmueble', updatedInmueble.id);
+              this.uploadImages('inmueble', updatedInmueble.idinmuebles);
             }
             this.router.navigate(['/alojamientos']);
           },
@@ -125,27 +124,32 @@ removeFile(index: number): void {
       } else {
         this.inmuebleServicio.addInmueble(this.tipo, inmuebleData).subscribe(
           (newInmueble) => {
-            console.log('Datos enviados:', inmuebleData);
-            if (this.selectedFiles.length > 0) {
-              this.uploadImages('inmueble', newInmueble.id);
-              console.log("id" + newInmueble.id)
+            if (newInmueble && newInmueble.idinmuebles) { 
+              console.log('Inmueble creado con ID:', newInmueble.idinmuebles);
+              if (this.selectedFiles.length > 0) {
+                this.uploadImages('inmueble', newInmueble.idinmuebles); 
+              }
+              this.router.navigate(['/alojamientos']);
+            } else {
+              console.error('El backend no devolvió un ID para el inmueble creado.');
             }
-            this.router.navigate(['/alojamientos']);
           },
           (error) => console.error('Error al agregar el inmueble:', error)
         );
+        
       }
     }
   }
   
   uploadImages(entity: string, entityId: number): void {
-    if (this.selectedFile) {
-      this.inmuebleServicio.uploadImages(entity, entityId, [this.selectedFile]).subscribe(
-        () => console.log('Imágenes subidas correctamente'),
-        (error) => console.error('Error al subir imágenes:', error)
-      );
+    if (this.selectedFiles.length > 0) {
+        this.inmuebleServicio.uploadImages(entity, entityId, this.selectedFiles).subscribe(
+            () => console.log('Imágenes subidas correctamente'),
+            (error) => console.error('Error al subir imágenes:', error)
+        );
     }
-  }
+}
+
   
   onCancel(): void {
     this.router.navigate(['/inmueble']);
