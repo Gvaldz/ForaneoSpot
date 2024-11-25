@@ -26,6 +26,7 @@ export class LoginserviceService {
     return this.http.post<LoginResponse>(this.loginUrl, body, { headers })
       .pipe(
         tap(response => {
+          console.log("respuesta: " + response)
           if (response.token) {
             this.setToken(response.token);
             const decodedToken = this.getDecodedToken(response.token);  

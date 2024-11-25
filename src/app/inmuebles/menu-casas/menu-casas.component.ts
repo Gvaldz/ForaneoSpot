@@ -4,20 +4,20 @@ import {AlojamientosService} from '../alojamientos.service';
 import {data} from 'autoprefixer';
 
 @Component({
-  selector: 'app-menu-edificios',
-  templateUrl: './menu-edificios.component.html',
-  styleUrl: './menu-edificios.component.css'
+  selector: 'app-menu-casas',
+  templateUrl: './menu-casas.component.html',
+  styleUrl: './menu-casas.component.css'
 })
-export class MenuEdificiosComponent {
-  edificios: any[] = [];
+export class MenuCasasComponent {
+  casas: any[]=[];
   searchText: string = '';
-
-  constructor(private router: Router, private AlojamientosService: AlojamientosService) {}
+  constructor(private router: Router, private alojamientosService: AlojamientosService) {
+  }
 
   ngOnInit() {
-    this.AlojamientosService.obtenerEdificios().subscribe(
-      (data) => {
-        this.edificios = data;
+    this.alojamientosService.obtenerCasas().subscribe(
+      (data)=>{
+        this.casas = data;
       },
       (error) => {
         console.error('Error al obtener:', error);
@@ -25,15 +25,14 @@ export class MenuEdificiosComponent {
     )
   }
 
-  get filteredEdificios() {
+  get filteredCasas() {
     // Si no hay texto de búsqueda, muestra todas las comidas
     if (!this.searchText.trim()) {
-      return this.edificios;
+      return this.casas;
     }
     // Filtra comidas según el nombre
-    return this.edificios.filter(data =>
+    return this.casas.filter(data =>
       data.nombre_inmueble.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
-
 }

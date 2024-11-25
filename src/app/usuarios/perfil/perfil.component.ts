@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginserviceService } from '../../login/loginservice.service';
 import { UsuarioService } from '../usuarios.service';
@@ -6,12 +7,12 @@ import { UsuarioBase, Foraneo, Vendedor, Arrendador } from '../usuario-base';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-editar-perfil',
-  templateUrl: './editar-perfil.component.html',
-  styleUrls: ['./editar-perfil.component.css']
+  selector: 'app-perfil',
+  templateUrl: './perfil.component.html',
+  styleUrl: './perfil.component.css'
 })
+export class PerfilComponent {
 
-export class EditarPerfilComponent implements OnInit {
   profileForm!: FormGroup;
   userRole: string | null = '';
   userId: number | null = null;
@@ -25,28 +26,9 @@ export class EditarPerfilComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private loginService: LoginserviceService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
-
-  ngOnInit(): void {
-
-    this.userRole = this.loginService.getUserRole();
-    this.userId = this.loginService.getUserId();
-
-    if (this.userId) {
-      this.obtenerDatosUsuario(this.userId);
-    }
-
-    this.profileForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-      apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-      sexo: ['', Validators.required],
-      tipoUsuario: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).+$/)]],
-      descripcion: ['', [Validators.maxLength(200)]]
-    });
-  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -75,7 +57,6 @@ export class EditarPerfilComponent implements OnInit {
   
   deleteUserImage(image: { id: number, file_path: string }): void {
     const entity = 'usuario'; 
-  
     this.usuarioService.deleteUserImage(image.id, entity).subscribe(
       () => {
         alert('Imagen eliminada con éxito.');
@@ -127,6 +108,25 @@ export class EditarPerfilComponent implements OnInit {
       alert('Por favor, completa todos los campos requeridos.');
     }
   }
+  
+    
+  ngOnInit(): void {
+
+    this.userRole = this.loginService.getUserRole();
+    this.userId = this.loginService.getUserId();
+
+    if (this.userId) {
+      this.obtenerDatosUsuario(this.userId);
+    }
+
+    this.profileForm = this.fb.group({
+      nombre: ['', Validators.required],
+      sexo: ['', Validators.required],
+      tipoUsuario: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', Validators.required],
+    });
+  }
 
   obtenerDatosUsuario(id: number): void {
     let userObservable: Observable<any>;
@@ -170,5 +170,7 @@ export class EditarPerfilComponent implements OnInit {
     });
   }
 
-
+  navigateEditar(){
+    this.router.navigate(['/editarPerfil']);
+  }
 }

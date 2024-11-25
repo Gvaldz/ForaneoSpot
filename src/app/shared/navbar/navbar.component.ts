@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateEditar(){
-    this.router.navigate(['/editarPerfil']);
+    this.router.navigate(['/perfil']);
   }
   navigateComida(){
     this.router.navigate(['/comida']);
@@ -26,8 +26,8 @@ export class NavbarComponent implements OnInit {
   navigateAlojamientos(){
     this.router.navigate(['/alojamientos']);
   }
-  navigateCuartos(){
-    this.router.navigate(['/menuCuartos']);
+  navigateCasas(){
+    this.router.navigate(['/menuCasas']);
   }
   navigateEdificios(){
     this.router.navigate(['/menuEdificios']);

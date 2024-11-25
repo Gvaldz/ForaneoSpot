@@ -1,2 +1,24 @@
-<navbar></navbar>
-<h1>uiuiu</h1>
+<div class="min-h-screen bg-white flex flex-col items-center">
+  <navbar class="w-full"></navbar>
+
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    placeholder="Buscar Alojamiento..."
+    class="w-full max-w-md mt-6 mb-6 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+  />
+
+  <button
+  *ngIf="userRole === 'arrendador'"
+  (click)="agregar()"
+  class="rounded-2xl bg-[#04232B] px-6 py-3 text-white hover:bg-[#182e48] mb-8 ml-auto block">
+  Agregar Inmueble
+  </button>
+
+<div class="grid gap-8 w-full max-w-5xl md:grid-cols-2">
+    <app-card-alojamiento
+      *ngFor="let alojamiento of filteredAlojamientos"
+      [alojamiento]="alojamiento"
+    ></app-card-alojamiento>
+  </div>
+</div>
