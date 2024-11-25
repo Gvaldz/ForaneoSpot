@@ -10,9 +10,12 @@
       id="nombre"
       type="text"
       formControlName="nombre"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('nombre')?.invalid && RegistrerForm.get('nombre')?.touched" class="text-red-500 text-sm mt-1">
+      El nombre es requerido y debe contener solo letras.
+    </div>
   </div>
   <div>
     <label for="apellidos" class="block text-lg font-sans mb-2 text-gray-700">
@@ -22,9 +25,12 @@
       id="apellidos"
       type="text"
       formControlName="apellidos"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('apellidos')?.invalid && RegistrerForm.get('apellidos')?.touched" class="text-red-500 text-sm mt-1">
+      Los apellidos son requeridos y deben contener solo letras.
+    </div>
   </div>
   <div>
     <label for="sexo" class="block text-lg font-sans mb-2 text-gray-700">
@@ -33,7 +39,7 @@
     <select
       id="sexo"
       formControlName="sexo"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
       <option value="" disabled>Selecciona tu sexo</option>
@@ -41,6 +47,9 @@
       <option value="Femenino">Femenino</option>
       <option value="Otro">Otro</option>
     </select>
+    <div *ngIf="RegistrerForm.get('sexo')?.invalid && RegistrerForm.get('sexo')?.touched" class="text-red-500 text-sm mt-1">
+      Selecciona un sexo válido.
+    </div>
   </div>
   <div>
     <label for="correo" class="block text-lg font-sans mb-2 text-gray-700">
@@ -50,9 +59,12 @@
       id="correo"
       type="email"
       formControlName="correo"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('email')?.invalid && RegistrerForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+      Ingresa un correo válido.
+    </div>
   </div>
   <div>
     <label for="telefono" class="block text-lg font-sans mb-2 text-gray-700">
@@ -62,9 +74,12 @@
       id="telefono"
       type="tel"
       formControlName="telefono"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('telefono')?.invalid && RegistrerForm.get('telefono')?.touched" class="text-red-500 text-sm mt-1">
+      Ingresa un número telefónico válido.
+    </div>
   </div>
   <div>
     <label for="contrasena" class="block text-lg font-sans mb-2 text-gray-700">
@@ -74,9 +89,12 @@
       id="contrasena"
       type="password"
       formControlName="contrasena"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('password')?.invalid && RegistrerForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+      La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.
+    </div>
   </div>
   <div>
     <label for="tipoUsuario" class="block text-lg font-sans mb-2 text-gray-700">
@@ -85,7 +103,7 @@
     <select
       id="tipoUsuario"
       formControlName="tipoUsuario"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
       <option value="" disabled>Selecciona el tipo de usuario</option>
@@ -93,6 +111,9 @@
       <option value="Arrendador">Arrendador</option>
       <option value="Vendedor">Vendedor de alimentos</option>
     </select>
+    <div *ngIf="RegistrerForm.get('tipoUsuario')?.invalid && RegistrerForm.get('tipoUsuario')?.touched" class="text-red-500 text-sm mt-1">
+      Selecciona un tipo de usuario válido.
+    </div>
   </div>
 
   <div *ngIf="tipoUsuario === 'Foraneo'">
@@ -103,7 +124,7 @@
       id="nacimiento"
       type="date"
       formControlName="nacimiento"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
@@ -115,7 +136,7 @@
       id="ubicacion"
       type="text"
       formControlName="ubicacion"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
@@ -126,9 +147,12 @@
     <textarea
       id="descripcion"
       formControlName="descripcion"
-      class="w-full h-32 px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
+      class="w-full h-32 px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
       required
     ></textarea>
+    <div *ngIf="RegistrerForm.get('descripcion')?.invalid && RegistrerForm.get('descripcion')?.touched" class="text-red-500 text-sm mt-1">
+      La descripción es requerida.
+    </div>
   </div>
 
   <div>

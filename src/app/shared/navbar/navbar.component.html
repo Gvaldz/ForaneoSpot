@@ -10,25 +10,25 @@
       </div>
     </div>
     <nav class="flex items-center gap-4">
-      <button           
-      *ngIf="userRole === 'foraneo' || userRole === 'vendedor'" 
+      <button
+      *ngIf="userRole === 'foraneo' || userRole === 'vendedor'"
       (click)="navigateComida()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
         Comida
       </button>
       <button
-      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'" 
+      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'"
       (click)="navigateAlojamientos()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
         Alojamientos
       </button>
-      <button 
-      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'" 
-      (click)="navigateCuartos()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
-        Cuartos
+      <button
+      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'"
+      (click)="navigateCasas()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
+        Casas
       </button>
-      <button 
-      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'" 
+      <button
+      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'"
       (click)="navigateEdificios()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
-        Edificios
+        Cuartos
       </button>
       <button (click)="navigateEditar()" class="ml-2 rounded-full bg-white p-2 hover:bg-white/90">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-black">

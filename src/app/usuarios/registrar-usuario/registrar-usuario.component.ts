@@ -20,13 +20,32 @@ export class RegistrarUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.RegistrerForm = this.fb.group({
-      nombre: ['', Validators.required],
-      apellidos: ['', Validators.required],
-      sexo: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', Validators.required],
-      contrasena: ['', [Validators.required, Validators.minLength(6)]],
-      tipoUsuario: ['', Validators.required],
+      nombre: [
+        '',
+        [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\\s]+$')] 
+      ],
+      apellidos: [
+        '',
+        [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\\s]+$')] 
+      ],
+      sexo: ['', Validators.required], 
+      correo: [
+        '',
+        [Validators.required, Validators.email] 
+      ],
+      telefono: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]{10}$')] 
+      ],
+      contrasena: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8), 
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$') 
+        ]
+      ],
+      tipoUsuario: [''],
     });
 
     this.RegistrerForm.get('tipoUsuario')?.valueChanges.subscribe(tipo => {
@@ -82,5 +101,4 @@ export class RegistrarUsuarioComponent implements OnInit {
       }
     );
   }
-  
 }

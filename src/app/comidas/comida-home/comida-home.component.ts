@@ -12,8 +12,11 @@ export class ComidaHomeComponent implements OnInit {
   comidas: any[] = [];
   userRole: string | null = '';
   userId: string | null = '';
+  searchText: string = '';
 
-  constructor(private comidaService: ComidaService, private loginService: LoginserviceService, private router: Router,) {}
+  constructor(private comidaService: ComidaService,
+              private loginService: LoginserviceService,
+              private router: Router,) {}
 
   ngOnInit(): void {
     this.userRole = this.loginService.getUserRole();
@@ -28,7 +31,16 @@ export class ComidaHomeComponent implements OnInit {
     );
   }
 
+  get filteredComidas() {
+    if (!this.searchText.trim()) {
+      return this.comidas;
+    }
+    return this.comidas.filter(comida =>
+      comida.nombre.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+  }
+
   Agregar() {
-    this.router.navigate(['comida/agregar']);  
+    this.router.navigate(['comida/agregar']);
   }
 }

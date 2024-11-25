@@ -11,11 +11,12 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   errorMessage: string = '';
+  userRole: string | null = '';
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private loginService: LoginserviceService
+    private loginService: LoginserviceService,
   ) {
 
     this.loginForm = this.fb.group({
@@ -24,17 +25,21 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.userRole = this.loginService.getUserRole();
+   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { correo, contrasena } = this.loginForm.value;
-      console.log('Formulario enviado con:', { correo, contrasena });
 
       this.loginService.login(correo, contrasena).subscribe(
         (response) => {
-          console.log('Login exitoso:'); 
-          this.navigateComida()
+          if(this.userRole == "vendedor" || this.userRole == "foraneo"){
+            this.navigateComida()
+          }else{
+          this.navigateInmuebles()
+        }
         },
         (error) => {
           console.error('Error en el login:', error);
@@ -48,6 +53,10 @@ export class LoginComponent implements OnInit {
 
   navigateComida(): void {
     this.router.navigate(['/comida']);
+  }
+
+  navigateInmuebles():void{
+    this.router.navigate(['/alojamientos'])
   }
 
   navigateRegistrarUsuario(): void {

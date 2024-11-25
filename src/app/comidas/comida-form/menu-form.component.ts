@@ -83,7 +83,6 @@ export class MenuFormComponent implements OnInit {
     }
   }
   
-
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {

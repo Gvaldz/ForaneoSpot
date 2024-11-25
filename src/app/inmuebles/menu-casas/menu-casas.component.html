@@ -12,9 +12,6 @@
 
   <!-- Grid de tarjetas -->
   <div class="grid gap-8 w-full max-w-5xl md:grid-cols-2">
-    <app-card-alojamiento
-      *ngFor="let edificio of filteredEdificios"
-      [alojamiento]="edificio"
-    ></app-card-alojamiento>
+    <app-card-alojamiento *ngFor="let casa of filteredCasas" [alojamiento]="casa"></app-card-alojamiento>
   </div>
 </div>
