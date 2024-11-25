@@ -1,37 +1,43 @@
-<div class="container mx-auto p-4 relative">
-  <!-- Botones de inicio de sesión y registro -->
-  <div class="absolute top-8 right-8 flex space-x-4">
-    <button 
-      class="px-6 py-2 bg-white text-black font-semibold rounded-lg shadow-md hover:bg-gray-100"
-      (click)="navigateToLogin()">
-      Iniciar sesión
-    </button>
-    <button 
-      class="px-6 py-2 bg-white text-black font-semibold rounded-lg shadow-md hover:bg-gray-100"
-      (click)="navigateToRegister()">
-      Registrarse
-    </button>
-  </div>
-
-  <!-- Contenedor principal -->
-  <div class="relative flex items-center">
-    <!-- Imagen de fondo -->
-    <div class="w-[1136px] h-[968px] relative">
-      <img src="Frame5.png" alt="Edificios" class="w-full h-full object-cover">
+<link href="https://fonts.googleapis.com/css2?family=Jomhuria&family=Cabin:wght@400&display=swap" rel="stylesheet">
+<div>
+<header class="flex items-center justify-center w-full bg-gradient-to-b from-[#154667] to-white h-[268px]">
+  <nav class="flex items-center justify-center gap-[145px]">
+    <div class="text-[#010101] text-[210px] font-normal font-['Jomhuria'] uppercase">
+      Foraneospot
     </div>
+    <div class="flex items-center gap-4">
+      <button
+        class="bg-white rounded-[19px] text-black text-2xl font-normal font-['Cabin']"
+        style="width: 227px; height: 76px; margin-top: -21px;" (click)="navigateToLogin()"
+      >
+        Iniciar sesión
+      </button>
+      <button
+        class="bg-white rounded-[19px] text-black text-2xl font-normal font-['Cabin']"
+        style="width: 227px; height: 76px; margin-top: -21px;" (click)="navigateToRegister()"
+      >
+        Crear cuenta
+      </button>
+    </div>
+  </nav>
+</header>
 
-    <!-- Contenido del texto -->
-    <div class="absolute top-[286px] left-[680px] flex flex-col gap-8">
-      <!-- Título -->
-      <div class="flex items-center">
-        <span class="text-white text-[210px] font-normal font-['Jomhuria'] uppercase">For</span>
-        <span class="text-black text-[210px] font-normal font-['Jomhuria'] uppercase">aneoSpot</span>
-      </div>
-
-      <!-- Descripción -->
-      <p class="text-black text-lg font-['Cabin'] leading-relaxed max-w-xl text-justify">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque facilisis magna, id faucibus erat. Etiam mi lacus, laoreet in dictum sit amet, condimentum ut sapien. Sed interdum imperdiet diam in dapibus. Maecenas non quam sed sapien convallis ultrices vel non metus. Sed ut nulla quam. Vivamus luctus metus id iaculis vehicula. Praesent ut accumsan velit, vel sollicitudin nulla. Etiam fermentum pulvinar elit, in faucibus ligula suscipit vel...
-      </p>
+<div class="w-full flex flex-row items-start gap-[30px] ml-[31px]">
+  <!-- Contenedor de texto -->
+  <div class="flex flex-col gap-[20px]">
+    <!-- Encabezado -->
+    <div class="text-[#010101] text-8xl font-normal font-['Jomhuria'] uppercase">
+      ¿Quiénes somos?
+    </div>
+    <!-- Contenido de texto -->
+    <div class="text-justify text-black text-xl font-normal font-['Cabin']">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque facilisis magna, id faucibus erat. Etiam mi lacus, laoreet in dictum sit amet, condimentum ut sapien. Sed interdum imperdiet diam in dapibus. Maecenas non quam sed sapien convallis ultrices vel non metus. Sed ut nulla quam. Vivamus luctus metus id iaculis vehicula. Praesent ut accumsan velit, vel sollicitudin nulla. Etiam fermentum pulvinar elit, in faucibus ligula suscipit vel. Vestibulum eros tortor, accumsan nec velit eget, ullamcorper iaculis nisl. Vestibulum sed pharetra metus, a placerat ligula. Pellentesque nulla quam, tincidunt in leo a, ornare suscipit nisi. Nunc pretium aliquet massa, nec fermentum enim faucibus in. Cras vel pretium diam, ac pretium metus. Morbi risus nisi, dapibus id ex a, ornare luctus neque. Aenean auctor ut consequat nibh. Morbi enim dui, bibendum vel lacinia aliquam, venenatis vel neque.
     </div>
   </div>
+  <img class="w-[200px] h-auto " src="Frame 57.svg" alt="edificios">
 </div>
+
+
+</div>
+
+
