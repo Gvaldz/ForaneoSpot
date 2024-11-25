@@ -1,38 +1,60 @@
-<form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto">
+<link href="https://fonts.googleapis.com/css2?family=Jomhuria&family=Cabin:wght@400&display=swap" rel="stylesheet"> 
+
+
+<div class="h-[268px] relative flex flex-col justify-center items-center">
+  <!-- Fondo degradado -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#154667] to-white"></div>
+
+  <!-- Contenedor del título y botón -->
+  <div class="relative flex items-center justify-between w-full px-6 z-10">
+    <!-- Botón regresar alineado a la izquierda -->
+    <button (click)="regresar()" class="text-black text-xl font-normal font-['Inter'] underline">
+      Regresar
+    </button>
+
+    <!-- Título centrado -->
+    <div class="text-black text-[70px] font-semibold font-['Cabin'] text-center w-full">
+      Crea tu cuenta
+    </div>
+  </div>
+</div>
+
+<div>
+  <form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto">
   <div>
-    <label for="nombre" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="nombre" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Nombre
     </label>
     <input
       id="nombre"
       type="text"
       formControlName="nombre"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
 
   <div>
-    <label for="Apellidos" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="Apellidos" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Apellidos
     </label>
     <input
       id="Apellidos"
       type="text"
       formControlName="apellidos"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
 
   <div>
-    <label for="Sexo" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="Sexo" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Sexo
     </label>
     <select
       id="Sexo"
       formControlName="sexo"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
       <option value="" disabled selected>Selecciona tu sexo</option>
@@ -43,52 +65,52 @@
   </div>
 
   <div>
-    <label for="email" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="email" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Correo
     </label>
     <input
       id="email"
       type="email"
       formControlName="email"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
 
   <div>
-    <label for="NumeroTel" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="NumeroTel" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Número Telefónico
     </label>
     <input
       id="NumeroTel"
       type="tel"
       formControlName="telefono"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
 
   <div>
-    <label for="password" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="password" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Contraseña
     </label>
     <input
       id="password"
       type="password"
       formControlName="password"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
 
   <div>
-    <label for="typeUsuario" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="typeUsuario" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Tipo De Usuario
     </label>
     <select
       id="typeUsuario"
       formControlName="tipoUsuario"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
       <option value="" disabled selected>Selecciona el tipo de usuario</option>
@@ -99,23 +121,34 @@
   </div>
 
   <div>
-    <label for="descripcion" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="descripcion" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Añade una descripción sobre ti
     </label>
     <textarea
       id="descripcion"
       formControlName="descripcion"
-      class="w-full h-32 px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
+      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
       required
     ></textarea>
   </div>
 
-  <div>
+  <div class="w-[716px] h-[100px] flex space-x-[72px] items-center">
+    <!-- Botón Crear cuenta -->
     <button
-      type="submit"
-      class="w-full bg-blue-600 text-white py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      (click)="crearCuenta()"
+      type="button"
+      class="w-[322px] h-[100px] bg-[#154667] rounded-[21px] text-white text-xl font-semibold"
     >
-      CREAR CUENTA
+      Crear cuenta
     </button>
-  </div>
+    <!-- Botón Cancelar -->
+    <button
+      (click)="cancelar()"
+      type="button"
+      class="w-[322px] h-[100px] bg-[#d9d9d9] rounded-[21px] text-black text-xl font-semibold"
+    >
+      Cancelar
+    </button>
+  </div><div><img src="Frame 58.png" alt="" class="w-[567.87px]"></div>
 </form>
+</div>
