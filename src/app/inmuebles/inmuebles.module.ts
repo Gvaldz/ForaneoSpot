@@ -4,13 +4,15 @@ import { MenuCuartosComponent } from './menu-cuartos/menu-cuartos.component';
 import { MenuEdificiosComponent } from './menu-edificios/menu-edificios.component';
 import { SharedModule } from '../shared/shared.module';
 import { MenusAlojamientosComponent } from './menus-alojamientos/menus-alojamientos.component';
+import { MenuCasasComponent } from './menu-casas/menu-casas.component';
 
 
 @NgModule({
   declarations: [
     MenuCuartosComponent,
     MenuEdificiosComponent,
-    MenusAlojamientosComponent
+    MenusAlojamientosComponent,
+    MenuCasasComponent
   ],
   imports: [
     CommonModule,

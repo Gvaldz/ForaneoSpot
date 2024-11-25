@@ -1,2 +1,11 @@
-<navbar></navbar>
-menuEdificio
+<div class="min-h-screen bg-white">
+  <navbar></navbar>
+
+  <div class="grid gap-8 md:grid-cols-2">
+    <app-card-alojamiento *ngFor="let edificio of edificios" [alojamiento]="edificio"
+    ></app-card-alojamiento>
+  </div>
+
+</div>
+
+

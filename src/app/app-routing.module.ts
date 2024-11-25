@@ -10,18 +10,19 @@ import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.compon
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
 import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-inicio.component';
 import { MenuFormComponent } from './comidas/comida-form/menu-form.component';
+import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
 
 const routes: Routes = [
   { path: '', component: DashboardInicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'comida', component: ComidaHomeComponent},
   { path: 'comida/agregar', component: MenuFormComponent },
-  { path: 'comida/editar/:id', component: MenuFormComponent, },  
+  { path: 'comida/editar/:id', component: MenuFormComponent, },
   { path: 'alojamientos', component: MenusAlojamientosComponent },
   { path: 'menuComida', component: MenuComidaComponent },
   { path: 'editarPerfil', component: EditarPerfilComponent },
   { path: 'registrarUsuario', component: RegistrarUsuarioComponent },
-  { path: 'menuCuartos', component: MenuCuartosComponent },
+  { path: 'menuCasas', component: MenuCasasComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
   { path: '**', redirectTo: '/login' },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
