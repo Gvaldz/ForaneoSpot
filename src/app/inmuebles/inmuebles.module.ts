@@ -5,6 +5,7 @@ import { MenuEdificiosComponent } from './menu-edificios/menu-edificios.componen
 import { SharedModule } from '../shared/shared.module';
 import { MenusAlojamientosComponent } from './menus-alojamientos/menus-alojamientos.component';
 import { MenuCasasComponent } from './menu-casas/menu-casas.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,9 @@ import { MenuCasasComponent } from './menu-casas/menu-casas.component';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class InmueblesModule { }

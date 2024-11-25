@@ -10,6 +10,7 @@ import {data} from 'autoprefixer';
 })
 export class MenuCasasComponent {
   casas: any[]=[];
+  searchText: string = '';
   constructor(private router: Router, private alojamientosService: AlojamientosService) {
   }
 
@@ -22,5 +23,16 @@ export class MenuCasasComponent {
         console.error('Error al obtener:', error);
       }
     )
+  }
+
+  get filteredCasas() {
+    // Si no hay texto de búsqueda, muestra todas las comidas
+    if (!this.searchText.trim()) {
+      return this.casas;
+    }
+    // Filtra comidas según el nombre
+    return this.casas.filter(data =>
+      data.nombre_inmueble.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 }
