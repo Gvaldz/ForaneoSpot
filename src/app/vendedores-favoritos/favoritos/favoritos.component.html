@@ -1,0 +1,14 @@
+<div class="min-h-screen bg-white flex flex-col items-center">
+  <navbar class="w-full"></navbar>
+
+  <div *ngFor="let vendedor of vendedoresFavoritos">
+    <app-card-vendedor [vendedor]="vendedor"></app-card-vendedor>
+    <button (click)="eliminarDeFavoritos(vendedor.favoritoId)">
+      Eliminar de Favoritos
+    </button>
+  </div>
+
+
+
+
+</div>

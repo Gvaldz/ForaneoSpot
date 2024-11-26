@@ -11,11 +11,15 @@ import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.
 import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-inicio.component';
 import { MenuFormComponent } from './comidas/comida-form/menu-form.component';
 import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
+import {MenuVendedoresComponent} from './vendedores-favoritos/menu-vendedores/menu-vendedores.component';
+import {FavoritosComponent} from './vendedores-favoritos/favoritos/favoritos.component';
 
 const routes: Routes = [
   { path: '', component: DashboardInicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'comida', component: ComidaHomeComponent},
+  { path: 'vendedores', component: MenuVendedoresComponent},
+  { path: 'favoritos', component: FavoritosComponent },
   { path: 'comida/agregar', component: MenuFormComponent },
   { path: 'comida/editar/:id', component: MenuFormComponent, },
   { path: 'alojamientos', component: MenusAlojamientosComponent },

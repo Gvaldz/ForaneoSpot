@@ -1,0 +1,13 @@
+<div class="min-h-screen bg-white flex flex-col items-center">
+  <navbar class="w-full"></navbar>
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    placeholder="Buscar Vendedor..."
+    class="w-full max-w-md mt-6 mb-6 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+  />
+
+  <div class="grid gap-8 w-full max-w-5xl md:grid-cols-2">
+    <app-card-vendedor *ngFor="let vendedor of filteredVendedores" [vendedor]="vendedor"></app-card-vendedor>
+  </div>
+</div>
