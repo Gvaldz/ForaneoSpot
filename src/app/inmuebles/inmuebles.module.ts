@@ -7,6 +7,7 @@ import { MenusAlojamientosComponent } from './menus-alojamientos/menus-alojamien
 import { MenuCasasComponent } from './menu-casas/menu-casas.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FormInmueblesComponent } from './form-inmuebles/form-inmuebles.component';
+import { AgregarServiciosComponent } from './agregar-servicios/agregar-servicios.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormInmueblesComponent } from './form-inmuebles/form-inmuebles.componen
     MenuEdificiosComponent,
     MenusAlojamientosComponent,
     MenuCasasComponent,
-    FormInmueblesComponent
+    FormInmueblesComponent,
+    AgregarServiciosComponent
   ],
   imports: [
     CommonModule,

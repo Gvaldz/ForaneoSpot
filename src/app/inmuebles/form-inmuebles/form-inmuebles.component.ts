@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlojamientosService } from '../alojamientos.service';
 import { Inmueble } from '../inmueble';
+import { Caracteristicas } from '../caracteristicas';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-inmuebles',
@@ -10,11 +12,13 @@ import { Inmueble } from '../inmueble';
   styleUrls: ['./form-inmuebles.component.css']
 })
 export class FormInmueblesComponent implements OnInit {
+  caracteriscas: Caracteristicas [] = []
   selectedFiles: File[] = [];
   selectedFilePreviews: string[] = [];
   inmuebleForm!: FormGroup;
   isEditMode = false;
   inmuebleId!: number;
+  caracteristicas: any [] = []
 
   tipo: string = '';
 
@@ -75,10 +79,11 @@ removeFile(index: number): void {
     });
   }
 
+
   actualizarCamposDinamicos(tipo: string): void {
     const camposDinamicos = [
       'rentamax',
-      'tipo',
+      'tipo_unidad',
       'cantidad_unidades',
       'unidades_disponibles',
       'tipo',
@@ -91,6 +96,7 @@ removeFile(index: number): void {
         this.inmuebleForm.removeControl(campo);
       }
     });
+    this.inmuebleForm.addControl('tipo', this.fb.control('', [Validators.required]))
 
     if (tipo === 'Edificio') {
       this.inmuebleForm.addControl('rentamax', this.fb.control(0, [ Validators.min(0)]));
@@ -117,29 +123,58 @@ removeFile(index: number): void {
             if (this.selectedFiles.length > 0) {
               this.uploadImages('inmueble', updatedInmueble.idinmuebles);
             }
-            this.router.navigate(['/alojamientos']);
+            Swal.fire({
+              icon: 'success',
+              title: 'Inmueble actualizado',
+              text: 'El inmueble se actualizó correctamente.',
+              confirmButtonText: 'Aceptar'
+            }).then(() => {
+              this.router.navigate(['/alojamientos']);
+            });
           },
-          (error) => console.error('Error al actualizar el inmueble:', error)
+          (error) => {
+            console.error('Error al actualizar el inmueble:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un problema al actualizar el inmueble.',
+              confirmButtonText: 'Aceptar'
+            });
+          }
         );
       } else {
         this.inmuebleServicio.addInmueble(this.tipo, inmuebleData).subscribe(
           (newInmueble) => {
-            if (newInmueble && newInmueble.idinmuebles) { 
-              console.log('Inmueble creado con ID:', newInmueble.idinmuebles);
+            if (newInmueble && newInmueble.idinmuebles) {
               if (this.selectedFiles.length > 0) {
-                this.uploadImages('inmueble', newInmueble.idinmuebles); 
+                this.uploadImages('inmueble', newInmueble.idinmuebles);
               }
-              this.router.navigate(['/alojamientos']);
+              Swal.fire({
+                icon: 'success',
+                title: 'Inmueble creado',
+                text: 'El inmueble fue creado exitosamente.',
+                confirmButtonText: 'Aceptar'
+              }).then(() => {
+                this.router.navigate(['/inmuebles/agregar/servicios', newInmueble.idinmuebles]);
+              });
             } else {
               console.error('El backend no devolvió un ID para el inmueble creado.');
             }
           },
-          (error) => console.error('Error al agregar el inmueble:', error)
+          (error) => {
+            console.error('Error al agregar el inmueble:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un problema al agregar el inmueble.',
+              confirmButtonText: 'Aceptar'
+            });
+          }
         );
-        
       }
     }
   }
+  
   
   uploadImages(entity: string, entityId: number): void {
     if (this.selectedFiles.length > 0) {
@@ -149,8 +184,7 @@ removeFile(index: number): void {
         );
     }
 }
-
-  
+ 
   onCancel(): void {
     this.router.navigate(['/inmueble']);
   }

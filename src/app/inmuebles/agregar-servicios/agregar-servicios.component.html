@@ -1,0 +1,24 @@
+<div class="container mx-auto max-w-lg">
+    <h1 class="text-2xl font-bold text-center mb-6">Asignar Servicios</h1>
+  
+    <form (ngSubmit)="onSubmit()" class="space-y-4">
+      <div *ngFor="let servicio of servicios">
+        <label class="flex items-center space-x-3">
+            <input
+            type="checkbox"
+            [value]="servicio.idservicios"
+            (change)="toggleServicio(servicio.idservicios, $event)"
+          />          
+          <span>{{ servicio.descripcion }}</span>
+        </label>
+      </div>
+  
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+      >
+        Asignar Servicios
+      </button>
+    </form>
+  </div>
+  
