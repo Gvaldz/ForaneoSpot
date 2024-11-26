@@ -1,154 +1,142 @@
-<link href="https://fonts.googleapis.com/css2?family=Jomhuria&family=Cabin:wght@400&display=swap" rel="stylesheet"> 
-
-
-<div class="h-[268px] relative flex flex-col justify-center items-center">
-  <!-- Fondo degradado -->
-  <div class="absolute inset-0 bg-gradient-to-b from-[#154667] to-white"></div>
-
-  <!-- Contenedor del título y botón -->
-  <div class="relative flex items-center justify-between w-full px-6 z-10">
-    <!-- Botón regresar alineado a la izquierda -->
-    <button (click)="regresar()" class="text-black text-xl font-normal font-['Inter'] underline">
-      Regresar
-    </button>
-
-    <!-- Título centrado -->
-    <div class="text-black text-[70px] font-semibold font-['Cabin'] text-center w-full">
-      Crea tu cuenta
-    </div>
-  </div>
-</div>
-
-<div>
-  <form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto">
+<form [formGroup]="RegistrerForm" (ngSubmit)="onSubmit()" class="space-y-6 max-w-lg mx-auto">
+  <h1 class="josefin-font mb-5 mt-10 text-center text-4xl font-bold tracking-wider">
+    Crea tu cuenta
+  </h1>    
   <div>
-    <label for="nombre" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="nombre" class="block text-lg font-sans mb-2 text-gray-700">
       Nombre
     </label>
     <input
       id="nombre"
       type="text"
       formControlName="nombre"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
-
   <div>
-    <label for="Apellidos" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="apellidos" class="block text-lg font-sans mb-2 text-gray-700">
       Apellidos
     </label>
     <input
-      id="Apellidos"
+      id="apellidos"
       type="text"
       formControlName="apellidos"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
-
   <div>
-    <label for="Sexo" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="sexo" class="block text-lg font-sans mb-2 text-gray-700">
       Sexo
     </label>
     <select
-      id="Sexo"
+      id="sexo"
       formControlName="sexo"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
-      <option value="" disabled selected>Selecciona tu sexo</option>
+      <option value="" disabled>Selecciona tu sexo</option>
       <option value="Masculino">Masculino</option>
       <option value="Femenino">Femenino</option>
       <option value="Otro">Otro</option>
     </select>
   </div>
-
   <div>
-    <label for="email" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="correo" class="block text-lg font-sans mb-2 text-gray-700">
       Correo
     </label>
     <input
-      id="email"
+      id="correo"
       type="email"
-      formControlName="email"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      formControlName="correo"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
-
   <div>
-    <label for="NumeroTel" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="telefono" class="block text-lg font-sans mb-2 text-gray-700">
       Número Telefónico
     </label>
     <input
-      id="NumeroTel"
+      id="telefono"
       type="tel"
       formControlName="telefono"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
-
   <div>
-    <label for="password" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="contrasena" class="block text-lg font-sans mb-2 text-gray-700">
       Contraseña
     </label>
     <input
-      id="password"
+      id="contrasena"
       type="password"
-      formControlName="password"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      formControlName="contrasena"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
-
   <div>
-    <label for="typeUsuario" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="tipoUsuario" class="block text-lg font-sans mb-2 text-gray-700">
       Tipo De Usuario
     </label>
     <select
-      id="typeUsuario"
+      id="tipoUsuario"
       formControlName="tipoUsuario"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
-      <option value="" disabled selected>Selecciona el tipo de usuario</option>
+      <option value="" disabled>Selecciona el tipo de usuario</option>
       <option value="Foraneo">Foráneo</option>
-      <option value="Arrendador">Arrendador/option>
+      <option value="Arrendador">Arrendador</option>
       <option value="Vendedor">Vendedor de alimentos</option>
     </select>
   </div>
 
-  <div>
-    <label for="descripcion" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+  <div *ngIf="tipoUsuario === 'Foraneo'">
+    <label for="nacimiento" class="block text-lg font-sans mb-2 text-gray-700">
+      Fecha de Nacimiento
+    </label>
+    <input
+      id="nacimiento"
+      type="date"
+      formControlName="nacimiento"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      required
+    />
+  </div>
+  <div *ngIf="tipoUsuario === 'Vendedor'">
+    <label for="ubicacion" class="block text-lg font-sans mb-2 text-gray-700">
+      Ubicación
+    </label>
+    <input
+      id="ubicacion"
+      type="text"
+      formControlName="ubicacion"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      required
+    />
+  </div>
+  <div *ngIf="tipoUsuario === 'Arrendador'">
+    <label for="descripcion" class="block text-lg font-sans mb-2 text-gray-700">
       Añade una descripción sobre ti
     </label>
     <textarea
       id="descripcion"
       formControlName="descripcion"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
+      class="w-full h-32 px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
       required
     ></textarea>
   </div>
 
-  <div class="w-[716px] h-[100px] flex space-x-[72px] items-center">
-    <!-- Botón Crear cuenta -->
+  <div>
     <button
-      (click)="crearCuenta()"
-      type="button"
-      class="w-[322px] h-[100px] bg-[#154667] rounded-[21px] text-white text-xl font-semibold"
+      type="submit"
+      class="w-full bg-blue-600 text-white py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
-      Crear cuenta
+      CREAR CUENTA
     </button>
-    <!-- Botón Cancelar -->
-    <button
-      (click)="cancelar()"
-      type="button"
-      class="w-[322px] h-[100px] bg-[#d9d9d9] rounded-[21px] text-black text-xl font-semibold"
-    >
-      Cancelar
-    </button>
-  </div><div><img src="Frame 58.png" alt="" class="w-[567.87px]"></div>
+  </div>
 </form>
-</div>

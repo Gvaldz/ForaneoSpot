@@ -1,0 +1,27 @@
+<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white border border-gray-300">
+  <div class="px-6 py-4">
+    <div class="flex items-center justify-between">
+      <div class="font-bold text-xl text-gray-800">{{ vendedor.nombre }}</div>
+      <!-- Botón de estrella -->
+      <button
+        (click)="marcarFavorito()"
+        class="text-gray-400 hover:text-yellow-500 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 .587l3.668 7.431 8.214 1.193-5.941 5.787 1.402 8.186L12 18.897l-7.343 3.864 1.402-8.186-5.941-5.787 8.214-1.193z"/>
+        </svg>
+      </button>
+    </div>
+    <p class="text-gray-700 text-base mb-2">
+      <span class="font-semibold">Teléfono:</span> {{ vendedor.telefono }}
+    </p>
+    <p class="text-gray-700 text-base">
+      <span class="font-semibold">Ubicación:</span> {{ vendedor.ubicacion }}
+    </p>
+  </div>
+  <div class="px-6 py-4">
+    <!-- Botón de acción -->
+    <button (click)="irAVendedor()" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none">
+      Ver
+    </button>
+  </div>
+</div>

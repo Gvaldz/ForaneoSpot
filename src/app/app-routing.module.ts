@@ -10,6 +10,9 @@ import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.compon
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
 import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-inicio.component';
 import { MenuFormComponent } from './comidas/comida-form/menu-form.component';
+import {MenuVendedoresComponent} from './vendedores-favoritos/menu-vendedores/menu-vendedores.component';
+import {FavoritosComponent} from './vendedores-favoritos/favoritos/favoritos.component';
+import {DetalleVendedorComponent} from './vendedores-favoritos/detalle-vendedor/detalle-vendedor.component';
 import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
 import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { FormInmueblesComponent } from './inmuebles/form-inmuebles/form-inmuebles.component';
@@ -19,6 +22,9 @@ const routes: Routes = [
   { path: 'home', component: DashboardInicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'comida', component: ComidaHomeComponent},
+  { path: 'vendedores', component: MenuVendedoresComponent},
+  { path: 'favoritos', component: FavoritosComponent },
+  { path: 'vendedor/:id', component: DetalleVendedorComponent },
   { path: 'comida/agregar', component: MenuFormComponent },
   { path: 'comida/editar/:id', component: MenuFormComponent, },
   { path: 'alojamientos', component: MenusAlojamientosComponent },

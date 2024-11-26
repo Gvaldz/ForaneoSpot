@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComidaService } from '../comida.service';
 import Swal from 'sweetalert2';
+import { Comida } from '../comida';
 
 @Component({
   selector: 'app-card-comida',
@@ -11,6 +12,8 @@ import Swal from 'sweetalert2';
 export class CardComidaComponent {
   @Input() comida: any; 
   @Input() userRole: string | null = null;
+  especificaciones: string = '';
+  showModal: boolean = false;
 
   constructor(private router: Router, private comidaService: ComidaService) {}
 
@@ -50,6 +53,27 @@ export class CardComidaComponent {
     }
   }
   
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  ordenarComida() {
+    if (this.comida) {
+      this.comidaService.createPedido(this.comida, this.especificaciones).subscribe({
+        next: (pedido) => {
+          console.log('Pedido creado con éxito:', pedido);
+          this.showModal = false; 
+        },
+        error: (err) => {
+          console.error('Error al crear el pedido:', err);
+        },
+      });
+    }
+  }
   
   showButtonsForVendedor() {
     return this.userRole === 'vendedor';
