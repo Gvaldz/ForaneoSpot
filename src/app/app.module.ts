@@ -15,6 +15,7 @@ import { AuthInterceptor } from './servicios/auth.interceptor';
 import { DashboardInicioComponent} from './shared/dashboard-inicio/dashboard-inicio.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/compiler';
 import {VendedoresFavoritosModule} from './vendedores-favoritos/vendedores-favoritos.module';
+import {OpinionesComidasModule} from './opiniones-comidas/opiniones-comidas.module';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -34,7 +35,8 @@ import {VendedoresFavoritosModule} from './vendedores-favoritos/vendedores-favor
     VendedoresFavoritosModule,
     ComidasModule,
     InmueblesModule,
-    HttpClientModule
+    HttpClientModule,
+    OpinionesComidasModule
   ],
   providers: [
     provideClientHydration(),

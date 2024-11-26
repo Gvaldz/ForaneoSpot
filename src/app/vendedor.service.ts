@@ -37,4 +37,8 @@ export class VendedorService {
   getOpiniones(vendedorId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseOpiniones}/${vendedorId}`);
   }
+
+  submitOpinion(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}opiniones_comidas/`, data); // Enviar los datos a la API
+  }
 }
