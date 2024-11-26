@@ -6,28 +6,8 @@
       {{ isEditMode ? 'Editar Comida' : 'Registro de comidas' }}
     </h1>
 
-    <div>
-      <label for="idopinion" class="josefin-font mb-8 text-center text-xl font-bold tracking-wider">ID de la opinión a eliminar</label>
-      <input
-        id="idopinion"
-        type="number"
-        [(ngModel)]="idopinion"
-        class="w-full rounded-2xl bg-[#D9D9D9] p-2"
-      />
-      <div *ngIf="idopinion && idopinion <= 0" class="text-red-500 text-sm">
-        El ID debe ser un número válido.
-      </div>
-    </div>
 
-    <div class="flex justify-center gap-4 mt-6">
-      <button
-        type="button"
-        class="rounded bg-red-500 px-6 py-3 text-white hover:bg-red-600"
-        (click)="deleteOpinion()"
-      >
-        Eliminar Opinión
-      </button>
-    </div>
+
 
 
     <form [formGroup]="menuForm" (ngSubmit)="onSubmit()" class="space-y-6">
