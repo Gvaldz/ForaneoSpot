@@ -5,9 +5,10 @@ import { ComidaHomeComponent } from './comida-home/comida-home.component';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MenuFormComponent } from './comida-form/menu-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { AppRoutingModule } from '../app-routing.module';
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    OpinionesComidasModule
   ]
 })
 export class ComidasModule { }

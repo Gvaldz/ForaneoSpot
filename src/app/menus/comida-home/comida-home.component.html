@@ -1,0 +1,17 @@
+<div class="min-h-screen bg-white">
+  <navbar></navbar>
+  <main class="mx-auto max-w-7xl p-8">
+    <div class="grid gap-8 grid-cols-2">
+      <app-card-comida ></app-card-comida>
+    </div>
+
+    <div class="mt-8 flex justify-end">
+    </div>
+    <button
+      (click)="navegarAlFormulario()"
+      class="rounded-md bg-[#1d3557] px-6 py-3 text-white shadow hover:bg-[#1d3557]/90 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-[#1d3557]/60"
+    >
+      Agregar comida
+    </button>
+  </main>
+</div>

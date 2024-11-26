@@ -1,0 +1,61 @@
+<div class="min-h-screen bg-white">
+  <navbar></navbar>
+
+  <main class="container mx-auto max-w-2xl px-4 py-8">
+    <h1 class="mb-8 text-center text-3xl font-light tracking-wider">
+      {{ isEditMode ? 'Editar Comida' : 'Agregar Comida' }}
+    </h1>
+
+    <form (ngSubmit)="onSubmit()" class="space-y-6">
+      <div class="space-y-4">
+        <div>
+          <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input
+            id="nombre"
+            [(ngModel)]="menuTemp.nombre"
+            name="nombre"
+            required
+            type="text"
+            class="w-full rounded-lg bg-gray-200 p-3"
+            placeholder="Nombre del menú"
+          />
+        </div>
+
+        <div>
+          <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+          <input
+            id="descripcion"
+            [(ngModel)]="menuTemp.descripcion"
+            name="descripcion"
+            required
+            type="text"
+            class="w-full rounded-lg bg-gray-200 p-3"
+            placeholder="Descripción del menú"
+          />
+        </div>
+
+        <div>
+          <label for="precio" class="block text-sm font-medium text-gray-700">Precio</label>
+          <input
+            id="precio"
+            [(ngModel)]="menuTemp.precio"
+            name="precio"
+            required
+            type="number"
+            class="w-full rounded-lg bg-gray-200 p-3"
+            placeholder="Precio del menú"
+          />
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-4">
+        <button
+          type="submit"
+          class="rounded bg-blue-700 px-6 py-3 text-white hover:bg-blue-800"
+        >
+          {{ isEditMode ? 'Actualizar' : 'Agregar' }}
+        </button>
+      </div>
+    </form>
+  </main>
+</div>

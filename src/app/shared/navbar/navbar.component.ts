@@ -26,10 +26,16 @@ export class NavbarComponent implements OnInit {
   navigateAlojamientos(){
     this.router.navigate(['/alojamientos']);
   }
-  navigateCuartos(){
-    this.router.navigate(['/menuCuartos']);
+  navigateCasas(){
+    this.router.navigate(['/menuCasas']);
   }
   navigateEdificios(){
     this.router.navigate(['/menuEdificios']);
+  }
+  navigateVendedores(){
+    this.router.navigate(['/vendedores']);
+  }
+  navigateVendedoresFavoritos(){
+    this.router.navigate(['/favoritos']);
   }
 }

@@ -1,2 +1,20 @@
-<navbar></navbar>
-menuEdificio
+<div class="min-h-screen bg-white flex flex-col items-center">
+  <!-- Navbar -->
+  <navbar class="w-full"></navbar>
+
+  <!-- Input de búsqueda -->
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    placeholder="Buscar Alojamiento..."
+    class="w-full max-w-md mt-6 mb-6 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+  />
+
+  <!-- Grid de tarjetas -->
+  <div class="grid gap-8 w-full max-w-5xl md:grid-cols-2">
+    <app-card-alojamiento
+      *ngFor="let edificio of filteredEdificios"
+      [alojamiento]="edificio"
+    ></app-card-alojamiento>
+  </div>
+</div>
