@@ -13,6 +13,7 @@ import { MenuFormComponent } from './comidas/comida-form/menu-form.component';
 import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
 import {MenuVendedoresComponent} from './vendedores-favoritos/menu-vendedores/menu-vendedores.component';
 import {FavoritosComponent} from './vendedores-favoritos/favoritos/favoritos.component';
+import {DetalleVendedorComponent} from './vendedores-favoritos/detalle-vendedor/detalle-vendedor.component';
 
 const routes: Routes = [
   { path: '', component: DashboardInicioComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'comida', component: ComidaHomeComponent},
   { path: 'vendedores', component: MenuVendedoresComponent},
   { path: 'favoritos', component: FavoritosComponent },
+  { path: 'vendedor/:id', component: DetalleVendedorComponent },
   { path: 'comida/agregar', component: MenuFormComponent },
   { path: 'comida/editar/:id', component: MenuFormComponent, },
   { path: 'alojamientos', component: MenusAlojamientosComponent },

@@ -19,9 +19,6 @@ export class VendedorService {
     return this.http.get<any[]>('http://3.213.191.244:8000/vendedores_favoritos/');
   }
 
-  obtenerVendedorPorId(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}vendedores/${id}`);
-  }
 
   agregarVendedorFavorito(id: number): Observable<any> {
     const body = { id_usuario_vendedor: id }; // Cambiamos la clave a id_usuario_vendedor
@@ -30,6 +27,10 @@ export class VendedorService {
 
   eliminarVendedorFavorito(idFavorito: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}vendedores_favoritos/${idFavorito}`);
+  }
+
+  obtenerDetallesVendedor(id: number): Observable<any> {
+    return this.http.get<any>(`http://3.213.191.244:8000/vendedores/${id}`);
   }
 
 }

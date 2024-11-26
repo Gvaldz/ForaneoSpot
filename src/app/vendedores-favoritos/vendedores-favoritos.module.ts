@@ -7,6 +7,7 @@ import { CardVendedorComponent } from './card-vendedor/card-vendedor.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import { FavoritosComponent } from './favoritos/favoritos.component';
+import { DetalleVendedorComponent } from './detalle-vendedor/detalle-vendedor.component';
 
 
 
@@ -14,7 +15,8 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
   declarations: [
     MenuVendedoresComponent,
     CardVendedorComponent,
-    FavoritosComponent
+    FavoritosComponent,
+    DetalleVendedorComponent
   ],
   imports: [
     CommonModule,

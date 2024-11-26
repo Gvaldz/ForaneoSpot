@@ -45,4 +45,9 @@ export class CardVendedorComponent {
       },
     });
   }
+
+  irAVendedor(): void {
+    // Redirige a la página del vendedor con el ID proporcionado
+    this.router.navigate([`/vendedor/${this.vendedor.id}`]);
+  }
 }

@@ -32,4 +32,10 @@ export class NavbarComponent implements OnInit {
   navigateEdificios(){
     this.router.navigate(['/menuEdificios']);
   }
+  navigateVendedores(){
+    this.router.navigate(['/vendedores']);
+  }
+  navigateVendedoresFavoritos(){
+    this.router.navigate(['/favoritos']);
+  }
 }
