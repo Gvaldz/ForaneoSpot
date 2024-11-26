@@ -2,19 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import {CardAlojamientoComponent} from './card-alojamiento/card-alojamiento.component';
-import { OpinionesComidaComponent } from './opiniones-comida/opiniones-comida.component';
 
 @NgModule({
     declarations: [
     NavbarComponent,
-      CardAlojamientoComponent,
-      OpinionesComidaComponent
+      CardAlojamientoComponent
     ],
-    exports: [
-        NavbarComponent,
-        CardAlojamientoComponent,
-        OpinionesComidaComponent
-    ],
+  exports: [
+    NavbarComponent,
+    CardAlojamientoComponent
+  ],
     imports: [
         CommonModule
     ]

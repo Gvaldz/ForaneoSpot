@@ -4,11 +4,6 @@ import { LoginserviceService } from '../../login/loginservice.service';
 import { UsuarioService } from '../usuarios.service';
 import { UsuarioBase, Foraneo, Vendedor, Arrendador } from '../usuario-base';
 import { Observable } from 'rxjs';
-=========
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
->>>>>>>>> Temporary merge branch 2
-
 
 @Component({
   selector: 'app-editar-perfil',
@@ -131,26 +126,6 @@ export class EditarPerfilComponent implements OnInit {
     } else {
       alert('Por favor, completa todos los campos requeridos.');
     }
-  }
-  
-    
-  ngOnInit(): void {
-
-    this.userRole = this.loginService.getUserRole();
-    this.userId = this.loginService.getUserId();
-
-    if (this.userId) {
-      this.obtenerDatosUsuario(this.userId);
-    }
-
-    this.profileForm = this.fb.group({
-<<<<<<<<< Temporary merge branch 1
-      nombre: ['', Validators.required],
-      sexo: ['', Validators.required],
-      tipoUsuario: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', Validators.required],
-    });
   }
 
   obtenerDatosUsuario(id: number): void {

@@ -8,7 +8,6 @@ import { MenuFormComponent } from './comida-form/menu-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
-import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.module';
 
 @NgModule({
   declarations: [
@@ -16,14 +15,13 @@ import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.mod
     ComidaHomeComponent,
     MenuFormComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    FormsModule,
-    OpinionesComidasModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        FormsModule
+    ]
 })
 export class ComidasModule { }

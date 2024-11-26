@@ -5,7 +5,7 @@ export interface Inmueble {
     codigo_postal: number,
     descripcion: string,
     nombre: string,
-    id: number,
+    idinmuebles: number,
 }
 
 export interface Edificio extends Inmueble {
