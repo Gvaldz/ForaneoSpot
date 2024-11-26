@@ -18,7 +18,6 @@ export class DetalleVendedorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Obtener el ID del vendedor desde la URL
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (id) {

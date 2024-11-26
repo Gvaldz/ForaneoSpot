@@ -30,7 +30,6 @@ export class MenuVendedoresComponent {
     if (!this.searchText.trim()) {
       return this.vendedores;
     }
-    // Filtra comidas según el nombre
     return this.vendedores.filter(data =>
       data.nombre.toLowerCase().includes(this.searchText.toLowerCase())
     );

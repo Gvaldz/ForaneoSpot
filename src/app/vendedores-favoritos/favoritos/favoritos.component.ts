@@ -22,7 +22,7 @@ export class FavoritosComponent implements OnInit {
           next: (favoritos) => {
             const favoritosIds = favoritos.map((favorito) => ({
               vendedorId: favorito.id_usuario_vendedor,
-              favoritoId: favorito.id, // El ID único de la relación favorito
+              favoritoId: favorito.id,
             }));
 
             this.vendedoresFavoritos = vendedores.filter((vendedor) => {
@@ -50,7 +50,6 @@ export class FavoritosComponent implements OnInit {
     this.vendedorService.eliminarVendedorFavorito(favoritoId).subscribe({
       next: () => {
         console.log('Vendedor eliminado de favoritos');
-        // Actualizar la lista local eliminando el favorito
         this.vendedoresFavoritos = this.vendedoresFavoritos.filter(
           (vendedor) => vendedor.favoritoId !== favoritoId
         );

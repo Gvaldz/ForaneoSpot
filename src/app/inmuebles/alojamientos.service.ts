@@ -12,7 +12,7 @@ export class AlojamientosService {
 
   private caracteristicasSubject = new BehaviorSubject<Caracteristicas[]>([]);
   caracteristicas$ = this.caracteristicasSubject.asObservable(); 
-  private apiUrl = 'http://3.213.191.244:8000/';
+  private apiUrl = 'http://3.213.191.244:8000';
   private apiservices = 'http://3.213.191.244:8000/servicios';
   private apiUrls: Record<string, string> = {
     Casa: 'http://3.213.191.244:8000/casas',
@@ -23,6 +23,14 @@ export class AlojamientosService {
   constructor(private http: HttpClient) {
   }
 
+  obtenerAlojamientos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/inmuebles`);
+  }
+
+  obtenerInmueblesPorServicio(servicioId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/inmuebles/servicio/${servicioId}`);
+  }
+
   addInmueble(tipo: string, datos: any): Observable<any> {
     return this.http.post(this.apiUrls[tipo], datos);
   }
@@ -31,10 +39,6 @@ export class AlojamientosService {
     return this.http.put<Inmueble>(`${this.apiUrl}/${id}`, inmueble).pipe(
       tap(() => this.obtenerAlojamientos())
     );
-  }
-
-  obtenerAlojamientos(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'inmuebles/');
   }
 
   obtenerCasas(): Observable<any[]> {
