@@ -2,36 +2,46 @@
   <!-- Encabezado -->
   <div class="encabezado bg-blue-600 text-white py-4 px-6 flex items-center justify-between">
     <div class="flex items-center">
-      <img [src]="vendedor.imagenes.file_path" alt="Perfil" class="w-12 h-12 rounded-full mr-4" />
+      <!-- Cambiar a la primera imagen como "perfil" -->
+      <img
+        *ngIf="vendedor.imagenes.length > 0"
+        [src]="'http://3.213.191.244:8000/' + vendedor.imagenes[0]?.file_path"
+        alt="Perfil"
+        class="w-12 h-12 rounded-full mr-4"
+      />
       <div>
         <h1 class="text-2xl font-bold">{{ vendedor.nombre }}</h1>
-        <p class="text-gray-200">Calificación: {{ vendedor.calificacion }}</p>
       </div>
     </div>
     <div class="botones">
-      <button class="bg-gray-100 text-blue-600 px-4 py-2 rounded mr-2">Comida</button>
-      <button class="bg-gray-100 text-blue-600 px-4 py-2 rounded">Alojamiento</button>
-    </div>
+      <button (click)="volver()" class="bg-gray-100 text-blue-600 px-4 py-2 rounded mr-2">Volver</button>
+     </div>
   </div>
 
   <!-- Sección de Imágenes -->
   <div class="imagenes-container grid grid-cols-2 lg:grid-cols-4 gap-4 my-6 px-6">
-    <div *ngFor="let img of vendedor.imagenes.file_path" class="imagen-item">
-      <img [src]="img" alt="Imagen del vendedor" class="w-full h-48 object-cover rounded" />
+    <div *ngFor="let img of vendedor.imagenes" class="imagen-item">
+      <img [src]="'http://3.213.191.244:8000/' +img.file_path" alt="Imagen del vendedor" class="w-full h-48 object-cover rounded" />
     </div>
   </div>
 
   <!-- Descripción -->
   <div class="descripcion px-6">
+    <h2 class="text-xl font-bold mb-4">Contacto</h2>
+    <p class="text-gray-700 mb-6">{{ vendedor.correo }}</p>
+    <p class="text-gray-700 mb-6">{{ vendedor.telefono }}</p>
+  </div>
+  <div class="descripcion px-6">
+    <h2 class="text-xl font-bold mb-4">Ubicacion</h2>
+    <p class="text-gray-700 mb-6">{{ vendedor.ubicacion }}</p>
+  </div>
+  <div class="descripcion px-6">
     <h2 class="text-xl font-bold mb-4">Descripción</h2>
     <p class="text-gray-700 mb-6">{{ vendedor.descripcion }}</p>
-
-    <!-- Servicios -->
-    <h2 class="text-xl font-bold mb-4">Servicios</h2>
-    <ul class="list-disc ml-6 text-gray-700">
-      <li *ngFor="let servicio of vendedor.servicios">{{ servicio }}</li>
-    </ul>
   </div>
 
 
+  <app-opiniones-comida [vendedorId]="vendedor.id"></app-opiniones-comida>
+
 </div>
+

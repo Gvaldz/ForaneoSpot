@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class VendedorService {
 
+  private baseOpiniones = 'http://3.213.191.244:8000/opiniones_comidas/vendedores';
   private apiUrl = 'http://3.213.191.244:8000/';
 
   constructor(private http: HttpClient) { }
@@ -33,4 +34,7 @@ export class VendedorService {
     return this.http.get<any>(`http://3.213.191.244:8000/vendedores/${id}`);
   }
 
+  getOpiniones(vendedorId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseOpiniones}/${vendedorId}`);
+  }
 }

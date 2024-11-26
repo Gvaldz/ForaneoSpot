@@ -1,0 +1,20 @@
+<div *ngIf="opiniones.length > 0; else noOpiniones">
+  <div class="promedio-calificacion bg-blue-500 text-white p-4 rounded-lg shadow-md">
+    <p class="text-xl font-semibold">Calificación Promedio: {{ calificacionPromedio | number: '1.1-1' }} / 10</p>
+  </div>
+  <div *ngFor="let opinion of opiniones" class="opinion-item bg-white shadow-md rounded-lg p-6 mb-4">
+    <div class="opinion">
+      <p class="text-lg font-semibold text-gray-800"><strong>Id De Opinion:</strong> {{ opinion.idopinion }}</p>
+
+      <p class="text-lg font-semibold text-gray-800"><strong>Calificación:</strong> {{ opinion.calificacion }}/10</p>
+      <p class="text-gray-600 mt-2"><strong>Descripción:</strong> {{ opinion.descripcion }}</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #noOpiniones>
+  <p class="text-center text-xl text-gray-500 font-semibold">No hay opiniones disponibles para este vendedor.</p>
+</ng-template>
