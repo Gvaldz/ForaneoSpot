@@ -1,26 +1,11 @@
-<link href="https://fonts.googleapis.com/css2?family=Jomhuria&family=Cabin:wght@400&display=swap" rel="stylesheet"> 
-
-
-<div class="h-[268px] relative flex flex-col justify-center items-center">
-  <!-- Fondo degradado -->
-  <div class="absolute inset-0 bg-gradient-to-b from-[#154667] to-white"></div>
-
-  <!-- Contenedor del título y botón -->
-  <div class="relative flex items-center justify-between w-full px-6 z-10">
-    <!-- Botón regresar alineado a la izquierda -->
-    <button (click)="regresar()" class="text-black text-xl font-normal font-['Inter'] underline">
-      Regresar
-    </button>
-
-    <!-- Título centrado -->
-    <div class="text-black text-[70px] font-semibold font-['Cabin'] text-center w-full">
-      Crea tu cuenta
-    </div>
-  </div>
-</div>
-
-<div>
-  <form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto">
+<<<<<<<<< Temporary merge branch 1
+<form [formGroup]="RegistrerForm" (ngSubmit)="onSubmit()" class="space-y-6 max-w-lg mx-auto">
+  <h1 class="josefin-font mb-5 mt-10 text-center text-4xl font-bold tracking-wider">
+    Crea tu cuenta
+  </h1>    
+=========
+<form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto" (ngSubmit)="onSubmit()">
+>>>>>>>>> Temporary merge branch 2
   <div>
     <label for="nombre" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
       Nombre
@@ -35,7 +20,7 @@
   </div>
 
   <div>
-    <label for="Apellidos" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="apellidos" class="block text-lg font-sans mb-2 text-gray-700">
       Apellidos
     </label>
     <input
@@ -48,7 +33,7 @@
   </div>
 
   <div>
-    <label for="Sexo" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="sexo" class="block text-lg font-sans mb-2 text-gray-700">
       Sexo
     </label>
     <select
@@ -65,20 +50,20 @@
   </div>
 
   <div>
-    <label for="email" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="correo" class="block text-lg font-sans mb-2 text-gray-700">
       Correo
     </label>
     <input
       id="email"
       type="email"
-      formControlName="email"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      formControlName="correo"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
 
   <div>
-    <label for="NumeroTel" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="telefono" class="block text-lg font-sans mb-2 text-gray-700">
       Número Telefónico
     </label>
     <input
@@ -91,20 +76,20 @@
   </div>
 
   <div>
-    <label for="password" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="contrasena" class="block text-lg font-sans mb-2 text-gray-700">
       Contraseña
     </label>
     <input
       id="password"
       type="password"
-      formControlName="password"
-      class="w-[716px] h-[54px] px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      formControlName="contrasena"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
 
   <div>
-    <label for="typeUsuario" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+    <label for="tipoUsuario" class="block text-lg font-sans mb-2 text-gray-700">
       Tipo De Usuario
     </label>
     <select
@@ -120,8 +105,32 @@
     </select>
   </div>
 
-  <div>
-    <label for="descripcion" class="w-[177px] h-11 text-justify text-black text-[32px] font-semibold font-['Josefin Sans']">
+  <div *ngIf="tipoUsuario === 'Foraneo'">
+    <label for="nacimiento" class="block text-lg font-sans mb-2 text-gray-700">
+      Fecha de Nacimiento
+    </label>
+    <input
+      id="nacimiento"
+      type="date"
+      formControlName="nacimiento"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      required
+    />
+  </div>
+  <div *ngIf="tipoUsuario === 'Vendedor'">
+    <label for="ubicacion" class="block text-lg font-sans mb-2 text-gray-700">
+      Ubicación
+    </label>
+    <input
+      id="ubicacion"
+      type="text"
+      formControlName="ubicacion"
+      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      required
+    />
+  </div>
+  <div *ngIf="tipoUsuario === 'Arrendador'">
+    <label for="descripcion" class="block text-lg font-sans mb-2 text-gray-700">
       Añade una descripción sobre ti
     </label>
     <textarea

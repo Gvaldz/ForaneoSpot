@@ -13,7 +13,9 @@ import { InmueblesModule } from './inmuebles/inmuebles.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './servicios/auth.interceptor';
 import { DashboardInicioComponent} from './shared/dashboard-inicio/dashboard-inicio.component';
-
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/compiler';
+import {VendedoresFavoritosModule} from './vendedores-favoritos/vendedores-favoritos.module';
+import {OpinionesComidasModule} from './opiniones-comidas/opiniones-comidas.module';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -27,12 +29,14 @@ import { DashboardInicioComponent} from './shared/dashboard-inicio/dashboard-ini
     AppRoutingModule,
     ReactiveFormsModule,
     MenusModule,
-    UsuariosModule, 
+    UsuariosModule,
     SharedModule,
     ServiciosModule,
+    VendedoresFavoritosModule,
     ComidasModule,
     InmueblesModule,
-    HttpClientModule
+    HttpClientModule,
+    OpinionesComidasModule
   ],
   providers: [
     provideClientHydration(),

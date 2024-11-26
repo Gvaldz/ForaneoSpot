@@ -11,6 +11,16 @@
     </div>
     <nav class="flex items-center gap-4">
       <button
+        *ngIf="userRole === 'foraneo'"
+        (click)="navigateVendedoresFavoritos()" class="rounded-full bg-yellow-500 px-8 py-2 text-blue-950 hover:bg-white/90">
+        Vendedores - Favoritos
+      </button>
+      <button
+        *ngIf="userRole === 'foraneo'"
+        (click)="navigateVendedores()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
+        Vendedores
+      </button>
+      <button
       *ngIf="userRole === 'foraneo' || userRole === 'vendedor'"
       (click)="navigateComida()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
         Comida
