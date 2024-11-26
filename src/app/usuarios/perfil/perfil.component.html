@@ -19,18 +19,18 @@
                 alt="Imagen del usuario"
                 class="absolute inset-0 h-full w-full object-cover"
               />
+              <label
+                for="fileInput"
+                class="absolute bottom-2 right-2 cursor-pointer rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-700"
+              >
+                Agregar foto
+              </label>
             </ng-template>
   
-            <label
-              for="fileInput"
-              class="absolute bottom-2 right-2 cursor-pointer rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-700"
-            >
-              Agregar foto
-            </label>
           </div>
-  
+          
           <input type="file" (change)="onFileSelected($event)" id="fileInput" class="hidden" />
-  
+          
           <div class="image-actions flex gap-2">
             <button
               type="button"

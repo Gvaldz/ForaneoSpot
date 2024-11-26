@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../usuarios.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-registrar-usuario',
   templateUrl: './registrar-usuario.component.html',
@@ -69,8 +70,13 @@ export class RegistrarUsuarioComponent implements OnInit {
   
     this.usuarioService.registrarUsuario(tipo, formData).subscribe(
       response => {
-        alert('Usuario registrado con éxito.');
-        this.router.navigate(['/']);
+        Swal.fire({
+          icon: 'success',
+          title: 'Usuario creado',
+          text: 'El usuario fue creado exitosamente.',
+          confirmButtonText: 'Aceptar'
+        })
+        this.router.navigate(['/comida']);
       },
       error => {
         console.error(error);
