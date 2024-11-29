@@ -29,26 +29,6 @@ export class EditarPerfilComponent implements OnInit {
     private usuarioService: UsuarioService
   ) {}
 
-  ngOnInit(): void {
-
-    this.userRole = this.loginService.getUserRole();
-    this.userId = this.loginService.getUserId();
-
-    if (this.userId) {
-      this.obtenerDatosUsuario(this.userId);
-    }
-
-    this.profileForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-      apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-      sexo: ['', Validators.required],
-      tipoUsuario: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).+$/)]],
-      descripcion: ['', [Validators.maxLength(200)]]
-    });
-  }
-
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {

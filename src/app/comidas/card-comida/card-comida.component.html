@@ -47,30 +47,14 @@
   </div>
 </div>
 
-<div class="mt-4 flex gap-4">
-  <button
-    *ngIf="userRole === 'foraneo'"
-    (click)="navegarMenuComida()"
-    class="w-fit bg-[#0057A0] px-4 py-2 text-white hover:bg-[#1d3557]/90 border-r-4 rounded-2xl"
-  >
-    Ordenar comida
-  </button>
+<button
+  *ngIf="userRole === 'foraneo'"
+  (click)="openModal()"
+  class="w-fit bg-[#0057A0] px-4 py-2 text-white hover:bg-[#1d3557]/90 border-r-4 rounded-2xl"
+>
+  Ordenar comida
+</button>
 
-  <button
-    *ngIf="userRole === 'vendedor'"
-    (click)="onEdit(comida)"
-    class="w-fit bg-[#0057A0] px-6 py-2 text-white hover:bg-[#1d3557]/90 rounded-2xl"
-  >
-    Editar
-  </button>
-  <button
-    *ngIf="userRole === 'vendedor'"
-    (click)="onDelete(comida.id)"
-    class="w-fit bg-[#0057A0] px-6 py-2 text-white hover:bg-[#c53030]/90 rounded-2xl"
-  >
-    Eliminar
-  </button>
-</div>
     </div>
   </div>
 </div>

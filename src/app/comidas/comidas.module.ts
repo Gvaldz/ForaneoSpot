@@ -23,6 +23,7 @@ import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.mod
     ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
+    OpinionesComidasModule,
     OpinionesComidasModule
   ]
 })
