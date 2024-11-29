@@ -36,9 +36,21 @@
       (click)="navigateEdificios()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
         Cuartos
       </button>
-      <button (click)="navigateEditar()" class="ml-1 rounded-ful mr-7 h-15 w-15">
+      <button (click)="toggleUserMenu()" class="ml-1 rounded-full mr-7 h-15 w-15">
         <img src="user.png" alt="USER" width="55px">
       </button>
+      
+      <div *ngIf="showUserMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
+        <ul>
+          <li (click)="navigateEditar()" class="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+            Perfil
+          </li>
+          <li (click)="logout()" class="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+            Cerrar sesión
+          </li>
+        </ul>
+      </div>
+      
     </nav>
   </div>
 </header>

@@ -8,18 +8,30 @@ import { LoginserviceService } from '../../login/loginservice.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
-
+  showUserMenu = false; 
   userRole: string | null = '';
 
   constructor(private router: Router, private loginService: LoginserviceService) {}
+
+  toggleUserMenu() {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  navigateEditar() {
+    this.router.navigate(['/perfil']);
+    this.showUserMenu = false; 
+  }
+
+  logout() {
+    this.loginService.logout();
+    this.router.navigate(['/home']); 
+    this.showUserMenu = false; 
+  }
 
   ngOnInit(): void{
     this.userRole = this.loginService.getUserRole();
   }
 
-  navigateEditar(){
-    this.router.navigate(['/perfil']);
-  }
   navigateComida(){
     this.router.navigate(['/comida']);
   }
