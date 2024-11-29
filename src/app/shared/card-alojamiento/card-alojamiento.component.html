@@ -1,18 +1,14 @@
-<div class="flex items-center bg-gray-200 rounded-lg shadow-lg max-w-sm border border-gray-300">
-  <!-- Imagen o ilustración -->
-  <div class="flex items-center justify-center bg-gray-400 w-1/2 h-full p-5">
-    <!-- Simulación de edificios -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
-      <path d="M7 2h6v16h-6V2zM2 9h4v9H2V9zm12 0h4v9h-4V9zM4 11H3v2h1v-2zm0 3H3v2h1v-2zm12-3h-1v2h1v-2zm0 3h-1v2h1v-2z" />
-    </svg>
+<div class="flex items-center bg-[#E1E5EB] shadow-lg w-200 h-60 border border-gray-300">
+  <div class="flex items-center justify-center bg-gray-500 w-1/2 h-full">
+    <img src="https://via.placeholder.com/150" alt="Imagen del alojamiento" class="h-full w-full object-cover">
   </div>
-  <!-- Texto -->
+  
   <div class="w-1/2 p-4">
     <h2 class="text-lg font-bold text-gray-800">{{alojamiento.nombre_inmueble}}</h2>
     <p class="text-sm text-gray-600">{{alojamiento.tipo}}</p>
     <p class="text-sm text-gray-600">{{alojamiento.descripcion}}</p>
     <p class="text-lg font-semibold text-gray-800">${{alojamiento.renta}}/Mensuales</p>
-    <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+    <button class="mt-2 px-16 py-2 bg-[#0057A0] text-white rounded-3xl hover:bg-[#235680] ml-6">
       Ver
     </button>
   </div>

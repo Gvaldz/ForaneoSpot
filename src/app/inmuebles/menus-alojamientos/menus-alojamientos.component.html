@@ -28,7 +28,7 @@
     </button>
   </div>  
 
-  <div class="grid gap-8 w-full max-w-5xl md:grid-cols-2" *ngIf="filteredAlojamientos.length > 0; else noAlojamientos">
+  <div class="flex flex-wrap gap-8 w-full max-w-5xl md:grid-cols-2 justify-between" *ngIf="filteredAlojamientos.length > 0; else noAlojamientos">
     <app-card-alojamiento
       *ngFor="let alojamiento of filteredAlojamientos"
       [alojamiento]="alojamiento"
