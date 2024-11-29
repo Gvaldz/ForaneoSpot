@@ -1,4 +1,7 @@
-<form [formGroup]="RegistrerForm" class="space-y-6 max-w-lg mx-auto" (ngSubmit)="onSubmit()">
+<form [formGroup]="RegistrerForm" (ngSubmit)="onSubmit()" class="space-y-6 max-w-lg mx-auto">
+  <h1 class="josefin-font mb-5 mt-10 text-center text-4xl font-bold tracking-wider">
+    Crea tu cuenta
+  </h1>    
   <div>
     <label for="nombre" class="block text-lg font-sans mb-2 text-gray-700">
       Nombre
@@ -7,115 +10,154 @@
       id="nombre"
       type="text"
       formControlName="nombre"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('nombre')?.invalid && RegistrerForm.get('nombre')?.touched" class="text-red-500 text-sm">
+      Nombre es requerido y debe de ser válido.
+    </div>
   </div>
-
+  
   <div>
-    <label for="Apellidos" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="apellidos" class="block text-lg font-sans mb-2 text-gray-700">
       Apellidos
     </label>
     <input
-      id="Apellidos"
+      id="apellidos"
       type="text"
       formControlName="apellidos"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('apellidos')?.invalid && RegistrerForm.get('apellidos')?.touched" class="text-red-500 text-sm">
+      Apellidos son requeridos y deben ser válidos.
+    </div>
   </div>
-
   <div>
-    <label for="Sexo" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="sexo" class="block text-lg font-sans mb-2 text-gray-700">
       Sexo
     </label>
     <select
-      id="Sexo"
+      id="sexo"
       formControlName="sexo"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
-      <option value="" disabled selected>Selecciona tu sexo</option>
+      <option value="" disabled>Selecciona tu sexo</option>
       <option value="Masculino">Masculino</option>
       <option value="Femenino">Femenino</option>
       <option value="Otro">Otro</option>
     </select>
   </div>
-
   <div>
-    <label for="email" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="correo" class="block text-lg font-sans mb-2 text-gray-700">
       Correo
     </label>
     <input
-      id="email"
+      id="correo"
       type="email"
-      formControlName="email"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      formControlName="correo"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('correo')?.invalid && RegistrerForm.get('correo')?.touched" class="text-red-500 text-sm">
+      El correo es requerido y debe de ser válido.
+    </div>
   </div>
-
   <div>
-    <label for="NumeroTel" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="telefono" class="block text-lg font-sans mb-2 text-gray-700">
       Número Telefónico
     </label>
     <input
-      id="NumeroTel"
+      id="telefono"
       type="tel"
       formControlName="telefono"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('telefono')?.invalid && RegistrerForm.get('telefono')?.touched" class="text-red-500 text-sm">
+      El télefono es requerido y debe de ser válido
+    </div>
   </div>
-
   <div>
-    <label for="password" class="block text-lg font-sans mb-2 text-gray-700">
-      Contraseña
+    <label for="contrasena" class="block text-lg font-sans mb-2 text-gray-700">
+      Contraseña (Mínimo 6 caracteres, incluir una mayúscula, una minúscula, un número y un símbolo especial)
     </label>
     <input
-      id="password"
+      id="contrasena"
       type="password"
-      formControlName="password"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      formControlName="contrasena"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('contrasena')?.invalid && RegistrerForm.get('contrasena')?.touched" class="text-red-500 text-sm">
+      La contraseña debe tener al menos 6 caracteres, incluir una mayúscula, una minúscula, un número y un símbolo especial.
+    </div>
   </div>
-
   <div>
-    <label for="typeUsuario" class="block text-lg font-sans mb-2 text-gray-700">
+    <label for="tipoUsuario" class="block text-lg font-sans mb-2 text-gray-700">
       Tipo De Usuario
     </label>
     <select
-      id="typeUsuario"
+      id="tipoUsuario"
       formControlName="tipoUsuario"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
-      <option value="" disabled selected>Selecciona el tipo de usuario</option>
+      <option value="" disabled>Selecciona el tipo de usuario</option>
       <option value="Foraneo">Foráneo</option>
       <option value="Arrendador">Arrendador</option>
       <option value="Vendedor">Vendedor de alimentos</option>
     </select>
   </div>
 
-  <div>
+  <div *ngIf="tipoUsuario === 'Foraneo'">
+    <label for="nacimiento" class="block text-lg font-sans mb-2 text-gray-700">
+      Fecha de Nacimiento
+    </label>
+    <input
+      id="nacimiento"
+      type="date"
+      formControlName="nacimiento"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      required
+    />
+  </div>
+  <div *ngIf="tipoUsuario === 'Vendedor'">
+    <label for="ubicacion" class="block text-lg font-sans mb-2 text-gray-700">
+      Ubicación
+    </label>
+    <input
+      id="ubicacion"
+      type="text"
+      formControlName="ubicacion"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
+      required
+    />
+  </div>
+  <div *ngIf="tipoUsuario === 'Arrendador'">
     <label for="descripcion" class="block text-lg font-sans mb-2 text-gray-700">
       Añade una descripción sobre ti
     </label>
     <textarea
       id="descripcion"
       formControlName="descripcion"
-      class="w-full h-32 px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
+      class="w-full h-32 px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:bg-white focus:outline-none resize-none"
       required
     ></textarea>
   </div>
 
-  <div>
+  <div class="flex gap-4 mt-6">
     <button
       type="submit"
-      class="w-full bg-blue-600 text-white py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-    >
-      CREAR CUENTA
+      class="flex-1 bg-[#154667] text-white py-3 rounded-lg text-xl font-semibold hover:bg-[#112a3a] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      Crear cuenta
     </button>
-  </div>
+    <button
+      type="button"
+      (click)="cancelar()"
+      class="flex-1 bg-[#D9D9D9] py-3 rounded-lg text-xl font-semibold hover:bg-[#9d9d9d] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      Cancelar
+    </button>
+  </div>  
 </form>
