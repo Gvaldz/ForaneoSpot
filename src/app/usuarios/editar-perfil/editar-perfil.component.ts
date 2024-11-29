@@ -5,6 +5,7 @@ import { UsuarioService } from '../usuarios.service';
 import { UsuarioBase, Foraneo, Vendedor, Arrendador } from '../usuario-base';
 import { Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-editar-perfil',
   templateUrl: './editar-perfil.component.html',
@@ -126,6 +127,25 @@ export class EditarPerfilComponent implements OnInit {
     } else {
       alert('Por favor, completa todos los campos requeridos.');
     }
+  }
+  
+    
+  ngOnInit(): void {
+
+    this.userRole = this.loginService.getUserRole();
+    this.userId = this.loginService.getUserId();
+
+    if (this.userId) {
+      this.obtenerDatosUsuario(this.userId);
+    }
+
+    this.profileForm = this.fb.group({
+      nombre: ['', Validators.required],
+      sexo: ['', Validators.required],
+      tipoUsuario: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', Validators.required],
+    });
   }
 
   obtenerDatosUsuario(id: number): void {

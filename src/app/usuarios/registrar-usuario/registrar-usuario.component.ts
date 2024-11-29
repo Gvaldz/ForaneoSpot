@@ -42,11 +42,13 @@ export class RegistrarUsuarioComponent implements OnInit {
       Arrendador: { descripcion: ['', Validators.required] },
     };
 
+
     Object.keys(this.RegistrerForm.controls).forEach(control => {
       if (control in camposAdicionales[tipo]) {
         this.RegistrerForm.removeControl(control);
       }
     });
+
 
     if (camposAdicionales[tipo]) {
       Object.entries(camposAdicionales[tipo]).forEach(([campo, config]) => {
@@ -55,18 +57,22 @@ export class RegistrarUsuarioComponent implements OnInit {
     }
   }
 
+
   onSubmit(): void {
     if (this.RegistrerForm.invalid) {
       alert('Por favor completa todos los campos requeridos.');
       return;
     }
 
+
     const tipo = this.RegistrerForm.value.tipoUsuario;
+
 
     const formData = {
       ...this.RegistrerForm.value,
       nombre: `${this.RegistrerForm.value.nombre} ${this.RegistrerForm.value.apellidos}`.trim(),
     };
+
 
     this.usuarioService.registrarUsuario(tipo, formData).subscribe(
       response => {

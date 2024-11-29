@@ -1,31 +1,27 @@
 import { Component, Input } from '@angular/core';
-import {VendedorService} from '../../vendedor.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { VendedorService } from '../../vendedor.service';
+import { ActivatedRoute } from '@angular/router';
+import {ComidaService} from '../../comidas/comida.service';
+import {LoginserviceService} from '../../login/loginservice.service';
+
 @Component({
   selector: 'app-opiniones-comida',
   templateUrl: './opiniones-comida.component.html',
-  styleUrl: './opiniones-comida.component.css'
+  styleUrls: ['./opiniones-comida.component.css'],
 })
 export class OpinionesComidaComponent {
   @Input() vendedorId!: number;
+  @Input() usuarioId!: number; // ID del usuario actual
   opiniones: any[] = [];
   calificacionPromedio: number = 0;
   isLoading: boolean = true;
 
-  constructor(private vendedorService: VendedorService, private route: ActivatedRoute) {}
+  constructor(private comidaService: ComidaService,private vendedorService: VendedorService, private route: ActivatedRoute, private loginserviceService: LoginserviceService) {}
 
   ngOnInit(): void {
-    // Verifica que el vendedorId no sea NaN y es válido
-    console.log("Vendedor ID:", this.vendedorId);  // Verifica el valor de vendedorId
-
-    if (isNaN(this.vendedorId) || this.vendedorId <= 0) {
-      console.error('Vendedor ID no válido:', this.vendedorId);
-      return;  // Si el ID no es válido, no hacemos la solicitud
-    }
-
-    // Llama al método que obtiene las opiniones, pasándole el vendedorId
-    this.obtenerOpiniones(this.vendedorId);
-
+    console.log('Vendedor ID:', this.vendedorId);
+    // @ts-ignore
+    this.usuarioId = this.loginserviceService.getUserId();
     if (isNaN(this.vendedorId) || this.vendedorId <= 0) {
       console.error('Vendedor ID no válido:', this.vendedorId);
       return;
@@ -35,9 +31,9 @@ export class OpinionesComidaComponent {
   }
 
   obtenerOpiniones(vendedorId: number): void {
-    this.vendedorService.getOpiniones(this.vendedorId).subscribe(
+    this.vendedorService.getOpiniones(vendedorId).subscribe(
       (data) => {
-        this.opiniones = data; // Almacenar las opiniones obtenidas
+        this.opiniones = data;
         this.calificarVendedor();
       },
       (error) => {
@@ -51,8 +47,22 @@ export class OpinionesComidaComponent {
       const sumaCalificaciones = this.opiniones.reduce((acc, opinion) => acc + opinion.calificacion, 0);
       this.calificacionPromedio = sumaCalificaciones / this.opiniones.length;
     } else {
-      this.calificacionPromedio = 0; // Si no hay opiniones, el promedio es 0
+      this.calificacionPromedio = 0;
     }
   }
 
+  eliminarOpinion(idopinion: number): void {
+    if (confirm('¿Estás seguro de que deseas eliminar esta opinión?')) {
+      this.comidaService.deleteOpinion(idopinion).subscribe(
+        () => {
+          // Elimina la opinión de la lista localmente
+          this.opiniones = this.opiniones.filter((opinion) => opinion.idopinion !== idopinion);
+          this.calificarVendedor(); // Recalcula la calificación promedio
+        },
+        (error) => {
+          console.error('Error al eliminar la opinión:', error);
+        }
+      );
+    }
+  }
 }

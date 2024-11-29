@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComidaService } from '../comida.service';
 import { Comida } from '../comida';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 @Component({
   selector: 'app-menu-form',
@@ -101,7 +102,6 @@ export class MenuFormComponent implements OnInit {
   onCancel(): void {
     this.router.navigate(['/comida']);
   }
-
 
 
 }
