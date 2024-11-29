@@ -4,7 +4,8 @@
   <main class="container mx-auto max-w-2xl px-4 py-8">
     <h1 class="josefin-font mb-5 text-center text-4xl font-bold tracking-wider">
       {{ isEditMode ? 'Editar Comida' : 'Registro de comidas' }}
-    </h1>    
+    </h1>
+
 
     <form [formGroup]="menuForm" (ngSubmit)="onSubmit()" class="space-y-6">
       <div class="space-y-4">
@@ -20,7 +21,7 @@
             Nombre es requerido y debe tener un máximo de 50 caracteres.
           </div>
         </div>
-        
+
         <div>
           <label for="precio" class="josefin-font mb-8 text-center text-xl font-bold tracking-wider">Precio</label>
           <input
@@ -55,13 +56,13 @@
 
       <div class="space-y-4">
         <h2 class="josefin-font mb-8 text-center text-xl font-bold tracking-wider">Sube una foto de tu platillo</h2>
-        
+
         <div class="grid gap-4">
           <div class="h-40 w-full bg-[#D9D9D9] rounded-lg flex items-center justify-center">
             <ng-container *ngIf="selectedFile">
-              <img 
-                [src]="selectedFilePreview" 
-                alt="Imagen seleccionada" 
+              <img
+                [src]="selectedFilePreview"
+                alt="Imagen seleccionada"
                 class="h-full w-full object-cover rounded-lg"
               />
             </ng-container>
@@ -69,7 +70,7 @@
               <p class="text-sm text-gray-700">No hay imagen seleccionada</p>
             </ng-container>
           </div>
-      
+
           <label
             for="file-upload"
             class="flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-[#D9D9D9] hover:border-blue-500 hover:bg-gray-200"
@@ -84,16 +85,16 @@
             >
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
-            <input 
-              id="file-upload" 
-              type="file" 
-              class="hidden" 
-              (change)="onFileSelected($event)" 
+            <input
+              id="file-upload"
+              type="file"
+              class="hidden"
+              (change)="onFileSelected($event)"
               accept="image/*"
             />
           </label>
         </div>
-      
+
         <div class="flex justify-center gap-4 mt-6">
           <button
             type="submit"
@@ -110,7 +111,7 @@
           </button>
         </div>
       </div>
-      
+
 
     </form>
   </main>

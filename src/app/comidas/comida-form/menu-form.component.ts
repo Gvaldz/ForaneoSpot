@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComidaService } from '../comida.service';
 import { Comida } from '../comida';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 @Component({
   selector: 'app-menu-form',
@@ -12,11 +13,12 @@ import { Comida } from '../comida';
 
 export class MenuFormComponent implements OnInit {
   selectedFiles: File[] = [];
-  menuForm!: FormGroup; 
+  menuForm!: FormGroup;
   isEditMode = false;
   menuId!: number;
-  selectedFile: File | null = null; 
-  selectedFilePreview: string | null = null; 
+  idopinion: number = 0;
+  selectedFile: File | null = null;
+  selectedFilePreview: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +29,7 @@ export class MenuFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuForm = this.fb.group({
-      id: [0], 
+      id: [0],
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
       descripcion: ['', [Validators.required, Validators.maxLength(200)]],
       precio: [, [Validators.required, Validators.min(1)]],
@@ -40,7 +42,7 @@ export class MenuFormComponent implements OnInit {
       this.comidaService.getComidas().subscribe((menus: Comida[]) => {
         const menuToEdit = menus.find(menu => menu.id === menuId);
         if (menuToEdit) {
-          this.menuForm.patchValue(menuToEdit); 
+          this.menuForm.patchValue(menuToEdit);
         }
       });
     }
@@ -49,7 +51,7 @@ export class MenuFormComponent implements OnInit {
   onSubmit(): void {
     if (this.menuForm.valid) {
       const menuData = this.menuForm.value;
-  
+
       if (this.isEditMode) {
         this.comidaService.updateComida(this.menuId, menuData).subscribe(
           (updatedMenu) => {
@@ -63,7 +65,7 @@ export class MenuFormComponent implements OnInit {
       } else {
         this.comidaService.addComida(menuData).subscribe(
           (newMenu) => {
-            if (this.selectedFile) { 
+            if (this.selectedFile) {
               this.uploadImages('menu', newMenu.id);
             }
             this.router.navigate(['/comida']);
@@ -73,7 +75,7 @@ export class MenuFormComponent implements OnInit {
       }
     }
   }
-  
+
   uploadImages(entity: string, entityId: number): void {
     if (this.selectedFile) {
       this.comidaService.uploadImages(entity, entityId, [this.selectedFile]).subscribe(
@@ -82,14 +84,15 @@ export class MenuFormComponent implements OnInit {
       );
     }
   }
-  
+
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
       const reader = new FileReader();
       reader.onload = () => {
-        this.selectedFilePreview = reader.result as string; 
+        this.selectedFilePreview = reader.result as string;
       };
       reader.readAsDataURL(this.selectedFile);
     }
@@ -98,5 +101,7 @@ export class MenuFormComponent implements OnInit {
   onCancel(): void {
     this.router.navigate(['/comida']);
   }
+
+
 
 }

@@ -13,10 +13,10 @@ export class ComidaService {
   private selectedComida = new BehaviorSubject<Comida | null>(null);
   selectedComida$ = this.selectedComida.asObservable();
   private comidasSubject = new BehaviorSubject<Comida[]>([]);
-  comidas$ = this.comidasSubject.asObservable(); 
+  comidas$ = this.comidasSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadComidas(); 
+    this.loadComidas();
   }
 
   private loadComidas() {
@@ -32,15 +32,15 @@ export class ComidaService {
   addComida(Comida: Comida): Observable<Comida> {
     return this.http.post<Comida>(this.apiUrl, Comida).pipe(
       tap(() => {
-        this.loadComidas(); 
+        this.loadComidas();
       })
     );
   }
-  
+
   updateComida(id: number, Comida: Comida): Observable<Comida> {
     return this.http.put<Comida>(`${this.apiUrl}/${id}`, Comida).pipe(
       tap(() => {
-        this.loadComidas(); 
+        this.loadComidas();
       })
     );
   }
@@ -53,7 +53,7 @@ export class ComidaService {
         );
       })
     );
-  }  
+  }
 
   selectComidaForEdit(Comida: Comida) {
     this.selectedComida.next(Comida);
@@ -63,11 +63,11 @@ export class ComidaService {
     const formData = new FormData();
     formData.append('entity', entity);
     formData.append('entity_id', entityId.toString());
-  
+
     files.forEach((file) => {
       formData.append('files', file);
     });
-  
+
     return this.http.post<any>('http://3.213.191.244:8000/imagenes/upload-images/', formData);
   }
   

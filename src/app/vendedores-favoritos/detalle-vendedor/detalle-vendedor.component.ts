@@ -8,6 +8,7 @@ import { VendedorService } from '../../vendedor.service';
   styleUrls: ['./detalle-vendedor.component.css'],
 })
 export class DetalleVendedorComponent implements OnInit {
+
   vendedor: any;
   cargando: boolean = true;
   error: string | null = null;
@@ -36,6 +37,7 @@ export class DetalleVendedorComponent implements OnInit {
       this.error = 'ID de vendedor no válido.';
       this.cargando = false;
     }
+
   }
 
   volver(): void {
