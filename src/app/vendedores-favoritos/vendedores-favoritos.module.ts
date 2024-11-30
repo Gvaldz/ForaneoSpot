@@ -9,6 +9,7 @@ import {SharedModule} from "../shared/shared.module";
 import { FavoritosComponent } from './favoritos/favoritos.component';
 import { DetalleVendedorComponent } from './detalle-vendedor/detalle-vendedor.component';
 import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.module';
+import { ComidasModule } from '../comidas/comidas.module';
 
 
 
@@ -24,6 +25,7 @@ import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.mod
     ReactiveFormsModule,
     SharedModule,
     FormsModule,
+    ComidasModule,
     OpinionesComidasModule
   ]
 })

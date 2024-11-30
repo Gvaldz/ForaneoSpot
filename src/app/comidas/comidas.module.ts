@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.module';
+import { OpinionesComidaComponent } from '../opiniones-comidas/opiniones-comida/opiniones-comida.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.mod
     ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
-    OpinionesComidasModule,
-  ]
+  ],
+
 })
 export class ComidasModule { }

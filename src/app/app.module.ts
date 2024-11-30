@@ -36,7 +36,8 @@ import {OpinionesComidasModule} from './opiniones-comidas/opiniones-comidas.modu
     ComidasModule,
     InmueblesModule,
     HttpClientModule,
-    OpinionesComidasModule
+    OpinionesComidasModule,
+    ComidasModule
   ],
   providers: [
     provideClientHydration(),
