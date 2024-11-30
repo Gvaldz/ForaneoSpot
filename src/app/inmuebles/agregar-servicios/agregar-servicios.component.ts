@@ -23,14 +23,24 @@ export class AgregarServiciosComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.inmuebleId = +params['id'];
     });
-
+  
     this.serviciosService.getServicios().subscribe(
       (data) => {
         this.servicios = data;
       },
       (error) => console.error('Error al obtener servicios:', error)
     );
+  
+    this.serviciosService.getServiciosInmueble(this.inmuebleId).subscribe(
+      (data) => {
+        data.forEach(servicio => {
+          this.selectedServicios.add(servicio.idservicio);
+        });
+      },
+      (error) => console.error('Error al obtener servicios del inmueble:', error)
+    );
   }
+  
 
   toggleServicio(idservicio: number, event: Event): void {
     const checkbox = event.target as HTMLInputElement; 
@@ -44,23 +54,52 @@ export class AgregarServiciosComponent implements OnInit {
   }
   
   onSubmit(): void {
-    if (this.selectedServicios.size === 0) {
-      return;
-    }
-
-    const requests = Array.from(this.selectedServicios).map(idservicio =>
-      this.serviciosService.addServicioInmueble(idservicio, this.inmuebleId)
+    const serviciosActuales: number[] = Array.from(this.selectedServicios);
+  
+    this.serviciosService.getServiciosInmueble(this.inmuebleId).subscribe(
+      (data) => {
+        const serviciosExistentes = data.map((s: any) => s.idservicio);
+  
+        const serviciosAAgregar = serviciosActuales.filter(
+          (id) => !serviciosExistentes.includes(id)
+        );
+  
+        const serviciosAEliminar = serviciosExistentes.filter(
+          (id) => !serviciosActuales.includes(id)
+        );
+  
+        const agregarRequests = serviciosAAgregar.map((idservicio) =>
+          this.serviciosService.addServicioInmueble(idservicio, this.inmuebleId).toPromise()
+        );
+  
+        const eliminarRequests = serviciosAEliminar.map((idservicio) => {
+          const servicioEliminar = data.find(
+            (s: any) => s.idservicio === idservicio
+          );
+          return this.serviciosService.deleteServicioInmueble(servicioEliminar.id).toPromise();
+        });
+  
+        Promise.all([...agregarRequests, ...eliminarRequests])
+          .then(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Servicios actualizados',
+              text: 'Los servicios del inmueble se actualizaron correctamente.',
+              confirmButtonText: 'Aceptar',
+            }).then(() => this.router.navigate(['/alojamientos']));
+          })
+          .catch((error) => {
+            console.error('Error al actualizar servicios:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un problema al actualizar los servicios.',
+              confirmButtonText: 'Aceptar',
+            });
+          });
+      },
+      (error) => console.error('Error al obtener servicios actuales:', error)
     );
-
-    Promise.all(requests.map(req => req.toPromise()))
-    Swal.fire({
-      icon: 'success',
-      title: 'Servicios agregados',
-      text: 'Los servicios fueron agregados exitosamente.',
-      confirmButtonText: 'Aceptar'
-    }).then(() => {
-        this.router.navigate(['/alojamientos']); 
-      })
-      .catch((error) => console.error('Error al asignar servicios:', error));
   }
+  
 }

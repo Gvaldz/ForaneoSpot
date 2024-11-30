@@ -35,6 +35,7 @@ const routes: Routes = [
   { path: 'menuCasas', component: MenuCasasComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
   { path: 'inmuebles/agregar', component: FormInmueblesComponent},
+  { path: 'inmueble/editar/:tipo_inmueble/:id', component: FormInmueblesComponent, },
   { path: 'inmuebles/agregar/servicios/:id', component: AgregarServiciosComponent },
   { path: '**', redirectTo: 'home' },
   { path: '', redirectTo: '', pathMatch: 'full' },

@@ -37,6 +37,7 @@ export class CardComidaComponent {
   onEdit(menu: any) {
     this.router.navigate(['comida/editar', menu.id]);
   }
+  
   onDelete(menuId: number) {
     if (confirm('¿Estás seguro de eliminar este menú?')) {
       this.comidaService.deleteComida(menuId).subscribe(

@@ -22,8 +22,7 @@ import { AppRoutingModule } from '../app-routing.module';
     ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
-    OpinionesComidasModule,
-    OpinionesComidasModule
-  ]
+  ],
+
 })
 export class ComidasModule { }

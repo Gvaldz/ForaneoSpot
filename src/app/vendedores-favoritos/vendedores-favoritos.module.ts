@@ -8,6 +8,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import { FavoritosComponent } from './favoritos/favoritos.component';
 import { DetalleVendedorComponent } from './detalle-vendedor/detalle-vendedor.component';
+import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.module';
+import { ComidasModule } from '../comidas/comidas.module';
 
 
 
@@ -22,7 +24,9 @@ import { DetalleVendedorComponent } from './detalle-vendedor/detalle-vendedor.co
     CommonModule,
     ReactiveFormsModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ComidasModule,
+    OpinionesComidasModule
   ]
 })
 export class VendedoresFavoritosModule { }

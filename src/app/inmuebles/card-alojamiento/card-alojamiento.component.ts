@@ -20,11 +20,11 @@ export class CardAlojamientoComponent implements OnInit{
     this.userRole = this.loginService.getUserRole();
   }
 
-  onEdit() {
-    const tipo = this.alojamiento.tipo_inmueble;
-    const id = this.alojamiento.idinmuebles;
-    this.router.navigate([`${tipo.toLowerCase()}/editar`, id]);
-  }
+  onEdit(alojamiento: any) {
+    const id = alojamiento.idinmuebles;
+    const tipo_inmueble = this.alojamiento.tipo_inmueble;
+    this.router.navigate(["inmueble/editar/", tipo_inmueble, id]); 
+  }  
   
   onDelete() {
     const tipo = this.alojamiento.tipo_inmueble;
