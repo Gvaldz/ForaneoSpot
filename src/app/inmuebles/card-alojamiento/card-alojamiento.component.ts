@@ -21,20 +21,20 @@ export class CardAlojamientoComponent implements OnInit{
   }
 
   onEdit() {
-    const tipo = this.alojamiento.tipo;
-    const id = this.alojamiento.id;
+    const tipo = this.alojamiento.tipo_inmueble;
+    const id = this.alojamiento.idinmuebles;
     this.router.navigate([`${tipo.toLowerCase()}/editar`, id]);
   }
   
   onDelete() {
-    const tipo = this.alojamiento.tipo;
-    const id = this.alojamiento.id;
+    const tipo = this.alojamiento.tipo_inmueble;
+    const id = this.alojamiento.idinmuebles;
   
     if (confirm('¿Estás seguro de eliminar este inmueble?')) {
       this.inmuebleService.deleteInmueblePorTipo(tipo, id).subscribe(
         () => {
           Swal.fire('Eliminado!', 'El inmueble ha sido eliminado.', 'success');
-          this.router.navigate(['/inmuebles']); 
+          this.router.navigate(['/alojamientos']); 
         },
         (error: any) => {
           console.error('Error al eliminar el inmueble:', error);
@@ -44,5 +44,4 @@ export class CardAlojamientoComponent implements OnInit{
     }
   }
   
-
 }

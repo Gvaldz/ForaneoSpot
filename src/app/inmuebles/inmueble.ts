@@ -6,6 +6,7 @@ export interface Inmueble {
     descripcion: string,
     nombre: string,
     idinmuebles: number,
+    tipo_inmueble: string
 }
 
 export interface Edificio extends Inmueble {
