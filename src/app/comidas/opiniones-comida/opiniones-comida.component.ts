@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { VendedorService } from '../../vendedor.service';
 import { ActivatedRoute } from '@angular/router';
-import {ComidaService} from '../../comidas/comida.service';
+import {ComidaService} from '../comida.service';
 import {LoginserviceService} from '../../login/loginservice.service';
 
 @Component({

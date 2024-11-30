@@ -24,7 +24,6 @@ import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.mod
     AppRoutingModule,
     FormsModule,
     OpinionesComidasModule,
-    OpinionesComidasModule
   ]
 })
 export class ComidasModule { }
