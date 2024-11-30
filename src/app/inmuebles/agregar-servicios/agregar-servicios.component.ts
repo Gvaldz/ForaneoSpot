@@ -33,7 +33,7 @@ export class AgregarServiciosComponent implements OnInit {
   }
 
   toggleServicio(idservicio: number, event: Event): void {
-    const checkbox = event.target as HTMLInputElement; // Aseguramos el tipo del evento
+    const checkbox = event.target as HTMLInputElement; 
     const isChecked = checkbox.checked;
   
     if (isChecked) {
