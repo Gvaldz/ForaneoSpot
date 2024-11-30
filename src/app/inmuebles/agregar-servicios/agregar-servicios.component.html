@@ -4,14 +4,16 @@
     <form (ngSubmit)="onSubmit()" class="space-y-4">
       <div *ngFor="let servicio of servicios">
         <label class="flex items-center space-x-3">
-            <input
+          <input
             type="checkbox"
             [value]="servicio.idservicios"
+            [checked]="selectedServicios.has(servicio.idservicios)"
             (change)="toggleServicio(servicio.idservicios, $event)"
-          />          
+          />
           <span>{{ servicio.descripcion }}</span>
         </label>
       </div>
+      
   
       <button
         type="submit"

@@ -189,10 +189,8 @@ removeFileById(image: { id: number }): void {
         const inmuebleData = this.inmuebleForm.value;
   
         if (this.isEditMode) {
-          // Actualizar inmueble
           this.inmuebleServicio.updateInmueblePorTipo(this.tipo_inmueble, this.inmuebleId, inmuebleData).subscribe(
             () => {
-              // Enviar imágenes a eliminar
               if (this.removedImageIds.length > 0) {
                 console.log('Imágenes a eliminar:', this.removedImageIds);
                 this.removedImageIds.forEach((imageId) => {
@@ -203,7 +201,6 @@ removeFileById(image: { id: number }): void {
                 });
               }
   
-              // Subir nuevas imágenes
               if (this.selectedFiles.length > 0) {
                 this.uploadImages('inmueble', this.inmuebleId);
               }
@@ -213,7 +210,7 @@ removeFileById(image: { id: number }): void {
                 title: 'Inmueble actualizado',
                 text: 'El inmueble se actualizó correctamente.',
                 confirmButtonText: 'Aceptar',
-              }).then(() => this.router.navigate(['/alojamientos']));
+              }).then(() => this.router.navigate(['/inmuebles/agregar/servicios', this.inmuebleId]));
             },
             (error) => {
               Swal.fire({
@@ -225,7 +222,6 @@ removeFileById(image: { id: number }): void {
             }
           );
         } else {
-          // Crear nuevo inmueble
           this.inmuebleServicio.addInmueble(this.tipo_inmueble, inmuebleData).subscribe(
             (newInmueble) => {
               if (newInmueble && newInmueble.idinmuebles) {
@@ -237,7 +233,7 @@ removeFileById(image: { id: number }): void {
                   title: 'Inmueble creado',
                   text: 'El inmueble fue creado exitosamente.',
                   confirmButtonText: 'Aceptar',
-                }).then(() => this.router.navigate(['/alojamientos']));
+                }).then(() => this.router.navigate(['/inmuebles/agregar/servicios', newInmueble.idinmuebles]));
               }
             },
             (error) => {
@@ -318,10 +314,10 @@ removeFileById(image: { id: number }): void {
         if (inmueble.imagenes) {
           this.initialImages = inmueble.imagenes.map((img: any) => ({
             id: img.id,
-            file_path: `http://3.213.191.244:8000/${img.file_path}`, // URL completa
+            file_path: `http://3.213.191.244:8000/${img.file_path}`, 
           }));
         
-          this.selectedInitialImages = this.initialImages.map(img => img.file_path); // Usa URLs completas
+          this.selectedInitialImages = this.initialImages.map(img => img.file_path);
           this.selectedFilePreviews = [...this.selectedInitialImages];
         }
         
