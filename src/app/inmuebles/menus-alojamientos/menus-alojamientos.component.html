@@ -2,14 +2,14 @@
   <navbar class="w-full"></navbar>
 
   <select
-  [(ngModel)]="selectedServicio"
-  (change)="filtrarPorServicio()"
-  class="w-full max-w-md mt-6 mb-4 p-3 border border-gray-300 rounded-lg"
->
-  <option value="" disabled selected>Selecciona un servicio</option>
-  <option *ngFor="let servicio of servicios" [value]="servicio.idservicios">
-    {{ servicio.descripcion }}
-  </option>
+    [(ngModel)]="selectedServicio"
+    (change)="filtrarPorServicio()"
+    class="w-full max-w-md mt-6 mb-4 p-3 border border-gray-300 rounded-lg"
+  >
+    <option value="" disabled selected>Selecciona un servicio</option>
+    <option *ngFor="let servicio of servicios" [value]="servicio.idservicios">
+      {{ servicio.descripcion }}
+    </option>
   </select>
 
   <input
@@ -19,15 +19,20 @@
     class="w-full max-w-md mb-6 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
   />
 
-  <button
-    *ngIf="userRole === 'arrendador'"
-    (click)="agregar()"
-    class="rounded-2xl bg-[#04232B] px-6 py-3 text-white hover:bg-[#182e48] mb-8 ml-auto block"
-  >
-    Agregar Inmueble
-  </button>
+  <div class="w-full flex justify-end">
+    <button
+      *ngIf="userRole === 'arrendador'"
+      (click)="agregar()"
+      class="rounded-2xl bg-[#04232B] px-6 py-3 text-white hover:bg-[#182e48] mb-8 mr-28"
+    >
+      Agregar Inmueble
+    </button>
+  </div>  
 
-  <div class="grid gap-8 w-full max-w-5xl md:grid-cols-2" *ngIf="filteredAlojamientos.length > 0; else noAlojamientos">
+  <div 
+    class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-7xl" 
+    *ngIf="filteredAlojamientos.length > 0; else noAlojamientos"
+  >
     <app-card-alojamiento
       *ngFor="let alojamiento of filteredAlojamientos"
       [alojamiento]="alojamiento"
@@ -39,6 +44,4 @@
       No se encontraron alojamientos para el servicio seleccionado.
     </p>
   </ng-template>
-  
-  
 </div>

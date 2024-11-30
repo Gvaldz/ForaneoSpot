@@ -15,13 +15,15 @@ import { AppRoutingModule } from '../app-routing.module';
     ComidaHomeComponent,
     MenuFormComponent
   ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        AppRoutingModule,
-        FormsModule
-    ]
+  imports: [
+    CommonModule,
+    SharedModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    FormsModule,
+    OpinionesComidasModule,
+    OpinionesComidasModule
+  ]
 })
 export class ComidasModule { }

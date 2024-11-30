@@ -1,0 +1,41 @@
+<div class="flex items-center bg-[#E1E5EB] shadow-lg w-full h-60 border border-gray-300 overflow-hidden rounded-lg flex-wrap">
+  <div class="flex items-center justify-center bg-gray-500 w-1/2 h-full">
+    <img 
+      *ngIf="alojamiento.imagenes && alojamiento.imagenes.length > 0"
+      [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[0].file_path"
+      alt="Imagen del alojamiento" 
+      class="h-full w-full object-cover">
+  </div>
+
+  <div class="w-1/2 p-6">
+    <h2 class="text-lg font-bold text-gray-800 mb-2">{{ alojamiento.nombre_inmueble }}</h2>
+    <p class="text-sm text-gray-600 mb-1">{{ alojamiento.tipo }}</p>
+    <p class="text-sm text-gray-600 mb-3">{{ alojamiento.descripcion }}</p>
+    <p class="text-lg font-semibold text-gray-800 mb-4">${{ alojamiento.renta }}/Mensuales</p>
+
+    <div class="flex space-full">
+      <button *ngIf="userRole === 'foraneo'"
+        class="px-6 py-2 bg-[#0057A0] text-white font-medium rounded-lg shadow-md hover:bg-[#004080] transition duration-300 ease-in-out">
+        Ver
+      </button>
+    </div>
+    <div *ngIf="userRole === 'arrendador'" class="flex space-x-4 w-full">
+      <button 
+        class="px-7 py-2 bg-[#0057A0] text-white font-medium rounded-2xl shadow-md hover:bg-[#004080] transition duration-300 ease-in-out">
+        Ver
+      </button>
+
+      <button
+        (click)="onEdit()"
+        class="px-4 py-2 bg-[#0057A0] text-white font-medium rounded-2xl shadow-md hover:bg-[#004080] transition duration-300 ease-in-out">
+        Editar
+      </button>
+
+      <button
+        (click)="onDelete()"
+        class="px-2 py-2 bg-[#0057A0] text-white font-medium rounded-2xl shadow-md hover:bg-[#A12727] transition duration-300 ease-in-out">
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>

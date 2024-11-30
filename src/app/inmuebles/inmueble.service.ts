@@ -64,5 +64,22 @@ export class AlojamientosService {
 
     return this.http.post<any>('http://3.213.191.244:8000/imagenes/upload-images/', formData);
   }
+
+  updateInmueblePorTipo(tipo: string, id: number, datos: any): Observable<any> {
+    const url = this.apiUrls[tipo];
+    if (!url) {
+      return throwError(() => new Error('Tipo de inmueble no válido'));
+    }
+    return this.http.put(`${url}/${id}`, datos);
+  }
+  
+  deleteInmueblePorTipo(tipo: string, id: number): Observable<any> {
+    const url = this.apiUrls[tipo];
+    if (!url) {
+      return throwError(() => new Error('Tipo de inmueble no válido'));
+    }
+    return this.http.delete(`${url}/${id}`);
+  }
+  
  
 }

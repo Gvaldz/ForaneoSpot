@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {AlojamientosService} from '../alojamientos.service';
+import {AlojamientosService} from '../inmueble.service';
 import {data} from 'autoprefixer';
 
 @Component({

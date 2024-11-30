@@ -10,10 +10,14 @@
       id="nombre"
       type="text"
       formControlName="nombre"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('nombre')?.invalid && RegistrerForm.get('nombre')?.touched" class="text-red-500 text-sm">
+      Nombre es requerido y debe de ser válido.
+    </div>
   </div>
+  
   <div>
     <label for="apellidos" class="block text-lg font-sans mb-2 text-gray-700">
       Apellidos
@@ -22,9 +26,12 @@
       id="apellidos"
       type="text"
       formControlName="apellidos"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('apellidos')?.invalid && RegistrerForm.get('apellidos')?.touched" class="text-red-500 text-sm">
+      Apellidos son requeridos y deben ser válidos.
+    </div>
   </div>
   <div>
     <label for="sexo" class="block text-lg font-sans mb-2 text-gray-700">
@@ -33,7 +40,7 @@
     <select
       id="sexo"
       formControlName="sexo"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
       <option value="" disabled>Selecciona tu sexo</option>
@@ -50,9 +57,12 @@
       id="correo"
       type="email"
       formControlName="correo"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('correo')?.invalid && RegistrerForm.get('correo')?.touched" class="text-red-500 text-sm">
+      El correo es requerido y debe de ser válido.
+    </div>
   </div>
   <div>
     <label for="telefono" class="block text-lg font-sans mb-2 text-gray-700">
@@ -62,21 +72,27 @@
       id="telefono"
       type="tel"
       formControlName="telefono"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('telefono')?.invalid && RegistrerForm.get('telefono')?.touched" class="text-red-500 text-sm">
+      El télefono es requerido y debe de ser válido
+    </div>
   </div>
   <div>
     <label for="contrasena" class="block text-lg font-sans mb-2 text-gray-700">
-      Contraseña
+      Contraseña (Mínimo 6 caracteres, incluir una mayúscula, una minúscula, un número y un símbolo especial)
     </label>
     <input
       id="contrasena"
       type="password"
       formControlName="contrasena"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
+    <div *ngIf="RegistrerForm.get('contrasena')?.invalid && RegistrerForm.get('contrasena')?.touched" class="text-red-500 text-sm">
+      La contraseña debe tener al menos 6 caracteres, incluir una mayúscula, una minúscula, un número y un símbolo especial.
+    </div>
   </div>
   <div>
     <label for="tipoUsuario" class="block text-lg font-sans mb-2 text-gray-700">
@@ -85,7 +101,7 @@
     <select
       id="tipoUsuario"
       formControlName="tipoUsuario"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     >
       <option value="" disabled>Selecciona el tipo de usuario</option>
@@ -103,7 +119,7 @@
       id="nacimiento"
       type="date"
       formControlName="nacimiento"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
@@ -115,7 +131,7 @@
       id="ubicacion"
       type="text"
       formControlName="ubicacion"
-      class="w-full px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none"
+      class="w-full px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:border-blue-500 focus:bg-white focus:outline-none"
       required
     />
   </div>
@@ -126,17 +142,22 @@
     <textarea
       id="descripcion"
       formControlName="descripcion"
-      class="w-full h-32 px-4 py-2 rounded-lg bg-gray-100 border focus:border-blue-500 focus:bg-white focus:outline-none resize-none"
+      class="w-full h-32 px-4 py-2 rounded-lg bg-[#D9D9D9] border focus:bg-white focus:outline-none resize-none"
       required
     ></textarea>
   </div>
 
-  <div>
+  <div class="flex gap-4 mt-6">
     <button
       type="submit"
-      class="w-full bg-blue-600 text-white py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-    >
-      CREAR CUENTA
+      class="flex-1 bg-[#154667] text-white py-3 rounded-lg text-xl font-semibold hover:bg-[#112a3a] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      Crear cuenta
     </button>
-  </div>
+    <button
+      type="button"
+      (click)="cancelar()"
+      class="flex-1 bg-[#D9D9D9] py-3 rounded-lg text-xl font-semibold hover:bg-[#9d9d9d] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      Cancelar
+    </button>
+  </div>  
 </form>

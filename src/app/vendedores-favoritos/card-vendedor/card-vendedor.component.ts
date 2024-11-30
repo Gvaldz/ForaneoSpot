@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/src/sweetalert2.scss';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import { VendedorService } from '../../vendedor.service';
 import { Router } from '@angular/router';
 

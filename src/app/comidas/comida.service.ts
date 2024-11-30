@@ -71,6 +71,10 @@ export class ComidaService {
     return this.http.post<any>('http://3.213.191.244:8000/imagenes/upload-images/', formData);
   }
   
+  deleteOpinion(idopinion: number): Observable<any> {
+    return this.http.delete(`http://3.213.191.244:8000/opiniones_comidas/${idopinion}`);
+  }
+  
   createPedido(comida: Comida, especificaciones: string): Observable<Pedido> {
     const pedido = {
       total: comida.precio,  
@@ -82,5 +86,4 @@ export class ComidaService {
     
     return this.http.post<Pedido>(this.pedidoUrl, pedido);
   }
-  
 }
