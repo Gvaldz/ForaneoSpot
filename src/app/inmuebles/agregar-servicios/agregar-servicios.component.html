@@ -1,5 +1,6 @@
-<div class="container mx-auto max-w-lg">
-    <h1 class="text-2xl font-bold text-center mb-6">Asignar Servicios</h1>
+<div class="container mx-auto max-w-lg mb-8">
+    <h1 class="text-2xl font-bold text-center mb-6 mt-4">Asignar Servicios</h1>
+    <h2 class="text-xl font-bold text-center mb-6 mt-4">Selecciona los servicios o caracteristicas con los que cuenta tu inmueble</h2>
   
     <form (ngSubmit)="onSubmit()" class="space-y-4">
       <div *ngFor="let servicio of servicios">
@@ -17,7 +18,7 @@
   
       <button
         type="submit"
-        class="w-full bg-[#0057A0] text-white py-2 rounded hover:bg-[#234a77]"
+        class="w-full bg-[#154667] text-white py-2 rounded-l hover:bg-[#234a77]"
       >
         Asignar Servicios
       </button>
