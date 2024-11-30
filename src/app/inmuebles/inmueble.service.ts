@@ -23,6 +23,12 @@ export class AlojamientosService {
   constructor(private http: HttpClient) {
   }
 
+  getInmueblePorId(tipo: string, id: number) {
+    const url = this.apiUrls[tipo];
+    return this.http.get<any>(`${url}/${id}`);
+    
+  }
+
   obtenerAlojamientos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/inmuebles`);
   }
@@ -33,12 +39,6 @@ export class AlojamientosService {
 
   addInmueble(tipo: string, datos: any): Observable<any> {
     return this.http.post(this.apiUrls[tipo], datos);
-  }
-
-  updateInmueble(id: number, inmueble: Inmueble): Observable<Inmueble> {
-    return this.http.put<Inmueble>(`${this.apiUrl}/${id}`, inmueble).pipe(
-      tap(() => this.obtenerAlojamientos())
-    );
   }
 
   obtenerCasas(): Observable<any[]> {
@@ -80,5 +80,21 @@ export class AlojamientosService {
     }
     return this.http.delete(`${url}/${id}`);
   }
+
+  deleteInmuebleImage(imageId: number, entity: string = 'inmueble'): Observable<any> {
+    const url = `http://3.213.191.244:8000/imagenes/delete-image/`;
+    const body = new FormData();
+    body.append('image_id', imageId.toString());
+    body.append('entity', entity); 
+  
+    console.log('Enviando solicitud para eliminar imagen con ID:', imageId);
+  
+    return this.http.request('DELETE', url, { body }).pipe(
+      tap(response => {
+        console.log('Respuesta del backend:', response);
+      })
+    );
+  }
+  
   
 }
