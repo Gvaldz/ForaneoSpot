@@ -81,5 +81,4 @@ export class AlojamientosService {
     return this.http.delete(`${url}/${id}`);
   }
   
- 
 }
