@@ -8,8 +8,6 @@ import { MenuFormComponent } from './comida-form/menu-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
-import {OpinionesComidasModule} from '../opiniones-comidas/opiniones-comidas.module';
-import { OpinionesComidaComponent } from '../opiniones-comidas/opiniones-comida/opiniones-comida.component';
 
 @NgModule({
   declarations: [
