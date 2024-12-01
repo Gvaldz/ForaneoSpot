@@ -42,11 +42,11 @@ export class UsuarioService {
     return this.http.delete<Foraneo>(`http://3.213.191.244:8000/foraneos/${id}`);
   }
 
-  elinminarVendedor(id: number): Observable<Vendedor> {
+  eliminarVendedor(id: number): Observable<Vendedor> {
     return this.http.delete<Vendedor>(`http://3.213.191.244:8000/vendedores/${id}`);
   }
 
-  eliminaarArrendador(id: number): Observable<Arrendador> {
+  eliminarArrendador(id: number): Observable<Arrendador> {
     return this.http.delete<Arrendador>(`http://3.213.191.244:8000/arrendadores/${id}`);
   }
 

@@ -206,21 +206,56 @@ export class PerfilComponent {
   
   eliminarUsuario(): void {
     this.userId = this.loginService.getUserId();
-    if (this.userId) {
-      switch (this.userRole) {
-        case 'foraneo':
-          this.usuarioService.eliminarForaneo(this.userId); 
-          break;
-        case 'vendedor':
-          this.usuarioService.elinminarVendedor(this.userId); 
-          break;
-        case 'arrendador':
-          this.usuarioService.eliminaarArrendador(this.userId); 
-          break;
-        default:
-          return;
-      }
+  
+    if (!this.userId) {
+      Swal.fire('Error', 'No se encontró el ID del usuario.', 'error');
+      return;
     }
+  
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción eliminará tu cuenta de forma permanente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed && this.userId) {
 
+        let eliminarObservable: Observable<any>;
+  
+        switch (this.userRole) {
+          case 'foraneo':
+            eliminarObservable = this.usuarioService.eliminarForaneo(this.userId);
+            break;
+          case 'vendedor':
+            eliminarObservable = this.usuarioService.eliminarVendedor(this.userId);
+            break;
+          case 'arrendador':
+            eliminarObservable = this.usuarioService.eliminarArrendador(this.userId);
+            break;
+          default:
+            Swal.fire('Error', 'Rol de usuario no válido.', 'error');
+            return;
+        }
+  
+        eliminarObservable.subscribe(
+          () => {
+            Swal.fire('¡Eliminado!', 'Tu cuenta ha sido eliminada con éxito.', 'success');
+            this.router.navigate(['/inicio']); 
+          },
+          (error) => {
+            console.error('Error al eliminar el usuario:', error);
+            Swal.fire('Error', 'Hubo un problema al eliminar el usuario.', 'error');
+          }
+        );
+      } else {
+        Swal.fire('Cancelado', 'Tu cuenta no se ha eliminado.', 'info');
+      }
+    });
   }
+  
+  
 }
