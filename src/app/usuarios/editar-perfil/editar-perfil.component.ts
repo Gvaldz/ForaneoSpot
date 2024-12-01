@@ -5,6 +5,7 @@ import { UsuarioService } from '../usuarios.service';
 import { UsuarioBase, Foraneo, Vendedor, Arrendador } from '../usuario-base';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -84,8 +85,10 @@ export class EditarPerfilComponent implements OnInit {
         .actualizarUsuario(this.userRole as any, this.userId as number, updatedUserData)
         .subscribe(
           (response) => {
-            alert('Perfil actualizado con éxito.');
-
+            Swal.fire(
+              'El usuario ha sido actualizado con éxito.',
+              'success'
+            );  
           },
           (error) => {
             console.error('Error al actualizar el perfil:', error);
@@ -93,8 +96,11 @@ export class EditarPerfilComponent implements OnInit {
           }
         );
     } else {
-      alert('Por favor, completa todos los campos requeridos.');
-    }
+      Swal.fire({
+        icon: 'error',
+        title: 'Formulario inválido',
+        text: 'Por favor completa todos los campos correctamente.',
+      });    }
   }
   
 

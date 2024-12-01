@@ -51,7 +51,7 @@ export class RegistrarUsuarioComponent implements OnInit {
       string,
       { [key: string]: [string, any] }
     > = {
-      Foraneo: { nacimiento: ['', Validators.required] },
+      Foraneo: {   nacimiento: ['', [Validators.required, this.validarEdadMinima.bind(this)]]},
       Vendedor: { ubicacion: ['', Validators.required] },
       Arrendador: { descripcion: ['', Validators.required] },
     };
@@ -117,6 +117,26 @@ export class RegistrarUsuarioComponent implements OnInit {
       }
     });
   }
+
+  validarEdadMinima(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) {
+      return null; 
+    }
+  
+    const fechaNacimiento = new Date(control.value);
+    const fechaHoy = new Date();
+    const edadMinima = 17;
+  
+    let edad = fechaHoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = fechaHoy.getMonth() - fechaNacimiento.getMonth();
+    const dia = fechaHoy.getDate() - fechaNacimiento.getDate();
+  
+    if (mes < 0 || (mes === 0 && dia < 0)) {
+      edad--;
+    }
+      return edad >= edadMinima ? null : { edadMinima: { message: `Debes tener al menos ${edadMinima} años.` } };
+  }
+  
 
   cancelar(): void {
     Swal.fire({
