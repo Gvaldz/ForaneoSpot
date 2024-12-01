@@ -10,6 +10,7 @@
         class="w-12 h-12 rounded-full mr-4"
       />
       <div>
+
         <h1 class="text-2xl font-bold">{{ vendedor.nombre }}</h1>
       </div>
     </div>
@@ -23,6 +24,24 @@
     <div *ngFor="let img of vendedor.imagenes" class="imagen-item">
       <img [src]="'http://3.213.191.244:8000/' +img.file_path" alt="Imagen del vendedor" class="w-full h-48 object-cover rounded" />
     </div>
+  </div>
+
+  <div class="descripcion px-6 py-4 bg-white shadow-md rounded-lg max-w-sm mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Agregar Como Favorito</h2>
+    <button
+      (click)="marcarFavorito()"
+      class="flex items-center text-gray-400 hover:text-yellow-500 focus:outline-none transition-colors duration-200">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-8 w-8 mr-2"
+           [attr.fill]="esFavorito ? 'currentColor' : 'none'"
+           [attr.stroke]="esFavorito ? 'none' : 'currentColor'"
+           stroke-width="2"
+           viewBox="0 0 24 24">
+        <path d="M12 .587l3.668 7.431 8.214 1.193-5.941 5.787 1.402 8.186L12 18.897l-7.343 3.864 1.402-8.186-5.941-5.787 8.214-1.193z"/>
+
+      </svg>
+      <span class="text-lg font-medium">Favorito</span>
+    </button>
   </div>
 
   <!-- Descripción -->
@@ -41,7 +60,7 @@
   </div>
 
   <div class="m-1.5">
-    <app-formulario-opinion [idusuariovendedor]="vendedor.id"></app-formulario-opinion>
+    <app-formulario-opinion [idusuariovendedor]="vendedor.id" ></app-formulario-opinion>
   </div>
 
   <app-opiniones-comida [vendedorId]="vendedor.id"></app-opiniones-comida>
