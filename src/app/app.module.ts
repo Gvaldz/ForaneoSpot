@@ -16,6 +16,7 @@ import { DashboardInicioComponent} from './shared/dashboard-inicio/dashboard-ini
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/compiler';
 import {VendedoresFavoritosModule} from './vendedores-favoritos/vendedores-favoritos.module';
 import { OpinionesComidasModule } from './opiniones-comidas/opiniones-comidas.module';
+import { DetalleAlojamientoComponent } from './detalle-alojamiento/detalle-alojamiento.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -23,6 +24,7 @@ import { OpinionesComidasModule } from './opiniones-comidas/opiniones-comidas.mo
     AppComponent,
     DashboardInicioComponent,
     LoginComponent,
+    DetalleAlojamientoComponent,
   ],
   imports: [
     BrowserModule,

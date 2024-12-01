@@ -1,0 +1,35 @@
+<div class="w-[1440px] h-auto relative bg-white p-8">
+    <div class="flex flex-wrap">
+      <!-- Imagen principal -->
+      <div class="w-full md:w-1/2 bg-[#dadada] rounded-tl-[31px] rounded-bl-[31px] overflow-hidden">
+        <img 
+          *ngIf="alojamiento?.imagenes?.length > 0" 
+          [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[0].file_path" 
+          alt="Imagen del alojamiento" 
+          class="w-full h-auto object-cover">
+      </div>
+  
+      <!-- Información -->
+      <div class="w-full md:w-1/2 p-8">
+        <h1 class="text-5xl font-bold">{{ alojamiento?.nombre_inmueble }}</h1>
+        <p class="text-xl text-gray-600 mt-4">{{ alojamiento?.descripcion }}</p>
+        <p class="text-3xl text-gray-800 font-semibold mt-6">${{ alojamiento?.renta }}/Mensuales</p>
+      </div>
+    </div>
+  
+    <!-- Otros detalles -->
+    <div class="mt-12">
+      <h2 class="text-4xl font-bold mb-4">Descripción</h2>
+      <p class="text-xl text-gray-700">{{ alojamiento?.descripcion_completa }}</p>
+    </div>
+  
+    <!-- Servicios -->
+    <div class="mt-12">
+      <h2 class="text-4xl font-bold mb-4">Servicios</h2>
+      <ul class="list-disc ml-8">
+        <li *ngFor="let servicio of alojamiento?.servicios" class="text-xl">
+          {{ servicio }}
+        </li>
+      </ul>
+    </div>
+</div>  

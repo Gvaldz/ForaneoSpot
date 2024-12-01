@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { AlojamientosService } from '../inmueble.service';
 import { LoginserviceService } from '../../login/loginservice.service';
 import Swal from 'sweetalert2';
@@ -9,9 +9,13 @@ import Swal from 'sweetalert2';
   templateUrl: './card-alojamiento.component.html',
   styleUrl: './card-alojamiento.component.css'
 })
-export class CardAlojamientoComponent implements OnInit{
+export class CardAlojamientoComponent implements OnInit {
 
-  constructor(private router: Router, private inmuebleService: AlojamientosService, private loginService: LoginserviceService) {}
+  constructor(
+    private router: Router, 
+    private inmuebleService: AlojamientosService, 
+    private loginService: LoginserviceService
+  ) {}
 
   @Input() alojamiento: any;
   @Input() userRole: string | null = null;
@@ -20,12 +24,19 @@ export class CardAlojamientoComponent implements OnInit{
     this.userRole = this.loginService.getUserRole();
   }
 
+  // Método para redirigir al detalle del alojamiento, usando ID y tipo
+  verDetalle(id: number, tipo: string): void {
+    this.router.navigate(['/alojamiento', id], { queryParams: { tipo } });
+  }
+
+  // Método para editar el alojamiento
   onEdit(alojamiento: any) {
     const id = alojamiento.idinmuebles;
     const tipo_inmueble = this.alojamiento.tipo_inmueble;
     this.router.navigate(["inmueble/editar/", tipo_inmueble, id]); 
   }  
-  
+
+  // Método para eliminar el alojamiento
   onDelete() {
     const tipo = this.alojamiento.tipo_inmueble;
     const id = this.alojamiento.idinmuebles;
@@ -43,5 +54,5 @@ export class CardAlojamientoComponent implements OnInit{
       );
     }
   }
-  
+
 }
