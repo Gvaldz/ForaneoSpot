@@ -8,7 +8,7 @@ import { LoginserviceService } from '../../login/loginservice.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
-  showUserMenu = false; 
+  showUserMenu = false;
   userRole: string | null = '';
 
   constructor(private router: Router, private loginService: LoginserviceService) {}
@@ -19,13 +19,13 @@ export class NavbarComponent implements OnInit {
 
   navigateEditar() {
     this.router.navigate(['/perfil']);
-    this.showUserMenu = false; 
+    this.showUserMenu = false;
   }
 
   logout() {
     this.loginService.logout();
-    this.router.navigate(['/home']); 
-    this.showUserMenu = false; 
+    this.router.navigate(['/home']);
+    this.showUserMenu = false;
   }
 
   ngOnInit(): void{
@@ -49,5 +49,15 @@ export class NavbarComponent implements OnInit {
   }
   navigateVendedoresFavoritos(){
     this.router.navigate(['/favoritos']);
+  }
+
+  isDropdownOpen = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  navigateFAQ(){
+    console.log("FAQ")
   }
 }
