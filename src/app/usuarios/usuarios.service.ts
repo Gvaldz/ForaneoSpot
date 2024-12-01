@@ -32,7 +32,11 @@ export class UsuarioService {
     return this.http.put(url, datos);
   }
   
-  
+  cambiarContrasena(id: number, currentPassword: string, newPassword: string): Observable<any> {
+    const url = `http://3.213.191.244:8000/usuarios/password/${id}`;
+    return this.http.put(url, { contrasena_actual: currentPassword, nueva_contrasena: newPassword });
+  }  
+
   obtenerForaneo(id: number): Observable<Foraneo> {
     return this.http.get<Foraneo>(`http://3.213.191.244:8000/foraneos/${id}`);
   }
