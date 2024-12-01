@@ -31,7 +31,7 @@ export class RegistrarUsuarioComponent implements OnInit {
         [
           Validators.required, 
           Validators.minLength(6), 
-          Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)
+          Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$/)
         ]
       ],
       tipoUsuario: ['', Validators.required],
