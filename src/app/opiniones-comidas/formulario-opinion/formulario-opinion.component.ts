@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {VendedorService} from '../../vendedor.service'; // El servicio que maneja la API
 import { Router } from '@angular/router';
 
@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
   templateUrl: './formulario-opinion.component.html',
   styleUrls: ['./formulario-opinion.component.css']
 })
-export class FormularioOpinionComponent {
-  isModalOpen: boolean = false; // Controla si el modal está abierto o cerrado
-  idusuariovendedor: number = 0;
-  calificacion: number = 0;
+export class FormularioOpinionComponent implements OnInit{
+  @Input() idusuariovendedor: number = 0;
+
+  isModalOpen: boolean = false;
+  calificacion: number | null = null;
   descripcion: string = '';
 
   constructor(
@@ -18,18 +19,33 @@ export class FormularioOpinionComponent {
     private router: Router
   ) {}
 
+  ngOnInit() {
+    console.log('Vendor ID received:', this.idusuariovendedor);
+  }
+
   openModal(): void {
     this.isModalOpen = true;
   }
 
-  // Método para cerrar el modal
   closeModal(): void {
     this.isModalOpen = false;
   }
 
-  // Método para enviar la opinión
   submitOpinion(): void {
-    if (this.idusuariovendedor > 0 && this.calificacion >= 1 && this.calificacion <= 5 && this.descripcion.trim()) {
+    // Enhanced logging for debugging
+    console.log('Submitting Opinion - Validation Check:');
+    console.log('Vendor ID:', this.idusuariovendedor);
+    console.log('Calificacion:', this.calificacion);
+    console.log('Descripcion:', this.descripcion);
+
+    // Adjusted validation
+    if (
+      this.idusuariovendedor > 0 &&
+      this.calificacion !== null &&
+      this.calificacion >= 1 &&
+      this.calificacion <= 10 &&
+      this.descripcion.trim().length > 0
+    ) {
       const opinionData = {
         idusuariovendedor: this.idusuariovendedor,
         calificacion: this.calificacion,
@@ -39,8 +55,11 @@ export class FormularioOpinionComponent {
       this.vendedorService.submitOpinion(opinionData).subscribe(
         (response) => {
           console.log('Opinión enviada correctamente', response);
-          this.closeModal(); // Cierra el modal después de enviar
-          this.router.navigate(['/opiniones-comidas']); // O redirige a donde quieras
+          this.closeModal();
+          this.router.navigate(['/vendedor', this.idusuariovendedor])
+            .then(() => {
+              window.location.reload();
+            });
         },
         (error) => {
           console.error('Error al enviar la opinión:', error);
@@ -48,7 +67,11 @@ export class FormularioOpinionComponent {
         }
       );
     } else {
-      console.log('Por favor, completa todos los campos correctamente');
+      console.error('Validation Failed - Details:',{
+        vendorIdValid: this.idusuariovendedor > 0,
+        calificacionValid: this.calificacion !== null && this.calificacion >= 1 && this.calificacion <= 5,
+        descripcionValid: this.descripcion.trim().length > 0
+      });
       alert('Por favor, completa todos los campos correctamente');
     }
   }

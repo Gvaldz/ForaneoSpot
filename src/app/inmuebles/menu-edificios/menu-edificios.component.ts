@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {AlojamientosService} from '../../alojamientos.service';
+import {AlojamientosService} from '../inmueble.service';
 import {data} from 'autoprefixer';
 
 @Component({
@@ -26,11 +26,9 @@ export class MenuEdificiosComponent {
   }
 
   get filteredEdificios() {
-    // Si no hay texto de búsqueda, muestra todas las comidas
     if (!this.searchText.trim()) {
       return this.edificios;
     }
-    // Filtra comidas según el nombre
     return this.edificios.filter(data =>
       data.nombre_inmueble.toLowerCase().includes(this.searchText.toLowerCase())
     );

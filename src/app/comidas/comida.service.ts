@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import { Comida } from './comida';
+import { Pedido } from './pedido';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComidaService {
-  private apiUrl = 'http://3.213.191.244:8000/menus';
-
+  private apiUrl = 'http://3.213.191.244:8000/menus'; 
+  private pedidoUrl = 'http://3.213.191.244:8000/pedidos';
   private selectedComida = new BehaviorSubject<Comida | null>(null);
   selectedComida$ = this.selectedComida.asObservable();
   private comidasSubject = new BehaviorSubject<Comida[]>([]);
@@ -69,10 +70,20 @@ export class ComidaService {
 
     return this.http.post<any>('http://3.213.191.244:8000/imagenes/upload-images/', formData);
   }
-
-  deleteOpinion(idopinion: number): Observable<void> {
-    return this.http.delete<void>(`http://3.213.191.244:8000/opiniones_comidas/${idopinion}`);
+  
+  deleteOpinion(idopinion: number): Observable<any> {
+    return this.http.delete(`http://3.213.191.244:8000/opiniones_comidas/${idopinion}`);
   }
-
-
+  
+  createPedido(comida: Comida, especificaciones: string): Observable<Pedido> {
+    const pedido = {
+      total: comida.precio,  
+      cantidad: 1,           
+      especificaciones: especificaciones,
+      entregado: false,      
+      id_menu: comida.id     
+    };
+    
+    return this.http.post<Pedido>(this.pedidoUrl, pedido);
+  }
 }

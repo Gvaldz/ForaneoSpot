@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/src/sweetalert2.scss';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import { VendedorService } from '../../vendedor.service';
 import { Router } from '@angular/router';
 
@@ -15,10 +15,8 @@ export class CardVendedorComponent {
   constructor(private vendedorService: VendedorService, private router: Router) {}
 
   marcarFavorito(): void {
-    // Mostrar alerta al usuario
     this.alerta();
 
-    // Llamar al servicio para agregar a favoritos, pasando el ID del vendedor
     this.agregarFavorito(this.vendedor.id);
   }
 
@@ -33,7 +31,6 @@ export class CardVendedorComponent {
   }
 
   agregarFavorito(id: number): void {
-    // Llamar al servicio con el ID del vendedor para agregarlo a favoritos
     this.vendedorService.agregarVendedorFavorito(id).subscribe({
       next: (response) => {
         console.log('Vendedor añadido a favoritos:', response);
@@ -47,7 +44,6 @@ export class CardVendedorComponent {
   }
 
   irAVendedor(): void {
-    // Redirige a la página del vendedor con el ID proporcionado
     this.router.navigate([`/vendedor/${this.vendedor.id}`]);
   }
 }

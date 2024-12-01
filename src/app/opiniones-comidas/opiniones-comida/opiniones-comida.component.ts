@@ -55,7 +55,6 @@ export class OpinionesComidaComponent {
     if (confirm('¿Estás seguro de que deseas eliminar esta opinión?')) {
       this.comidaService.deleteOpinion(idopinion).subscribe(
         () => {
-          // Elimina la opinión de la lista localmente
           this.opiniones = this.opiniones.filter((opinion) => opinion.idopinion !== idopinion);
           this.calificarVendedor(); // Recalcula la calificación promedio
         },

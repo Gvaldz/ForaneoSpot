@@ -103,27 +103,4 @@ export class MenuFormComponent implements OnInit {
     this.router.navigate(['/comida']);
   }
 
-  deleteOpinion(): void {
-    if (this.idopinion > 0) {
-      this.comidaService.deleteOpinion(this.idopinion).subscribe(
-        () => {
-          console.log('Opinión eliminada correctamente');
-          this.router.navigate(['/comida']); // Redirigir al listado de comidas después de eliminar
-        },
-        (error) => console.error('Error al eliminar la opinión:', error)
-      );
-    } else {
-      console.error('ID de la opinión inválido');
-    }
-
-    Swal.fire({
-      title: 'OPINION ELIMINADA',
-      text: 'La opinion ha sido eliminada',
-      icon: 'info',
-      confirmButtonText: 'De Acuerdo',
-      confirmButtonColor:"blue"
-    })
-
-  }
-
 }

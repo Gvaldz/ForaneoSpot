@@ -10,14 +10,16 @@ import {MenuCuartosComponent} from './inmuebles/menu-cuartos/menu-cuartos.compon
 import {MenuEdificiosComponent} from './inmuebles/menu-edificios/menu-edificios.component';
 import { DashboardInicioComponent } from './shared/dashboard-inicio/dashboard-inicio.component';
 import { MenuFormComponent } from './comidas/comida-form/menu-form.component';
-import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
 import {MenuVendedoresComponent} from './vendedores-favoritos/menu-vendedores/menu-vendedores.component';
 import {FavoritosComponent} from './vendedores-favoritos/favoritos/favoritos.component';
 import {DetalleVendedorComponent} from './vendedores-favoritos/detalle-vendedor/detalle-vendedor.component';
-//import {PropertyCardComponent} from './shared/property-card/property-card.component';
+import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
+import { PerfilComponent } from './usuarios/perfil/perfil.component';
+import { FormInmueblesComponent } from './inmuebles/form-inmuebles/form-inmuebles.component';
+import { AgregarServiciosComponent } from './inmuebles/agregar-servicios/agregar-servicios.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardInicioComponent },
+  { path: 'home', component: DashboardInicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'comida', component: ComidaHomeComponent},
   { path: 'vendedores', component: MenuVendedoresComponent},
@@ -25,15 +27,18 @@ const routes: Routes = [
   { path: 'vendedor/:id', component: DetalleVendedorComponent },
   { path: 'comida/agregar', component: MenuFormComponent },
   { path: 'comida/editar/:id', component: MenuFormComponent, },
-  //{ path: 'detalles/:id', component: PropertyCardComponent },
   { path: 'alojamientos', component: MenusAlojamientosComponent },
   { path: 'menuComida', component: MenuComidaComponent },
+  { path: 'perfil', component: PerfilComponent},
   { path: 'editarPerfil', component: EditarPerfilComponent },
   { path: 'registrarUsuario', component: RegistrarUsuarioComponent },
   { path: 'menuCasas', component: MenuCasasComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
-  { path: '**', redirectTo: '/login' },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'inmuebles/agregar', component: FormInmueblesComponent},
+  { path: 'inmueble/editar/:tipo_inmueble/:id', component: FormInmueblesComponent, },
+  { path: 'inmuebles/agregar/servicios/:id', component: AgregarServiciosComponent },
+  { path: '**', redirectTo: 'home' },
+  { path: '', redirectTo: '', pathMatch: 'full' },
   { path: 'inicio', component: DashboardInicioComponent },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ];

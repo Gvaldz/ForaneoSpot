@@ -17,30 +17,60 @@
         {{ comida.descripcion }}
       </p>
 
-      <div class="mt-4 flex gap-4">
-        <button
-          *ngIf="userRole === 'foraneo'"
-          (click)="navegarMenuComida()"
-          class="w-fit bg-[#0057A0] px-4 py-2 text-white hover:bg-[#1d3557]/90 border-r-4 rounded-2xl"
-        >
-          Ordenar comida
-        </button>
+<div *ngIf="showModal" class="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-xl w-96">
 
-        <button
-          *ngIf="userRole === 'vendedor'"
-          (click)="onEdit(comida)"
-          class="w-fit bg-[#0057A0] px-6 py-2 text-white hover:bg-[#1d3557]/90 rounded-2xl"
-        >
-          Editar
-        </button>
-        <button
-          *ngIf="userRole === 'vendedor'"
-          (click)="onDelete(comida.id)"
-          class="w-fit bg-[#0057A0] px-6 py-2 text-white hover:bg-[#c53030]/90 rounded-2xl"
-        >
-          Eliminar
-        </button>
-      </div>
+    <div class="mt-4">
+      <input
+        type="text"
+        [(ngModel)]="especificaciones"
+        placeholder="Especificaciones (opcional)"
+        class="w-full px-4 py-2 border rounded-lg mt-2"
+      />
+    </div>
+
+    <div class="mt-4 flex gap-4">
+      <button
+        (click)="ordenarComida()"
+        class="w-full bg-[#0057A0] px-4 py-2 text-white hover:bg-[#1d3557]/90 rounded-2xl"
+      >
+        Ordenar comida
+      </button>
+      <button
+        (click)="closeModal()"
+        class="w-full bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 rounded-2xl"
+      >
+        Cancelar
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="mt-4 flex gap-4">
+  <button
+  *ngIf="userRole === 'foraneo'"
+  (click)="openModal()"
+  class="w-fit bg-[#0057A0] px-4 py-2 text-white hover:bg-[#1d3557]/90 border-r-4 rounded-2xl"
+>
+  Ordenar comida
+</button>
+
+  <button
+    *ngIf="userRole === 'vendedor'"
+    (click)="onEdit(comida)"
+    class="w-fit bg-[#0057A0] px-6 py-2 text-white hover:bg-[#1d3557]/90 rounded-2xl"
+  >
+    Editar
+  </button>
+  <button
+    *ngIf="userRole === 'vendedor'"
+    (click)="onDelete(comida.id)"
+    class="w-fit bg-[#0057A0] px-6 py-2 text-white hover:bg-[#c53030]/90 rounded-2xl"
+  >
+    Eliminar
+  </button>
+</div>
     </div>
   </div>
 </div>

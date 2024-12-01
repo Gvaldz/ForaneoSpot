@@ -32,11 +32,9 @@ export class ComidaHomeComponent implements OnInit {
   }
 
   get filteredComidas() {
-    // Si no hay texto de búsqueda, muestra todas las comidas
     if (!this.searchText.trim()) {
       return this.comidas;
     }
-    // Filtra comidas según el nombre
     return this.comidas.filter(comida =>
       comida.nombre.toLowerCase().includes(this.searchText.toLowerCase())
     );

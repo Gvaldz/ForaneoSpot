@@ -6,6 +6,9 @@ import { SharedModule } from '../shared/shared.module';
 import { MenusAlojamientosComponent } from './menus-alojamientos/menus-alojamientos.component';
 import { MenuCasasComponent } from './menu-casas/menu-casas.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormInmueblesComponent } from './form-inmuebles/form-inmuebles.component';
+import { AgregarServiciosComponent } from './agregar-servicios/agregar-servicios.component';
+import { CardAlojamientoComponent } from './card-alojamiento/card-alojamiento.component';
 
 
 @NgModule({
@@ -13,7 +16,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MenuCuartosComponent,
     MenuEdificiosComponent,
     MenusAlojamientosComponent,
-    MenuCasasComponent
+    MenuCasasComponent,
+    FormInmueblesComponent,
+    AgregarServiciosComponent,
+    CardAlojamientoComponent
   ],
   imports: [
     CommonModule,

@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginserviceService } from '../../login/loginservice.service';
 import { UsuarioService } from '../usuarios.service';
 import { UsuarioBase, Foraneo, Vendedor, Arrendador } from '../usuario-base';
 import { Observable } from 'rxjs';
-
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-editar-perfil',
-  templateUrl: './editar-perfil.component.html',
-  styleUrls: ['./editar-perfil.component.css']
+  selector: 'app-perfil',
+  templateUrl: './perfil.component.html',
+  styleUrl: './perfil.component.css'
 })
+export class PerfilComponent {
 
-export class EditarPerfilComponent implements OnInit {
   profileForm!: FormGroup;
   userRole: string | null = '';
   userId: number | null = null;
@@ -26,7 +27,8 @@ export class EditarPerfilComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private loginService: LoginserviceService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
 
   onFileSelected(event: Event): void {
@@ -52,37 +54,66 @@ export class EditarPerfilComponent implements OnInit {
       return baseUrl + (this.userData as any).imagenes[0].file_path;
     }
     return 'assets/images/default-avatar.png'; 
-  }
-  
+  } 
+
   deleteUserImage(image: { id: number, file_path: string }): void {
-    const entity = 'usuario'; 
-  
-    this.usuarioService.deleteUserImage(image.id, entity).subscribe(
-      () => {
-        alert('Imagen eliminada con éxito.');
-        this.selectedFilePreview = null;
-  
-      },
-      (error) => {
-        console.error('Error al eliminar la imagen:', error);
-        alert('Error al eliminar la imagen.');
+    const entity = 'usuario';
+      Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Una vez eliminada la imagen, no podrás recuperarla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuarioService.deleteUserImage(image.id, entity).subscribe(
+          () => {
+            Swal.fire('¡Eliminado!', 'La imagen ha sido eliminada con éxito.', 'success');
+            this.selectedFilePreview = null;
+            this.obtenerDatosUsuario(this.userId as number);
+          },
+          (error) => {
+            console.error('Error al eliminar la imagen:', error);
+            Swal.fire('Error', 'Hubo un problema al eliminar la imagen.', 'error');
+          }
+        );
       }
-    );
+    });
   }
-  
+
   uploadUserImage(): void {
-    if (!this.selectedFile || !this.userId) {
-      alert('Por favor selecciona una imagen primero o asegúrate de estar autenticado.');
+    if (!this.selectedFile || this.userId === null) {
+      Swal.fire('Error', 'Por favor selecciona una imagen primero o asegúrate de estar autenticado.', 'error');
       return;
     }
   
+    Swal.fire({
+      title: 'Subiendo imagen...',
+      text: 'Por favor espera un momento mientras se sube la imagen.',
+      icon: 'info',
+      showCancelButton: false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+        Swal.showLoading(); 
+      }
+    });
+  
     this.usuarioService.uploadUserImage(this.userId, this.selectedFile).subscribe(
       () => {
-        alert('Imagen subida con éxito.');
+        Swal.close();
+        Swal.fire('¡Éxito!', 'La imagen se ha subido con éxito.', 'success');
+          this.obtenerDatosUsuario(this.userId as number);
+          this.selectedFile = null;
+          this.selectedFilePreview = null;
       },
       (error) => {
+        Swal.close();
         console.error('Error al subir la imagen:', error);
-        alert('Error al subir la imagen.');
+        Swal.fire('Error', 'Hubo un problema al subir la imagen.', 'error');
       }
     );
   }
@@ -147,8 +178,6 @@ export class EditarPerfilComponent implements OnInit {
 
     userObservable.subscribe((data) => {
       this.userData = data;
-      console.log('Datos recibidos:', data);
-
       if (this.userRole === 'foraneo') {
         this.foraneoData = data as Foraneo;
       } else if (this.userRole === 'vendedor') {
@@ -161,6 +190,7 @@ export class EditarPerfilComponent implements OnInit {
     });
   }
 
+
   cargarDatosEnFormulario(data: UsuarioBase | Foraneo | Vendedor | Arrendador): void {
     this.profileForm.patchValue({
       nombre: data.nombre,
@@ -170,5 +200,62 @@ export class EditarPerfilComponent implements OnInit {
     });
   }
 
+  navigateEditar(){
+    this.router.navigate(['/editarPerfil']);
+  }
+  
+  eliminarUsuario(): void {
+    this.userId = this.loginService.getUserId();
+  
+    if (!this.userId) {
+      Swal.fire('Error', 'No se encontró el ID del usuario.', 'error');
+      return;
+    }
+  
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción eliminará tu cuenta de forma permanente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed && this.userId) {
 
+        let eliminarObservable: Observable<any>;
+  
+        switch (this.userRole) {
+          case 'foraneo':
+            eliminarObservable = this.usuarioService.eliminarForaneo(this.userId);
+            break;
+          case 'vendedor':
+            eliminarObservable = this.usuarioService.eliminarVendedor(this.userId);
+            break;
+          case 'arrendador':
+            eliminarObservable = this.usuarioService.eliminarArrendador(this.userId);
+            break;
+          default:
+            Swal.fire('Error', 'Rol de usuario no válido.', 'error');
+            return;
+        }
+  
+        eliminarObservable.subscribe(
+          () => {
+            Swal.fire('¡Eliminado!', 'Tu cuenta ha sido eliminada con éxito.', 'success');
+            this.router.navigate(['/inicio']); 
+          },
+          (error) => {
+            console.error('Error al eliminar el usuario:', error);
+            Swal.fire('Error', 'Hubo un problema al eliminar el usuario.', 'error');
+          }
+        );
+      } else {
+        Swal.fire('Cancelado', 'Tu cuenta no se ha eliminado.', 'info');
+      }
+    });
+  }
+  
+  
 }

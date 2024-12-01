@@ -38,6 +38,18 @@ export class UsuarioService {
     return this.http.get<Arrendador>(`http://3.213.191.244:8000/arrendadores/${id}`);
   }
 
+  eliminarForaneo(id: number): Observable<Foraneo> {
+    return this.http.delete<Foraneo>(`http://3.213.191.244:8000/foraneos/${id}`);
+  }
+
+  eliminarVendedor(id: number): Observable<Vendedor> {
+    return this.http.delete<Vendedor>(`http://3.213.191.244:8000/vendedores/${id}`);
+  }
+
+  eliminarArrendador(id: number): Observable<Arrendador> {
+    return this.http.delete<Arrendador>(`http://3.213.191.244:8000/arrendadores/${id}`);
+  }
+
   uploadUserImage(userId: number, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('entity', 'usuario');

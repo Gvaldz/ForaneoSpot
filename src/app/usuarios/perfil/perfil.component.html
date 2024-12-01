@@ -1,0 +1,110 @@
+<div class="min-h-screen bg-white">
+    <navbar></navbar>
+  
+    <main class="container mx-auto max-w-2xl px-4 py-8">
+      <h1 class="mb-8 text-center text-3xl font-light tracking-wider">PERFIL</h1>
+  
+      <form [formGroup]="profileForm" class="space-y-6">
+        <div class="flex flex-col items-center gap-4">
+          <div class="relative h-48 w-48 bg-[#D9D9D9]">
+            <img
+              *ngIf="selectedFilePreview; else userImage"
+              [src]="selectedFilePreview"
+              alt="Vista previa de la imagen"
+              class="absolute inset-0 h-full w-full object-cover"
+            />
+            <ng-template #userImage>
+              <img
+                [src]="obtenerImagenUsuario()"
+                alt="Imagen del usuario"
+                *ngIf="obtenerImagenUsuario() !== 'assets/images/default-avatar.png'"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <label
+                *ngIf="!verificarImagen()"
+                for="fileInput"
+                class="absolute bottom-2 right-2 cursor-pointer rounded bg-[#0057A0] px-3 py-1 text-sm text-white hover:bg-[#214f75]"
+              >
+                <span>Suba una foto de perfil</span>
+              </label>
+            </ng-template>
+          </div>
+          <input type="file" (change)="onFileSelected($event)" id="fileInput" class="hidden" *ngIf="!verificarImagen()" />
+          
+          <input type="file" (change)="onFileSelected($event)" id="fileInput" class="hidden" />
+          
+          <div class="image-actions flex gap-2">
+            <button
+            *ngIf="selectedFile"  
+            type="button"
+            class="rounded-3xl bg-[#0057A0] px-8 py-2 text-white hover:bg-[#214f75]"
+            (click)="uploadUserImage()"
+          >
+            Subir foto
+          </button>
+            <div 
+              *ngFor="let image of userData?.imagenes" class="image-container">
+              <button (click)="deleteUserImage(image) "             
+              class="rounded-3xl bg-[#0057A0] px-8 py-2 text-white hover:bg-[#214f75]"
+              >Eliminar foto</button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="space-y-4">
+          <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
+            <p class="font-semibold">Nombre</p>
+            <p>{{ userData?.nombre }}</p>
+          </div>
+  
+          <div class="flex gap-4">
+            <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
+              <p class="font-semibold">Sexo</p>
+              <p>{{ userData?.sexo }}</p>
+            </div>
+            <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
+              <p class="font-semibold">Tipo de usuario</p>
+              <p>{{ userRole }}</p>
+            </div>
+          </div>
+  
+          <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
+            <p class="font-semibold">Correo</p>
+            <p>{{ userData?.correo }}</p>
+          </div>
+  
+          <div *ngIf="userRole === 'foraneo'" class="w-full rounded-lg bg-[#D9D9D9] p-3">
+            <p class="font-semibold">Fecha de Nacimiento</p>
+            <p>{{ foraneoData?.nacimiento }}</p>
+          </div>
+  
+          <div *ngIf="userRole === 'vendedor'" class="w-full rounded-lg bg-[#D9D9D9] p-3">
+            <p class="font-semibold">Ubicación</p>
+            <p>{{ vendedorData?.ubicacion }}</p>
+          </div>
+  
+          <div *ngIf="userRole === 'arrendador'" class="w-full rounded-lg bg-[#D9D9D9] p-3">
+            <p class="font-semibold">Descripción</p>
+            <p>{{ arrendadorData?.descripcion }}</p>
+          </div>
+        </div>
+  
+        <div class="flex justify-center gap-4">
+          <button
+            type="submit"
+            class="rounded bg-[#0057A0] px-6 py-3 text-white hover:bg-blue-800"
+            (click)="navigateEditar()"
+          >
+            Actualizar datos
+          </button>
+          <button
+            type="button"
+            class="rounded bg-[#D9D9D9] px-6 py-3 text-gray-700 hover:bg-gray-300"
+            (click)="eliminarUsuario()"
+          >
+            Eliminar perfil
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
