@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { LoginserviceService } from '../../login/loginservice.service';
 import { UsuarioService } from '../usuarios.service';
 import { UsuarioBase, Foraneo, Vendedor, Arrendador } from '../usuario-base';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,7 +25,8 @@ export class EditarPerfilComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
   
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class EditarPerfilComponent implements OnInit {
       correo: ['', [Validators.required, Validators.email]],
       telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       nacimiento: [''],
-      ubicacion: [''],
+      ubicacion: [''],   
       descripcion: [''],
     });
   
@@ -45,8 +46,44 @@ export class EditarPerfilComponent implements OnInit {
     if (id && tipoUsuario) {
       this.userRole = tipoUsuario;
       this.userId = id;
+  
+      this.setDynamicValidations(tipoUsuario);
+  
       this.cargarDatosUsuario(tipoUsuario, id);
     }
+  }
+  
+  setDynamicValidations(userRole: string): void {
+    if (userRole === 'foraneo') {
+      this.profileForm.get('nacimiento')?.setValidators([Validators.required, this.validarEdadMinima.bind(this)]);
+    } else if (userRole === 'vendedor') {
+      this.profileForm.get('ubicacion')?.setValidators([Validators.required]);
+    } else if (userRole === 'arrendador') {
+      this.profileForm.get('descripcion')?.setValidators([Validators.required, Validators.maxLength(500)]);
+    }
+  
+    this.profileForm.get('nacimiento')?.updateValueAndValidity();
+    this.profileForm.get('ubicacion')?.updateValueAndValidity();
+    this.profileForm.get('descripcion')?.updateValueAndValidity();
+  }
+  
+  validarEdadMinima(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) {
+      return null; 
+    }
+  
+    const fechaNacimiento = new Date(control.value);
+    const fechaHoy = new Date();
+    const edadMinima = 17;
+  
+    let edad = fechaHoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = fechaHoy.getMonth() - fechaNacimiento.getMonth();
+    const dia = fechaHoy.getDate() - fechaNacimiento.getDate();
+  
+    if (mes < 0 || (mes === 0 && dia < 0)) {
+      edad--;
+    }
+      return edad >= edadMinima ? null : { edadMinima: { message: `Debes tener al menos ${edadMinima} años.` } };
   }
   
   cargarDatosUsuario(tipoUsuario: string, id: number): void {
@@ -80,30 +117,49 @@ export class EditarPerfilComponent implements OnInit {
   
   onSubmit(): void {
     if (this.profileForm.valid) {
-      const updatedUserData = this.profileForm.value;
-      this.usuarioService
-        .actualizarUsuario(this.userRole as any, this.userId as number, updatedUserData)
-        .subscribe(
-          (response) => {
-            Swal.fire(
-              'El usuario ha sido actualizado con éxito.',
-              'success'
-            );  
-          },
-          (error) => {
-            console.error('Error al actualizar el perfil:', error);
-            alert('Error al actualizar el perfil.');
-          }
-        );
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Deseas guardar los cambios en tu perfil?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, guardar cambios',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const updatedUserData = this.profileForm.value;
+          this.usuarioService
+            .actualizarUsuario(this.userRole as any, this.userId as number, updatedUserData)
+            .subscribe(
+              (response) => {
+                Swal.fire(
+                  'Actualizado',
+                  'El usuario ha sido actualizado con éxito.',
+                  'success'
+                );
+                this.router.navigate(['/perfil']);
+              },
+              (error) => {
+                console.error('Error al actualizar el perfil:', error);
+                Swal.fire(
+                  'Error',
+                  'Hubo un problema al actualizar tu perfil.',
+                  'error'
+                );
+              }
+            );
+        }
+      });
     } else {
       Swal.fire({
         icon: 'error',
         title: 'Formulario inválido',
         text: 'Por favor completa todos los campos correctamente.',
-      });    }
+      });
+    }
   }
   
-
   obtenerDatosUsuario(id: number): void {
     let userObservable: Observable<any>;
 
@@ -156,5 +212,20 @@ export class EditarPerfilComponent implements OnInit {
   
     this.profileForm.patchValue(formValues);
   }
-  
+
+  cancelar(): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Los datos ingresados no se guardarán.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#154667',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/perfil']);
+      }
+    });
+  }
 }

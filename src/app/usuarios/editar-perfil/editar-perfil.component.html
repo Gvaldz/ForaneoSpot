@@ -73,6 +73,9 @@
             formControlName="nacimiento"
             class="w-full rounded-lg bg-[#D9D9D9] p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <div *ngIf="profileForm.get('nacimiento')?.hasError('edadMinima') && profileForm.get('nacimiento')?.touched" class="text-red-500 text-sm">
+            {{ profileForm.get('nacimiento')?.errors?.['edadMinima']?.message }}
+          </div>
         </div>
         
         <div *ngIf="userRole === 'vendedor'" class="w-full">
@@ -99,13 +102,14 @@
           type="submit"
           class="rounded bg-[#0057A0] px-6 py-3 text-white hover:bg-blue-800"
         >
-          Actualizar datos
+          Guardar cambios
         </button>
         <button
           type="button"
           class="rounded bg-[#D9D9D9] px-6 py-3 text-gray-700 hover:bg-gray-300"
+          (click)="cancelar()"
         >
-          Eliminar perfil
+        Cancelar
         </button>
       </div>
     </form>
