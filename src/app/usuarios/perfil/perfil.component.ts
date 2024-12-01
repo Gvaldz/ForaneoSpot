@@ -178,8 +178,6 @@ export class PerfilComponent {
 
     userObservable.subscribe((data) => {
       this.userData = data;
-      console.log('Datos recibidos:', data);
-
       if (this.userRole === 'foraneo') {
         this.foraneoData = data as Foraneo;
       } else if (this.userRole === 'vendedor') {
@@ -191,6 +189,7 @@ export class PerfilComponent {
       this.cargarDatosEnFormulario(data);
     });
   }
+
 
   cargarDatosEnFormulario(data: UsuarioBase | Foraneo | Vendedor | Arrendador): void {
     this.profileForm.patchValue({
@@ -204,6 +203,24 @@ export class PerfilComponent {
   navigateEditar(){
     this.router.navigate(['/editarPerfil']);
   }
-
   
+  eliminarUsuario(): void {
+    this.userId = this.loginService.getUserId();
+    if (this.userId) {
+      switch (this.userRole) {
+        case 'foraneo':
+          this.usuarioService.eliminarForaneo(this.userId); 
+          break;
+        case 'vendedor':
+          this.usuarioService.elinminarVendedor(this.userId); 
+          break;
+        case 'arrendador':
+          this.usuarioService.eliminaarArrendador(this.userId); 
+          break;
+        default:
+          return;
+      }
+    }
+
+  }
 }

@@ -1,53 +1,10 @@
 <div class="min-h-screen bg-white">
-  <!-- Header -->
   <navbar></navbar>
 
-  <!-- Profile Form -->
   <main class="container mx-auto max-w-2xl px-4 py-8">
-    <h1 class="mb-8 text-center text-3xl font-light tracking-wider">PERFIL</h1>
+    <h1 class="mb-8 text-center text-3xl font-light tracking-wider">Actualizar datos</h1>
 
     <form [formGroup]="profileForm" class="space-y-6">
-      <div class="flex flex-col items-center gap-4">
-        <div class="relative h-48 w-48 bg-[#D9D9D9]">
-          <img
-            *ngIf="selectedFilePreview; else userImage"
-            [src]="selectedFilePreview"
-            alt="Vista previa de la imagen"
-            class="absolute inset-0 h-full w-full object-cover"
-          />
-          <ng-template #userImage>
-            <img
-              [src]="obtenerImagenUsuario()"
-              alt="Imagen del usuario"
-              class="absolute inset-0 h-full w-full object-cover"
-            />
-          </ng-template>
-
-          <label
-            for="fileInput"
-            class="absolute bottom-2 right-2 cursor-pointer rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-700"
-          >
-            Cambiar foto
-          </label>
-        </div>
-
-        <input type="file" (change)="onFileSelected($event)" id="fileInput" class="hidden" />
-
-        <div class="image-actions flex gap-2">
-          <button
-            type="button"
-            class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
-            (click)="uploadUserImage()"
-          >
-            Subir foto
-          </button>
-          <div *ngFor="let image of userData?.imagenes" class="image-container">
-            <button (click)="deleteUserImage(image) "             
-            class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
-            >Eliminar imagen</button>
-          </div>
-        </div>
-      </div>
 
       <div class="space-y-4">
         <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
