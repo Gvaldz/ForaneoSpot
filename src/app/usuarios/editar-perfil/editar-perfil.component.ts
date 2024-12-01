@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { LoginserviceService } from '../../login/loginservice.service';
 import { UsuarioService } from '../usuarios.service';
 import { UsuarioBase, Foraneo, Vendedor, Arrendador } from '../usuario-base';
 import { Observable } from 'rxjs';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -20,114 +21,145 @@ export class EditarPerfilComponent implements OnInit {
   foraneoData: Foraneo | null = null;
   vendedorData: Vendedor | null = null;
   arrendadorData: Arrendador | null = null;
-  selectedFile: File | null = null;
-  selectedFilePreview: string | null = null;
 
   constructor(
+    private route: ActivatedRoute,
     private fb: FormBuilder,
-    private loginService: LoginserviceService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      this.selectedFile = input.files[0];
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.selectedFilePreview = reader.result as string;
-      };
-      reader.readAsDataURL(this.selectedFile);
+  
+  ngOnInit(): void {
+    this.profileForm = this.fb.group({
+      nombre: ['', Validators.required],
+      sexo: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      nacimiento: [''],
+      ubicacion: [''],   
+      descripcion: [''],
+    });
+  
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const tipoUsuario = this.route.snapshot.paramMap.get('tipoUsuario');
+  
+    if (id && tipoUsuario) {
+      this.userRole = tipoUsuario;
+      this.userId = id;
+  
+      this.setDynamicValidations(tipoUsuario);
+  
+      this.cargarDatosUsuario(tipoUsuario, id);
     }
   }
-
-  verificarImagen(): boolean {
-    return !!(this.userData && (this.userData as any).imagenes?.length > 0);
-  }
   
-  obtenerImagenUsuario(): string {
-    const baseUrl = 'http://3.213.191.244:8000/';
-    if (this.userData && (this.userData as any).imagenes?.length > 0) {
-      return baseUrl + (this.userData as any).imagenes[0].file_path;
-    }
-    return 'assets/images/default-avatar.png'; 
-  }
-  
-  deleteUserImage(image: { id: number, file_path: string }): void {
-    const entity = 'usuario'; 
-  
-    this.usuarioService.deleteUserImage(image.id, entity).subscribe(
-      () => {
-        alert('Imagen eliminada con éxito.');
-        this.selectedFilePreview = null;
-  
-      },
-      (error) => {
-        console.error('Error al eliminar la imagen:', error);
-        alert('Error al eliminar la imagen.');
-      }
-    );
-  }
-  
-  uploadUserImage(): void {
-    if (!this.selectedFile || !this.userId) {
-      alert('Por favor selecciona una imagen primero o asegúrate de estar autenticado.');
-      return;
+  setDynamicValidations(userRole: string): void {
+    if (userRole === 'foraneo') {
+      this.profileForm.get('nacimiento')?.setValidators([Validators.required, this.validarEdadMinima.bind(this)]);
+    } else if (userRole === 'vendedor') {
+      this.profileForm.get('ubicacion')?.setValidators([Validators.required]);
+    } else if (userRole === 'arrendador') {
+      this.profileForm.get('descripcion')?.setValidators([Validators.required, Validators.maxLength(500)]);
     }
   
-    this.usuarioService.uploadUserImage(this.userId, this.selectedFile).subscribe(
-      () => {
-        alert('Imagen subida con éxito.');
-      },
-      (error) => {
-        console.error('Error al subir la imagen:', error);
-        alert('Error al subir la imagen.');
-      }
-    );
+    this.profileForm.get('nacimiento')?.updateValueAndValidity();
+    this.profileForm.get('ubicacion')?.updateValueAndValidity();
+    this.profileForm.get('descripcion')?.updateValueAndValidity();
+  }
+  
+  validarEdadMinima(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) {
+      return null; 
+    }
+  
+    const fechaNacimiento = new Date(control.value);
+    const fechaHoy = new Date();
+    const edadMinima = 17;
+  
+    let edad = fechaHoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = fechaHoy.getMonth() - fechaNacimiento.getMonth();
+    const dia = fechaHoy.getDate() - fechaNacimiento.getDate();
+  
+    if (mes < 0 || (mes === 0 && dia < 0)) {
+      edad--;
+    }
+      return edad >= edadMinima ? null : { edadMinima: { message: `Debes tener al menos ${edadMinima} años.` } };
+  }
+  
+  cargarDatosUsuario(tipoUsuario: string, id: number): void {
+    switch (tipoUsuario) {
+      case 'foraneo':
+        this.usuarioService.obtenerForaneo(id).subscribe(
+          (data) => {
+            this.cargarDatosEnFormulario(data);
+          },
+          (error) => console.error('Error al obtener foráneo:', error)
+        );
+        break;
+      case 'vendedor':
+        this.usuarioService.obtenerVendedor(id).subscribe(
+          (data) => {
+            this.cargarDatosEnFormulario(data);
+          },
+          (error) => console.error('Error al obtener vendedor:', error)
+        );
+        break;
+      case 'arrendador':
+        this.usuarioService.obtenerArrendador(id).subscribe(
+          (data) => {
+            this.cargarDatosEnFormulario(data);
+          },
+          (error) => console.error('Error al obtener arrendador:', error)
+        );
+        break;
+    }
   }
   
   onSubmit(): void {
     if (this.profileForm.valid) {
-      const updatedUserData = this.profileForm.value;
-      this.usuarioService
-        .actualizarUsuario(this.userRole as any, this.userId as number, updatedUserData)
-        .subscribe(
-          (response) => {
-            alert('Perfil actualizado con éxito.');
-            if (this.selectedFile) {
-              this.uploadUserImage(); 
-            }
-          },
-          (error) => {
-            console.error('Error al actualizar el perfil:', error);
-            alert('Error al actualizar el perfil.');
-          }
-        );
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Deseas guardar los cambios en tu perfil?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, guardar cambios',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const updatedUserData = this.profileForm.value;
+          this.usuarioService
+            .actualizarUsuario(this.userRole as any, this.userId as number, updatedUserData)
+            .subscribe(
+              (response) => {
+                Swal.fire(
+                  'Actualizado',
+                  'El usuario ha sido actualizado con éxito.',
+                  'success'
+                );
+                this.router.navigate(['/perfil']);
+              },
+              (error) => {
+                console.error('Error al actualizar el perfil:', error);
+                Swal.fire(
+                  'Error',
+                  'Hubo un problema al actualizar tu perfil.',
+                  'error'
+                );
+              }
+            );
+        }
+      });
     } else {
-      alert('Por favor, completa todos los campos requeridos.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Formulario inválido',
+        text: 'Por favor completa todos los campos correctamente.',
+      });
     }
   }
   
-    
-  ngOnInit(): void {
-
-    this.userRole = this.loginService.getUserRole();
-    this.userId = this.loginService.getUserId();
-
-    if (this.userId) {
-      this.obtenerDatosUsuario(this.userId);
-    }
-
-    this.profileForm = this.fb.group({
-      nombre: ['', Validators.required],
-      sexo: ['', Validators.required],
-      tipoUsuario: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', Validators.required],
-    });
-  }
-
   obtenerDatosUsuario(id: number): void {
     let userObservable: Observable<any>;
 
@@ -162,13 +194,38 @@ export class EditarPerfilComponent implements OnInit {
   }
 
   cargarDatosEnFormulario(data: UsuarioBase | Foraneo | Vendedor | Arrendador): void {
-    this.profileForm.patchValue({
+    const formValues: any = {
       nombre: data.nombre,
       sexo: data.sexo,
       correo: data.correo,
+      telefono: data.telefono,
       contrasena: data.contrasena,
-    });
+    };
+  
+    if (this.userRole === 'foraneo') {
+      formValues.nacimiento = (data as Foraneo)?.nacimiento || '';
+    } else if (this.userRole === 'vendedor') {
+      formValues.ubicacion = (data as Vendedor)?.ubicacion || '';
+    } else if (this.userRole === 'arrendador') {
+      formValues.descripcion = (data as Arrendador)?.descripcion || '';
+    }
+  
+    this.profileForm.patchValue(formValues);
   }
 
-
+  cancelar(): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Los datos ingresados no se guardarán.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#154667',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/perfil']);
+      }
+    });
+  }
 }

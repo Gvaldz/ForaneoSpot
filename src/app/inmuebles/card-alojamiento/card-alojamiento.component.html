@@ -12,13 +12,12 @@
     <p class="text-sm text-gray-600 mb-3">{{ alojamiento.descripcion }}</p>
     <p class="text-lg font-semibold text-gray-800 mb-4">${{ alojamiento.renta }}/Mensuales</p>
 
-    <button 
-  *ngIf="userRole === 'foraneo'"
-  (click)="verDetalle(alojamiento.idinmuebles, alojamiento.tipo_inmueble)"
-  class="px-6 py-2 bg-[#0057A0] text-white font-medium rounded-lg shadow-md hover:bg-[#004080] transition duration-300 ease-in-out">
-  Ver  
-</button>
-
+    <div class="flex space-full">
+      <button *ngIf="userRole === 'foraneo'"
+        class="px-6 py-2 bg-[#0057A0] text-white font-medium rounded-lg shadow-md hover:bg-[#004080] transition duration-300 ease-in-out">
+        Ver
+      </button>
+    </div>
     <div *ngIf="userRole === 'arrendador'" class="flex space-x-4 w-full">
       <button 
         class="px-7 py-2 bg-[#0057A0] text-white font-medium rounded-2xl shadow-md hover:bg-[#004080] transition duration-300 ease-in-out">

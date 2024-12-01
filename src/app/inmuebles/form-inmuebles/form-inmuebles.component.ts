@@ -246,7 +246,7 @@ removeFileById(image: { id: number }): void {
             }
           );
         }
-      }
+      } 
     });
   }
   
@@ -261,7 +261,7 @@ removeFileById(image: { id: number }): void {
       confirmButtonText: 'Sí, cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/inmueble']);
+        this.router.navigate(['/alojamientos']);
       }
     });
   }

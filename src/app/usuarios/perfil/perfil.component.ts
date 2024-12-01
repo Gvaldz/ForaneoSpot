@@ -154,6 +154,7 @@ export class PerfilComponent {
       nombre: ['', Validators.required],
       sexo: ['', Validators.required],
       tipoUsuario: ['', Validators.required],
+      telefono: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', Validators.required],
     });
@@ -178,8 +179,6 @@ export class PerfilComponent {
 
     userObservable.subscribe((data) => {
       this.userData = data;
-      console.log('Datos recibidos:', data);
-
       if (this.userRole === 'foraneo') {
         this.foraneoData = data as Foraneo;
       } else if (this.userRole === 'vendedor') {
@@ -192,18 +191,120 @@ export class PerfilComponent {
     });
   }
 
+
   cargarDatosEnFormulario(data: UsuarioBase | Foraneo | Vendedor | Arrendador): void {
     this.profileForm.patchValue({
       nombre: data.nombre,
       sexo: data.sexo,
       correo: data.correo,
+      telefono: data.telefono,
       contrasena: data.contrasena,
     });
   }
 
-  navigateEditar(){
-    this.router.navigate(['/editarPerfil']);
+  navigateEditar(): void {
+    this.userRole = this.loginService.getUserRole();
+    this.userId = this.loginService.getUserId();
+    this.router.navigate(['/editarPerfil', this.userRole, this.userId]);
   }
+  
+  eliminarUsuario(): void {
+    this.userId = this.loginService.getUserId();
+  
+    if (!this.userId) {
+      Swal.fire('Error', 'No se encontró el ID del usuario.', 'error');
+      return;
+    }
+  
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción eliminará tu cuenta de forma permanente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed && this.userId) {
 
+        let eliminarObservable: Observable<any>;
+  
+        switch (this.userRole) {
+          case 'foraneo':
+            eliminarObservable = this.usuarioService.eliminarForaneo(this.userId);
+            break;
+          case 'vendedor':
+            eliminarObservable = this.usuarioService.eliminarVendedor(this.userId);
+            break;
+          case 'arrendador':
+            eliminarObservable = this.usuarioService.eliminarArrendador(this.userId);
+            break;
+          default:
+            Swal.fire('Error', 'Rol de usuario no válido.', 'error');
+            return;
+        }
+  
+        eliminarObservable.subscribe(
+          () => {
+            Swal.fire('¡Eliminado!', 'Tu cuenta ha sido eliminada con éxito.', 'success');
+            this.router.navigate(['/inicio']); 
+          },
+          (error) => {
+            console.error('Error al eliminar el usuario:', error);
+            Swal.fire('Error', 'Hubo un problema al eliminar el usuario.', 'error');
+          }
+        );
+      } else {
+        Swal.fire('Cancelado', 'Tu cuenta no se ha eliminado.', 'info');
+      }
+    });
+  }
+  
+  cambiarContrasena(): void {
+    Swal.fire({
+      title: 'Cambiar contraseña',
+      html: `
+        <input type="password" id="currentPassword" class="swal2-input" placeholder="Contraseña actual">
+        <input type="password" id="newPassword" class="swal2-input" placeholder="Nueva contraseña">
+        <input type="password" id="confirmPassword" class="swal2-input" placeholder="Confirmar nueva contraseña">
+      `,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Actualizar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        const currentPassword = (document.getElementById('currentPassword') as HTMLInputElement).value;
+        const newPassword = (document.getElementById('newPassword') as HTMLInputElement).value;
+        const confirmPassword = (document.getElementById('confirmPassword') as HTMLInputElement).value;
+  
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          Swal.showValidationMessage('Por favor completa todos los campos');
+          return null;
+        }
+  
+        if (newPassword !== confirmPassword) {
+          Swal.showValidationMessage('Las contraseñas no coinciden');
+          return null;
+        }
+  
+        return { currentPassword, newPassword };
+      }
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        const { currentPassword, newPassword } = result.value;
+          this.usuarioService.cambiarContrasena(this.userId as number, currentPassword, newPassword)
+          .subscribe(
+            () => {
+              Swal.fire('Éxito', 'La contraseña ha sido actualizada.', 'success');
+            },
+            (error) => {
+              Swal.fire('Error', error.error.detail || 'Ocurrió un problema al actualizar la contraseña.', 'error');
+            }
+          );
+      }
+    });
+  }
+  
   
 }

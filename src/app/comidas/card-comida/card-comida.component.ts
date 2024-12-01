@@ -18,6 +18,7 @@ export class CardComidaComponent {
   constructor(private router: Router, private comidaService: ComidaService) {}
 
   navegarMenuComida() {
+    console.log(`Ordenar comida: ${this.comida.nombre}`);
     Swal.fire({
       title: "Especificaciones",
       input: "text",
@@ -46,6 +47,7 @@ export class CardComidaComponent {
           this.router.navigate(['/comida']); 
         },
         (error) => {
+          console.error('Error al eliminar el menú:', error);
           Swal.fire('Error', 'Hubo un problema al eliminar el menú.', 'error');
         }
       );

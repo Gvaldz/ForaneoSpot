@@ -20,4 +20,4 @@ import { OpinionesComidaComponent } from './opiniones-comida/opiniones-comida.co
     FormsModule
   ]
 })
-export class OpinionesComidasModule { }
+export class OpinionesComidasModule { }

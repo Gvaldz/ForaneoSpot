@@ -15,8 +15,7 @@ import { AuthInterceptor } from './servicios/auth.interceptor';
 import { DashboardInicioComponent} from './shared/dashboard-inicio/dashboard-inicio.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/compiler';
 import {VendedoresFavoritosModule} from './vendedores-favoritos/vendedores-favoritos.module';
-import { OpinionesComidasModule } from './opiniones-comidas/opiniones-comidas.module';
-import { DetalleAlojamientoComponent } from './detalle-alojamiento/detalle-alojamiento.component';
+import {OpinionesComidasModule} from './opiniones-comidas/opiniones-comidas.module';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -24,7 +23,6 @@ import { DetalleAlojamientoComponent } from './detalle-alojamiento/detalle-aloja
     AppComponent,
     DashboardInicioComponent,
     LoginComponent,
-    DetalleAlojamientoComponent,
   ],
   imports: [
     BrowserModule,

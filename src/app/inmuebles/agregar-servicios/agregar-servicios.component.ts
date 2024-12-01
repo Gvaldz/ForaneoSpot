@@ -26,21 +26,24 @@ export class AgregarServiciosComponent implements OnInit {
   
     this.serviciosService.getServicios().subscribe(
       (data) => {
-        this.servicios = data;
+        this.servicios = data || []; 
       },
       (error) => console.error('Error al obtener servicios:', error)
     );
   
     this.serviciosService.getServiciosInmueble(this.inmuebleId).subscribe(
       (data) => {
-        data.forEach(servicio => {
-          this.selectedServicios.add(servicio.idservicio);
-        });
+        if (data && data.length > 0) {
+          data.forEach(servicio => {
+            this.selectedServicios.add(servicio.idservicio);
+          });
+        } else {
+          console.warn('El inmueble no tiene servicios asociados.');
+        }
       },
       (error) => console.error('Error al obtener servicios del inmueble:', error)
     );
   }
-  
 
   toggleServicio(idservicio: number, event: Event): void {
     const checkbox = event.target as HTMLInputElement; 
@@ -58,7 +61,7 @@ export class AgregarServiciosComponent implements OnInit {
   
     this.serviciosService.getServiciosInmueble(this.inmuebleId).subscribe(
       (data) => {
-        const serviciosExistentes = data.map((s: any) => s.idservicio);
+        const serviciosExistentes = (data || []).map((s: any) => s.idservicio);
   
         const serviciosAAgregar = serviciosActuales.filter(
           (id) => !serviciosExistentes.includes(id)
@@ -79,8 +82,18 @@ export class AgregarServiciosComponent implements OnInit {
           return this.serviciosService.deleteServicioInmueble(servicioEliminar.id).toPromise();
         });
   
+        Swal.fire({
+          title: 'Guardando...',
+          text: 'Por favor, espera mientras se actualizan los servicios.',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading(); 
+          },
+        });
+  
         Promise.all([...agregarRequests, ...eliminarRequests])
           .then(() => {
+            Swal.close();
             Swal.fire({
               icon: 'success',
               title: 'Servicios actualizados',
@@ -90,6 +103,7 @@ export class AgregarServiciosComponent implements OnInit {
           })
           .catch((error) => {
             console.error('Error al actualizar servicios:', error);
+            Swal.close();
             Swal.fire({
               icon: 'error',
               title: 'Error',
@@ -98,8 +112,10 @@ export class AgregarServiciosComponent implements OnInit {
             });
           });
       },
-      (error) => console.error('Error al obtener servicios actuales:', error)
+      (error) => {
+        console.error('Error al obtener servicios actuales:', error);
+      }
     );
-  }
+  }  
   
 }

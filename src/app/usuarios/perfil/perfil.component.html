@@ -72,7 +72,12 @@
             <p class="font-semibold">Correo</p>
             <p>{{ userData?.correo }}</p>
           </div>
-  
+
+          <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
+            <p class="font-semibold">Número Telefónico</p>
+            <p>{{ userData?.telefono }}</p>
+          </div>
+
           <div *ngIf="userRole === 'foraneo'" class="w-full rounded-lg bg-[#D9D9D9] p-3">
             <p class="font-semibold">Fecha de Nacimiento</p>
             <p>{{ foraneoData?.nacimiento }}</p>
@@ -100,9 +105,17 @@
           <button
             type="button"
             class="rounded bg-[#D9D9D9] px-6 py-3 text-gray-700 hover:bg-gray-300"
+            (click)="eliminarUsuario()"
           >
             Eliminar perfil
           </button>
+          <button
+          type="button"
+          class="rounded bg-[#0057A0] px-6 py-3 text-white hover:bg-blue-800"
+          (click)="cambiarContrasena()"
+        >
+          Cambiar contraseña
+        </button>
         </div>
       </form>
     </main>

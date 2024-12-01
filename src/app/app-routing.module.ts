@@ -17,7 +17,6 @@ import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
 import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { FormInmueblesComponent } from './inmuebles/form-inmuebles/form-inmuebles.component';
 import { AgregarServiciosComponent } from './inmuebles/agregar-servicios/agregar-servicios.component';
-import { DetalleAlojamientoComponent } from './detalle-alojamiento/detalle-alojamiento.component';
 
 const routes: Routes = [
   { path: 'home', component: DashboardInicioComponent },
@@ -31,7 +30,7 @@ const routes: Routes = [
   { path: 'alojamientos', component: MenusAlojamientosComponent },
   { path: 'menuComida', component: MenuComidaComponent },
   { path: 'perfil', component: PerfilComponent},
-  { path: 'editarPerfil', component: EditarPerfilComponent },
+  { path: 'editarPerfil/:tipoUsuario/:id', component: EditarPerfilComponent },
   { path: 'registrarUsuario', component: RegistrarUsuarioComponent },
   { path: 'menuCasas', component: MenuCasasComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
@@ -42,7 +41,6 @@ const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
   { path: 'inicio', component: DashboardInicioComponent },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
-  { path: 'alojamiento/:id', component: DetalleAlojamientoComponent },
 ];
 
 @NgModule({

@@ -25,7 +25,11 @@ export class MenusAlojamientosComponent implements OnInit {
 
   ngOnInit() {
     this.userRole = this.loginService.getUserRole();
+    this.cargarAlojamientos();
+    this.cargarServicios();
+  }
 
+  cargarAlojamientos() {
     this.alojamientoService.obtenerAlojamientos().subscribe(
       (data) => {
         this.alojamientos = data;
@@ -34,7 +38,9 @@ export class MenusAlojamientosComponent implements OnInit {
         console.error('Error al obtener los alojamientos:', error);
       }
     );
+  }
 
+  cargarServicios() {
     this.caracteristicasService.getServicios().subscribe(
       (data) => {
         this.servicios = data;
@@ -68,7 +74,11 @@ export class MenusAlojamientosComponent implements OnInit {
         }
       );
     }
-  }  
+  }
+
+  onInmuebleEliminado() {
+    this.cargarAlojamientos(); 
+  }
 
   agregar() {
     this.router.navigate(['inmuebles/agregar']);

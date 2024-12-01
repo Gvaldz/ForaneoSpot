@@ -36,6 +36,7 @@
     <app-card-alojamiento
       *ngFor="let alojamiento of filteredAlojamientos"
       [alojamiento]="alojamiento"
+      (inmuebleEliminado)="onInmuebleEliminado()"
     ></app-card-alojamiento>
   </div>
   

@@ -1,90 +1,99 @@
 <div class="min-h-screen bg-white">
-  <!-- Header -->
   <navbar></navbar>
 
-  <!-- Profile Form -->
   <main class="container mx-auto max-w-2xl px-4 py-8">
-    <h1 class="mb-8 text-center text-3xl font-light tracking-wider">PERFIL</h1>
+    <h1 class="mb-8 text-center text-3xl font-light tracking-wider">Actualizar datos</h1>
 
-    <form [formGroup]="profileForm" class="space-y-6">
-      <div class="flex flex-col items-center gap-4">
-        <div class="relative h-48 w-48 bg-[#D9D9D9]">
-          <img
-            *ngIf="selectedFilePreview; else userImage"
-            [src]="selectedFilePreview"
-            alt="Vista previa de la imagen"
-            class="absolute inset-0 h-full w-full object-cover"
-          />
-          <ng-template #userImage>
-            <img
-              [src]="obtenerImagenUsuario()"
-              alt="Imagen del usuario"
-              class="absolute inset-0 h-full w-full object-cover"
-            />
-          </ng-template>
-
-          <label
-            for="fileInput"
-            class="absolute bottom-2 right-2 cursor-pointer rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-700"
-          >
-            Cambiar foto
-          </label>
-        </div>
-
-        <input type="file" (change)="onFileSelected($event)" id="fileInput" class="hidden" />
-
-        <div class="image-actions flex gap-2">
-          <button
-            type="button"
-            class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
-            (click)="uploadUserImage()"
-          >
-            Subir foto
-          </button>
-          <div *ngFor="let image of userData?.imagenes" class="image-container">
-            <button (click)="deleteUserImage(image) "             
-            class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
-            >Eliminar imagen</button>
-          </div>
-        </div>
-      </div>
+    <form [formGroup]="profileForm" class="space-y-6" (ngSubmit)="onSubmit()">
 
       <div class="space-y-4">
-        <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
-          <p class="font-semibold">Nombre</p>
-          <p>{{ userData?.nombre }}</p>
-        </div>
-
-        <div class="flex gap-4">
-          <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
-            <p class="font-semibold">Sexo</p>
-            <p>{{ userData?.sexo }}</p>
-          </div>
-          <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
-            <p class="font-semibold">Tipo de usuario</p>
-            <p>{{ userRole }}</p>
+        <div class="w-full">
+          <label class="font-semibold block mb-1" for="nombre">Nombre</label>
+          <input
+            type="text"
+            id="nombre"
+            formControlName="nombre"
+            class="w-full rounded-lg bg-[#D9D9D9] p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div *ngIf="profileForm.get('nombre')?.invalid && profileForm.get('nombre')?.touched" class="text-red-500 text-sm">
+            Nombre es requerido y debe de ser válido.
           </div>
         </div>
 
-        <div class="w-full rounded-lg bg-[#D9D9D9] p-3">
-          <p class="font-semibold">Correo</p>
-          <p>{{ userData?.correo }}</p>
+        <div class="w-full">
+          <label class="font-semibold block mb-1" for="sexo">Sexo</label>
+          <select
+            id="sexo"
+            formControlName="sexo"
+            class="w-full rounded-lg bg-[#D9D9D9] p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Seleccionar</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+          </select>
         </div>
 
-        <div *ngIf="userRole === 'foraneo'" class="w-full rounded-lg bg-[#D9D9D9] p-3">
-          <p class="font-semibold">Fecha de Nacimiento</p>
-          <p>{{ foraneoData?.nacimiento }}</p>
+        <div class="w-full">
+          <label class="font-semibold block mb-1">Tipo de Usuario</label>
+          <p class="w-full rounded-lg bg-[#D9D9D9] p-3">{{ userRole }}</p>
         </div>
 
-        <div *ngIf="userRole === 'vendedor'" class="w-full rounded-lg bg-[#D9D9D9] p-3">
-          <p class="font-semibold">Ubicación</p>
-          <p>{{ vendedorData?.ubicacion }}</p>
+        <div class="w-full">
+          <label class="font-semibold block mb-1" for="correo">Correo</label>
+          <input
+            type="email"
+            id="correo"
+            formControlName="correo"
+            class="w-full rounded-lg bg-[#D9D9D9] p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div *ngIf="profileForm.get('correo')?.invalid && profileForm.get('correo')?.touched" class="text-red-500 text-sm">
+            El correo es requerido y debe de ser válido.
+          </div>
         </div>
 
-        <div *ngIf="userRole === 'arrendador'" class="w-full rounded-lg bg-[#D9D9D9] p-3">
-          <p class="font-semibold">Descripción</p>
-          <p>{{ arrendadorData?.descripcion }}</p>
+        <div class="w-full">
+          <label class="font-semibold block mb-1" for="telefono">Número Telefónico
+          </label>
+          <input
+            type="tel"
+            id="telefono"
+            formControlName="telefono"
+            class="w-full rounded-lg bg-[#D9D9D9] p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div *ngIf="profileForm.get('telefono')?.invalid && profileForm.get('telefono')?.touched" class="text-red-500 text-sm">
+            El télefono es requerido y debe de ser válido
+          </div>
         </div>
+        <div *ngIf="userRole === 'foraneo'" class="w-full">
+          <label class="font-semibold block mb-1">Fecha de Nacimiento</label>
+          <input
+            type="date"
+            formControlName="nacimiento"
+            class="w-full rounded-lg bg-[#D9D9D9] p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div *ngIf="profileForm.get('nacimiento')?.hasError('edadMinima') && profileForm.get('nacimiento')?.touched" class="text-red-500 text-sm">
+            {{ profileForm.get('nacimiento')?.errors?.['edadMinima']?.message }}
+          </div>
+        </div>
+        
+        <div *ngIf="userRole === 'vendedor'" class="w-full">
+          <label class="font-semibold block mb-1">Ubicación</label>
+          <input
+            type="text"
+            formControlName="ubicacion"
+            class="w-full rounded-lg bg-[#D9D9D9] p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        
+        <div *ngIf="userRole === 'arrendador'" class="w-full">
+          <label class="font-semibold block mb-1">Descripción</label>
+          <textarea
+            formControlName="descripcion"
+            class="w-full rounded-lg bg-[#D9D9D9] p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+        
       </div>
 
       <div class="flex justify-center gap-4">
@@ -92,13 +101,14 @@
           type="submit"
           class="rounded bg-[#0057A0] px-6 py-3 text-white hover:bg-blue-800"
         >
-          Actualizar datos
+          Guardar cambios
         </button>
         <button
           type="button"
           class="rounded bg-[#D9D9D9] px-6 py-3 text-gray-700 hover:bg-gray-300"
+          (click)="cancelar()"
         >
-          Eliminar perfil
+        Cancelar
         </button>
       </div>
     </form>

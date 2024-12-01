@@ -1,58 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registrar-usuario',
   templateUrl: './registrar-usuario.component.html',
   styleUrls: ['./registrar-usuario.component.css'],
 })
-export class RegistrarUsuarioComponent {
+export class RegistrarUsuarioComponent implements OnInit {
+  RegistrerForm!: FormGroup;
+  tipoUsuario: string = '';
 
-<<<<<<<<< Temporary merge branch 1
-  RegistrerForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.RegistrerForm = this.fb.group({
-      nombre: ['', [Validators.required]],
-      apellidos: ['', [Validators.required]],
-      sexo: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      tipoUsuario: ['', [Validators.required]],
-      descripcion: ['', [Validators.required]],
-    });
-  }
-
-  // Método para regresar a la página anterior
-  regresar(): void {
-    this.router.navigate(['/inicio']);
-  }
-
-  // Método para enviar el formulario
-  crearCuenta(): void {
-    if (this.RegistrerForm.valid) {
-      console.log('Formulario válido. Datos:', this.RegistrerForm.value);
-      // Aquí puedes agregar la lógica para enviar los datos al backend
-      alert('Cuenta creada exitosamente');
-      this.router.navigate(['/inicio']);
-    } else {
-      alert('Por favor, completa todos los campos correctamente.');
-    }
-  }
-
-  // Método para cancelar la acción
-  cancelar(): void {
-    this.router.navigate(['/inicio']);
-  }
-}
-=========
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private router: Router
   ) {}
+
   ngOnInit(): void {
     this.RegistrerForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/)]],
@@ -65,7 +31,7 @@ export class RegistrarUsuarioComponent {
         [
           Validators.required, 
           Validators.minLength(6), 
-          Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)
+          Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$/)
         ]
       ],
       tipoUsuario: ['', Validators.required],
@@ -78,14 +44,14 @@ export class RegistrarUsuarioComponent {
       this.tipoUsuario = tipo;
       this.actualizarFormularioSegunTipo(tipo);
     });
-  }
+  }  
 
   actualizarFormularioSegunTipo(tipo: string): void {
     const camposAdicionales: Record<
       string,
       { [key: string]: [string, any] }
     > = {
-      Foraneo: { nacimiento: ['', Validators.required] },
+      Foraneo: {   nacimiento: ['', [Validators.required, this.validarEdadMinima.bind(this)]]},
       Vendedor: { ubicacion: ['', Validators.required] },
       Arrendador: { descripcion: ['', Validators.required] },
     };
@@ -113,23 +79,78 @@ export class RegistrarUsuarioComponent {
       return;
     }
 
-    const tipo = this.RegistrerForm.value.tipoUsuario;
-
-    const formData = {
-      ...this.RegistrerForm.value,
-      nombre: `${this.RegistrerForm.value.nombre} ${this.RegistrerForm.value.apellidos}`.trim(),
-    };
-
-    this.usuarioService.registrarUsuario(tipo, formData).subscribe(
-      response => {
-        alert('Usuario registrado con éxito.');
-        this.router.navigate(['/']);
-      },
-      error => {
-        console.error(error);
-        alert('Ocurrió un error al registrar el usuario.');
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas crear esta cuenta?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#154667',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, crear',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const tipo = this.RegistrerForm.value.tipoUsuario;
+  
+        const formData = {
+          ...this.RegistrerForm.value,
+          nombre: `${this.RegistrerForm.value.nombre} ${this.RegistrerForm.value.apellidos}`.trim(),
+        };
+    
+        
+      
+        this.usuarioService.registrarUsuario(tipo, formData).subscribe(
+          response => {
+            Swal.fire(
+              'El usuario ha sido registrado con éxito.',
+              'success'
+            );        this.router.navigate(['/']);
+          },
+          (error) => {
+            console.error(error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Ocurrió un error al registrar el usuario.',
+            });
+          }
+        );
       }
     });
   }
 
+  validarEdadMinima(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) {
+      return null; 
+    }
+  
+    const fechaNacimiento = new Date(control.value);
+    const fechaHoy = new Date();
+    const edadMinima = 17;
+  
+    let edad = fechaHoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = fechaHoy.getMonth() - fechaNacimiento.getMonth();
+    const dia = fechaHoy.getDate() - fechaNacimiento.getDate();
+  
+    if (mes < 0 || (mes === 0 && dia < 0)) {
+      edad--;
+    }
+      return edad >= edadMinima ? null : { edadMinima: { message: `Debes tener al menos ${edadMinima} años.` } };
+  }
+  
+
+  cancelar(): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Los datos ingresados no se guardarán.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#154667',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/']);
+      }
+    });
+  }
 }
