@@ -261,5 +261,50 @@ export class PerfilComponent {
     });
   }
   
+  cambiarContrasena(): void {
+    Swal.fire({
+      title: 'Cambiar contraseña',
+      html: `
+        <input type="password" id="currentPassword" class="swal2-input" placeholder="Contraseña actual">
+        <input type="password" id="newPassword" class="swal2-input" placeholder="Nueva contraseña">
+        <input type="password" id="confirmPassword" class="swal2-input" placeholder="Confirmar nueva contraseña">
+      `,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Actualizar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        const currentPassword = (document.getElementById('currentPassword') as HTMLInputElement).value;
+        const newPassword = (document.getElementById('newPassword') as HTMLInputElement).value;
+        const confirmPassword = (document.getElementById('confirmPassword') as HTMLInputElement).value;
+  
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          Swal.showValidationMessage('Por favor completa todos los campos');
+          return null;
+        }
+  
+        if (newPassword !== confirmPassword) {
+          Swal.showValidationMessage('Las contraseñas no coinciden');
+          return null;
+        }
+  
+        return { currentPassword, newPassword };
+      }
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        const { currentPassword, newPassword } = result.value;
+          this.usuarioService.cambiarContrasena(this.userId as number, currentPassword, newPassword)
+          .subscribe(
+            () => {
+              Swal.fire('Éxito', 'La contraseña ha sido actualizada.', 'success');
+            },
+            (error) => {
+              Swal.fire('Error', error.error.detail || 'Ocurrió un problema al actualizar la contraseña.', 'error');
+            }
+          );
+      }
+    });
+  }
+  
   
 }
