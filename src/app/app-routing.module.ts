@@ -14,6 +14,7 @@ import {MenuCasasComponent} from './inmuebles/menu-casas/menu-casas.component';
 import {MenuVendedoresComponent} from './vendedores-favoritos/menu-vendedores/menu-vendedores.component';
 import {FavoritosComponent} from './vendedores-favoritos/favoritos/favoritos.component';
 import {DetalleVendedorComponent} from './vendedores-favoritos/detalle-vendedor/detalle-vendedor.component';
+//import {PropertyCardComponent} from './shared/property-card/property-card.component';
 
 const routes: Routes = [
   { path: '', component: DashboardInicioComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'vendedor/:id', component: DetalleVendedorComponent },
   { path: 'comida/agregar', component: MenuFormComponent },
   { path: 'comida/editar/:id', component: MenuFormComponent, },
+  //{ path: 'detalles/:id', component: PropertyCardComponent },
   { path: 'alojamientos', component: MenusAlojamientosComponent },
   { path: 'menuComida', component: MenuComidaComponent },
   { path: 'editarPerfil', component: EditarPerfilComponent },
