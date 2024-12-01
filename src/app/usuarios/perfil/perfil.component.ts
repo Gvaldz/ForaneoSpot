@@ -154,6 +154,7 @@ export class PerfilComponent {
       nombre: ['', Validators.required],
       sexo: ['', Validators.required],
       tipoUsuario: ['', Validators.required],
+      telefono: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', Validators.required],
     });
@@ -196,12 +197,15 @@ export class PerfilComponent {
       nombre: data.nombre,
       sexo: data.sexo,
       correo: data.correo,
+      telefono: data.telefono,
       contrasena: data.contrasena,
     });
   }
 
-  navigateEditar(){
-    this.router.navigate(['/editarPerfil']);
+  navigateEditar(): void {
+    this.userRole = this.loginService.getUserRole();
+    this.userId = this.loginService.getUserId();
+    this.router.navigate(['/editarPerfil', this.userRole, this.userId]);
   }
   
   eliminarUsuario(): void {

@@ -19,4 +19,4 @@ import { PerfilComponent } from './perfil/perfil.component';
         SharedModule
     ]
 })
-export class UsuariosModule { }
+export class UsuariosModule {}

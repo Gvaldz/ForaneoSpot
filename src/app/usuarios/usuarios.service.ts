@@ -17,15 +17,22 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
 
+  obtenerUsuario(tipo: UsuarioTipo, id: number): Observable<UsuarioBase> {
+    const url = `${this.apiUrls[tipo]}/${id}`;
+    return this.http.get<UsuarioBase>(url);
+  }
+
   registrarUsuario(tipo: UsuarioTipo, datos: any): Observable<any> {
     return this.http.post(this.apiUrls[tipo], datos);
   }
 
   actualizarUsuario(tipo: UsuarioTipo, id: number, datos: any): Observable<any> {
-    const url = `${this.apiUrls[tipo]}/${id}`;
+    const normalizedTipo = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase() as UsuarioTipo;  
+    const url = `${this.apiUrls[normalizedTipo]}/${id}`;
     return this.http.put(url, datos);
   }
-
+  
+  
   obtenerForaneo(id: number): Observable<Foraneo> {
     return this.http.get<Foraneo>(`http://3.213.191.244:8000/foraneos/${id}`);
   }
@@ -49,6 +56,8 @@ export class UsuarioService {
   eliminarArrendador(id: number): Observable<Arrendador> {
     return this.http.delete<Arrendador>(`http://3.213.191.244:8000/arrendadores/${id}`);
   }
+
+
 
   uploadUserImage(userId: number, file: File): Observable<any> {
     const formData = new FormData();

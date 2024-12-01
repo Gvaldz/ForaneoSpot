@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'alojamientos', component: MenusAlojamientosComponent },
   { path: 'menuComida', component: MenuComidaComponent },
   { path: 'perfil', component: PerfilComponent},
-  { path: 'editarPerfil', component: EditarPerfilComponent },
+  { path: 'editarPerfil/:tipoUsuario/:id', component: EditarPerfilComponent },
   { path: 'registrarUsuario', component: RegistrarUsuarioComponent },
   { path: 'menuCasas', component: MenuCasasComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
