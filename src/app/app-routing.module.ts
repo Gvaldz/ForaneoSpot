@@ -19,6 +19,7 @@ import { FormInmueblesComponent } from './inmuebles/form-inmuebles/form-inmueble
 import { AgregarServiciosComponent } from './inmuebles/agregar-servicios/agregar-servicios.component';
 import { DetalleAlojamientoComponent } from './detalle-alojamiento/detalle-alojamiento.component';
 import { CardAlojamientoComponent } from './inmuebles/card-alojamiento/card-alojamiento.component';
+import {GuiaListComponent} from './shared/guia-list/guia-list.component';
 
 const routes: Routes = [
   { path: 'home', component: DashboardInicioComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'vendedores', component: MenuVendedoresComponent},
   { path: 'favoritos', component: FavoritosComponent },
   { path: 'vendedor/:id', component: DetalleVendedorComponent },
+  { path: 'guia', component: GuiaListComponent },
   { path: 'comida/agregar', component: MenuFormComponent },
   { path: 'comida/editar/:id', component: MenuFormComponent, },
   { path: 'alojamientos', component: MenusAlojamientosComponent },
