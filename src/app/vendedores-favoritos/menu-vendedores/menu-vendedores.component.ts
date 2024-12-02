@@ -19,6 +19,7 @@ export class MenuVendedoresComponent {
     this.vendedorService.obtenerVendedores().subscribe(
       (data) => {
         this.vendedores = data;
+        console.log(data)
       },
       (error) => {
         console.error('Error al obtener:', error);

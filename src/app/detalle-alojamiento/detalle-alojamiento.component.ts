@@ -93,4 +93,10 @@ export class DetalleAlojamientoComponent implements OnInit {
       alert('Por favor, selecciona una fecha y una hora.');
     }
   }
+
+  volver(): void {
+    // Redirigir a la lista de alojamientos
+    this.router.navigate(['/alojamientos']);
+  }
 }
+

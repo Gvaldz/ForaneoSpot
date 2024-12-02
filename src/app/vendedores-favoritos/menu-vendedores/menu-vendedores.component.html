@@ -7,7 +7,11 @@
     class="w-full max-w-md mt-6 mb-6 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
   />
 
-  <div class="grid gap-8 w-full max-w-5xl md:grid-cols-2">
-    <app-card-vendedor *ngFor="let vendedor of filteredVendedores" [vendedor]="vendedor"></app-card-vendedor>
+  <div class="flex flex-wrap gap-8 w-full max-w-6xl justify-between">
+    <app-card-vendedor
+      *ngFor="let vendedor of filteredVendedores"
+      [vendedor]="vendedor"
+      class="w-5/12 h-auto min-h-[10px] flex flex-col"
+    ></app-card-vendedor>
   </div>
 </div>
