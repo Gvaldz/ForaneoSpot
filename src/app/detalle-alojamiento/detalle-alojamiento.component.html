@@ -78,15 +78,24 @@
   </div>
 
   <!-- Comentarios -->
-  <div class="w-[1119px] mt-12">
-    <h2 class="text-3xl font-bold mb-4">Comentarios</h2>
-    <div class="grid grid-cols-2 gap-8">
-      <div *ngFor="let comentario of alojamiento.comentarios" class="bg-gray-100 p-4 rounded-lg shadow-md">
-        <p class="font-semibold">Usuario: {{ comentario.usuario }}</p>
-        <p class="text-yellow-500">Calificación: {{ comentario.calificacion }}/5</p>
-        <p class="text-gray-700">{{ comentario.comentario }}</p>
+<!-- Comentarios -->
+<div class="w-[1119px] mt-12">
+  <h2 class="text-3xl font-bold mb-4">Comentarios</h2>
+  <div class="grid grid-cols-2 gap-8">
+    <div
+      *ngFor="let comentario of comentarios"
+      class="w-[503px] h-[247px] pl-[13px] pr-[251px] pt-7 pb-[101px] bg-[#e1e5eb] flex-col justify-start items-start gap-[30px] inline-flex"
+    >
+      <div class="text-justify text-black text-4xl font-normal font-['Cabin']">
+        Calificación:{{ comentario.calificacion}}/5
+      </div>
+      <div class="text-justify text-black text-4xl font-normal font-['Cabin']">
+        {{ comentario.descripcion }}
       </div>
     </div>
   </div>
+</div>
+
+
 </div>
 </div>

@@ -14,6 +14,7 @@ export class AlojamientosService {
   caracteristicas$ = this.caracteristicasSubject.asObservable(); 
   private apiUrl = 'http://3.213.191.244:8000';
   private apiservices = 'http://3.213.191.244:8000/servicios';
+  private apiOpiniones = "http://3.213.191.244:8000/opiniones_inmuebles";
   private apiUrls: Record<string, string> = {
     Casa: 'http://3.213.191.244:8000/casas',
     Edificio: 'http://3.213.191.244:8000/edificios',
@@ -29,7 +30,15 @@ export class AlojamientosService {
     
   }
 
-  
+   // Método para agendar una visita
+   agendarVisita(citaVisita: { idinmuebles: string; fecha: string; hora: string; realizada: boolean }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/citas_visitas`, citaVisita);
+  }
+
+  // Método para obtener comentarios
+  obtenerComentarios(idInmueble: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiOpiniones}/inmuebles/${idInmueble}`);
+  }
 
   obtenerAlojamientos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/inmuebles`);

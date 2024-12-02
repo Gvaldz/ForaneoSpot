@@ -18,6 +18,7 @@ export class DetalleAlojamientoComponent implements OnInit {
   fechaVisita: string | undefined;
   horaVisita: string | undefined;
   userRole: string | null = null;
+  comentarios: any[] = [];
 
   constructor(
     private route: ActivatedRoute, // Para acceder a los parámetros de la ruta
@@ -33,9 +34,11 @@ export class DetalleAlojamientoComponent implements OnInit {
     // Obtener el ID del alojamiento y el tipo de inmueble desde la URL
     this.id = this.route.snapshot.paramMap.get('id');
     this.tipoInmueble = this.route.snapshot.paramMap.get('tipo_inmueble');
-
     this.userRole = this.loginService.getUserRole();
-
+    if (this.id) {
+      this.obtenerComentarios(parseInt(this.id, 10));
+    }
+    
     // Verificar que tenemos ambos parámetros antes de hacer la solicitud al servicio
     if (this.id && this.tipoInmueble) {
       this.inmuebleService.getInmueblePorId(this.tipoInmueble, parseInt(this.id, 10)).subscribe({
@@ -55,18 +58,28 @@ export class DetalleAlojamientoComponent implements OnInit {
     }
   }
 
+  obtenerComentarios(idInmueble: number) {
+    this.inmuebleService.obtenerComentarios(idInmueble).subscribe({
+      next: (data) => {
+        console.log("Comentarios recibidos: ", data); // Imprime los datos correctamente
+        console.log("Comentarios (JSON):", JSON.stringify(data, null, 2)); // Opción para verlo como JSON
+        this.comentarios = data;
+      },
+      
+      error: (err) => console.error('Error al obtener comentarios:', err),
+    });
+  }
+
   agendarVisita() {
     if (this.fechaVisita && this.horaVisita) {
-      // Crear el objeto con los datos que se enviarán
       const citaVisita = {
-        idinmuebles: this.id, // ID del alojamiento
-        fecha: this.fechaVisita, // Fecha seleccionada
-        hora: this.horaVisita, // Hora seleccionada
-        realizada: false, // Marcar como no realizada
+        idinmuebles: this.id!,
+        fecha: this.fechaVisita,
+        hora: this.horaVisita,
+        realizada: false,
       };
 
-      // Enviar la solicitud POST al backend
-      this.http.post('http://3.213.191.244:8000/citas_visitas', citaVisita).subscribe({
+      this.inmuebleService.agendarVisita(citaVisita).subscribe({
         next: (response) => {
           console.log('Visita agendada:', response);
           alert(`Visita agendada para el ${this.fechaVisita} a las ${this.horaVisita}`);
@@ -77,12 +90,7 @@ export class DetalleAlojamientoComponent implements OnInit {
         },
       });
     } else {
-      alert("Por favor, selecciona una fecha y una hora.");
+      alert('Por favor, selecciona una fecha y una hora.');
     }
-  }
-
-  volver(): void {
-    // Redirigir a la lista de alojamientos
-    this.router.navigate(['/alojamientos']);
   }
 }
