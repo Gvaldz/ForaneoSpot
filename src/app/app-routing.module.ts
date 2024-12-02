@@ -42,6 +42,7 @@ const routes: Routes = [
   { path: 'inmueble/editar/:tipo_inmueble/:id', component: FormInmueblesComponent, },
   { path: 'inmuebles/agregar/servicios/:id', component: AgregarServiciosComponent },
   { path: '', component: DashboardInicioComponent},
+  {  path: '', component: DashboardInicioComponent},
   { path: 'inicio', component: DashboardInicioComponent },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: 'inmueble/detalle/:tipo_inmueble/:id', component:DetalleAlojamientoComponent },
