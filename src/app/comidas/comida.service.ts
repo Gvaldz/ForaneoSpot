@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import { Comida } from './comida';
 import { Pedido } from './pedido';
+import { LoginserviceService } from '../login/loginservice.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +16,21 @@ export class ComidaService {
   private comidasSubject = new BehaviorSubject<Comida[]>([]);
   comidas$ = this.comidasSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loginService: LoginserviceService) {
+    this.loginService.userRole$.subscribe(() => {
+      this.loadComidas(true); 
+    });
+
     this.loadComidas();
   }
 
-  private loadComidas() {
-    this.getComidas().subscribe(data => {
-      this. comidasSubject.next(data);
-    });
+  private loadComidas(forceReload: boolean = false): void {
+    if (forceReload || this.comidasSubject.getValue().length === 0) {
+      this.getComidas().subscribe(data => {
+        this.comidasSubject.next(data);
+      });
+    }
   }
-
   getComidas(): Observable<Comida[]> {
     return this.http.get<Comida[]>(this.apiUrl);
   }

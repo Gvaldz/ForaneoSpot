@@ -1,12 +1,11 @@
 <div *ngIf="opiniones.length > 0; else noOpiniones">
-  <div class="promedio-calificacion bg-blue-500 text-white p-4 rounded-lg shadow-md">
+  <div class="promedio-calificacion bg-[#1d3557] text-white p-4 rounded-lg shadow-md">
     <p class="text-xl font-semibold">Calificación Promedio: {{ calificacionPromedio }} / 10</p>
   </div>
 
   <div *ngFor="let opinion of opiniones" class="opinion-item bg-white shadow-md rounded-lg p-6 mb-4">
     <ng-container *ngIf="editingOpinion?.idopinion !== opinion.idopinion">
       <div class="opinion">
-        <p class="text-lg font-semibold text-gray-800"><strong>Id De Opinión:</strong> {{ opinion.idopinion }}</p>
         <p class="text-lg font-semibold text-gray-800"><strong>Calificación:</strong> {{ opinion.calificacion }}/10</p>
         <p class="text-gray-600 mt-2"><strong>Descripción:</strong> {{ opinion.descripcion }}</p>
 
@@ -21,7 +20,7 @@
           <button
             *ngIf="opinion.idusuarioforaneo === usuarioId"
             (click)="startEditing(opinion)"
-            class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600"
+            class="bg-[#0057A0] text-white px-4 py-2 rounded-lg shadow hover:bg-[#1d3557]"
           >
             Editar
           </button>
