@@ -2,8 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComidaService } from '../comida.service';
 import Swal from 'sweetalert2';
-import { Comida } from '../comida';
-
 @Component({
   selector: 'app-card-comida',
   templateUrl: './card-comida.component.html',
@@ -14,11 +12,11 @@ export class CardComidaComponent {
   @Input() userRole: string | null = null;
   especificaciones: string = '';
   showModal: boolean = false;
+  menuVisible: boolean = false;
 
   constructor(private router: Router, private comidaService: ComidaService) {}
 
   navegarMenuComida() {
-    console.log(`Ordenar comida: ${this.comida.nombre}`);
     Swal.fire({
       title: "Especificaciones",
       input: "text",
@@ -60,6 +58,14 @@ export class CardComidaComponent {
 
   closeModal() {
     this.showModal = false;
+  }
+  
+  toggleMenu() {
+    this.menuVisible = !this.menuVisible;
+  }
+
+  verDetallesVendedor(id_usuario_vendedor: number) {
+    this.router.navigate([`/vendedor/${id_usuario_vendedor}`]);
   }
 
   ordenarComida() {

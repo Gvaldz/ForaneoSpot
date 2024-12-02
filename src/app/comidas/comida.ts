@@ -4,4 +4,5 @@ export interface Comida {
     descripcion: string,
     precio: number,
     ubicacion_vendedor: string
+    id_usuario_vendedor: number
 }
