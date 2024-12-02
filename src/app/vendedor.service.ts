@@ -14,6 +14,7 @@ export class VendedorService {
 
   obtenerVendedores(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl+'vendedores/');
+    
   }
 
   obtenerVendedoresFavoritos(): Observable<any[]> {
@@ -22,7 +23,7 @@ export class VendedorService {
 
 
   agregarVendedorFavorito(id: number): Observable<any> {
-    const body = { id_usuario_vendedor: id }; // Cambiamos la clave a id_usuario_vendedor
+    const body = { id_usuario_vendedor: id }; 
     return this.http.post<any>('http://3.213.191.244:8000/vendedores_favoritos/', body);
   }
 
@@ -39,7 +40,7 @@ export class VendedorService {
   }
 
   submitOpinion(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}opiniones_comidas/`, data); // Enviar los datos a la API
+    return this.http.post(`${this.apiUrl}opiniones_comidas/`, data); 
   }
 
   obtenerMenusVendedor(id: number): Observable<any> {
