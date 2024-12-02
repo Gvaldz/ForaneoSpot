@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./detalle-vendedor.component.css'],
 })
 export class DetalleVendedorComponent implements OnInit {
-
+  menus: any[] = [];
   vendedor: any;
   cargando: boolean = true;
   error: string | null = null;
@@ -24,7 +24,7 @@ export class DetalleVendedorComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-
+  
     if (id) {
       this.vendedorService.obtenerDetallesVendedor(id).subscribe({
         next: (data) => {
@@ -37,12 +37,21 @@ export class DetalleVendedorComponent implements OnInit {
           this.cargando = false;
         },
       });
+        this.vendedorService.obtenerMenusVendedor(id).subscribe({
+        next: (data) => {
+          this.menus = data;
+        },
+        error: (err) => {
+          console.error('Error al obtener los menús del vendedor:', err);
+          this.error = 'No se pudieron cargar los menús del vendedor.';
+        },
+      });
     } else {
       this.error = 'ID de vendedor no válido.';
       this.cargando = false;
     }
-
   }
+  
 
   marcarFavorito(): void {
     this.alerta();
@@ -64,7 +73,6 @@ export class DetalleVendedorComponent implements OnInit {
     this.vendedorService.agregarVendedorFavorito(id).subscribe({
       next: (response) => {
         console.log('Vendedor añadido a favoritos:', response);
-        alert('Vendedor añadido a favoritos exitosamente');
       },
       error: (error) => {
         console.error('Error al añadir vendedor a favoritos:', error);

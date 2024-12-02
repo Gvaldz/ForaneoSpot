@@ -1,15 +1,14 @@
 <!-- Botón para abrir el Modal -->
 <button
-  class="rounded bg-[#1E3A5F] px-6 py-3 text-white hover:bg-[#182e48]"
+  class="rounded-xl px-6 py-3 hover:bg-[#182e48] shadow-md hover:text-white"
   (click)="openModal()"
 >
   Deja tu Opinión
 </button>
 
-<!-- Modal de Opinión -->
 <div *ngIf="isModalOpen" class="modal-overlay" (click)="closeModal()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <h2 class="text-xl font-bold mb-4">Ingresa tu Opinión</h2>
+  <div class="modal-content shadow-md p-3 rounded-md" (click)="$event.stopPropagation()">
+    <h2 class="text-xl font-bold mb-4 mt-4">Ingresa tu Opinión</h2>
 
     <div>
       <label for="calificacion" class="mb-2">Calificación (1-10)</label>
@@ -36,13 +35,13 @@
 
     <div class="mt-4 flex justify-between">
       <button
-        class="bg-red-500 text-white px-4 py-2 rounded"
+        class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-700"
         (click)="closeModal()"
       >
         Cancelar
       </button>
       <button
-        class="bg-blue-500 text-white px-4 py-2 rounded"
+        class="bg-[#0057A0] text-white px-4 py-2 rounded-xl hover:bg-[#1d3557]"
         (click)="submitOpinion()"
       >
         Enviar Opinión
