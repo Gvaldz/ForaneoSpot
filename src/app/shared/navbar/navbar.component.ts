@@ -59,5 +59,6 @@ export class NavbarComponent implements OnInit {
 
   navigateFAQ(){
     console.log("FAQ")
+    this.router.navigate(['/guia']);
   }
 }

@@ -1,0 +1,25 @@
+<navbar></navbar>
+<div class="product-list-container">
+  <h2>Nuestros Productos</h2>
+
+  <!-- Input para buscar productos -->
+  <div class="m-2">
+
+
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="Buscar productos..."
+    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+  >
+  </div>
+
+
+  <div class="product-list">
+    <!-- Iterar sobre los productos filtrados -->
+    <app-guia-card
+      *ngFor="let product of filteredProducts"
+      [product]="product">
+    </app-guia-card>
+  </div>
+</div>
