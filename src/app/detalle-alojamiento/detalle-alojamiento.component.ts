@@ -19,6 +19,9 @@ export class DetalleAlojamientoComponent implements OnInit {
   horaVisita: string | undefined;
   userRole: string | null = null;
   comentarios: any[] = [];
+  nuevoComentario: any
+  calificacion: number | null = null;
+  descripcionComentario: string = '';
 
   constructor(
     private route: ActivatedRoute, // Para acceder a los parámetros de la ruta
@@ -28,8 +31,52 @@ export class DetalleAlojamientoComponent implements OnInit {
     private loginService: LoginserviceService,
   ) {}
 
+  abrirModalComentario() {
+    const modal = document.getElementById('modalComentario');
+    if (modal) modal.style.display = 'block';
+  }
   
-
+  cerrarModalComentario() {
+    const modal = document.getElementById('modalComentario');
+    if (modal) modal.style.display = 'none';
+  }
+  
+  enviarComentario() {
+    if (!this.calificacion || this.calificacion < 1 || this.calificacion > 5) {
+      console.log(this.calificacion)
+      alert('Por favor, proporciona una calificación válida entre 1 y 5.');
+      return;
+    }
+  
+    if (!this.descripcionComentario.trim()) {
+      alert('El comentario no puede estar vacío.');
+      return;
+    }
+  
+    const nuevoComentario = {
+      idinmueble: this.id!, // Usar `!` porque ya verificamos antes que no es null
+      calificacion: this.calificacion,
+      descripcion: this.descripcionComentario,
+    };
+  
+    this.inmuebleService.agregarComentario(nuevoComentario).subscribe({
+      next: (response) => {
+        console.log('Comentario publicado:', response);
+        this.obtenerComentarios(parseInt(this.id!, 10));
+        this.cerrarModalComentario();
+  
+        // Limpiar el formulario después de enviar
+        this.calificacion = null;
+        this.descripcionComentario = '';
+      },
+      error: (err) => {
+        console.error('Error al publicar comentario:', err);
+        alert('Hubo un error al publicar el comentario. Intenta de nuevo.');
+      },
+    });
+  }
+  
+  
   ngOnInit(): void {
     // Obtener el ID del alojamiento y el tipo de inmueble desde la URL
     this.id = this.route.snapshot.paramMap.get('id');
@@ -61,8 +108,6 @@ export class DetalleAlojamientoComponent implements OnInit {
   obtenerComentarios(idInmueble: number) {
     this.inmuebleService.obtenerComentarios(idInmueble).subscribe({
       next: (data) => {
-        console.log("Comentarios recibidos: ", data); // Imprime los datos correctamente
-        console.log("Comentarios (JSON):", JSON.stringify(data, null, 2)); // Opción para verlo como JSON
         this.comentarios = data;
       },
       

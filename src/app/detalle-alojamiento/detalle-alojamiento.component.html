@@ -77,6 +77,52 @@
     </ul>
   </div>
 
+  <!-- Modal para publicar comentario -->
+<!-- Modal para publicar comentario -->
+<div id="modalComentario" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+  <div class="bg-white w-[500px] p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-bold mb-4">Publicar Comentario</h2>
+    <form (ngSubmit)="enviarComentario()">
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-2">Calificación (1-5):</label>
+        <input
+          type="number"
+          min="1"
+          max="5"
+          [(ngModel)]="calificacion"
+          name="calificacion"
+          class="w-full p-2 border border-gray-300 rounded-md"
+          required
+        />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-2">Comentario:</label>
+        <textarea
+          [(ngModel)]="descripcionComentario"
+          name="descripcionComentario"
+          rows="4"
+          class="w-full p-2 border border-gray-300 rounded-md"
+          required
+        ></textarea>
+      </div>
+      <div class="flex justify-end gap-4">
+        <button
+          type="button"
+          (click)="cerrarModalComentario()"
+          class="py-2 px-4 bg-gray-500 text-white rounded-md"
+        >
+          Cancelar
+        </button>
+        <button type="submit" class="py-2 px-4 bg-blue-600 text-white rounded-md">
+          Publicar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
   <!-- Comentarios -->
 <!-- Comentarios -->
 <div class="w-[1119px] mt-12">
@@ -84,18 +130,19 @@
   <div class="grid grid-cols-2 gap-8">
     <div
       *ngFor="let comentario of comentarios"
-      class="w-[503px] h-[247px] pl-[13px] pr-[251px] pt-7 pb-[101px] bg-[#e1e5eb] flex-col justify-start items-start gap-[30px] inline-flex"
+      class="w-[428px] h-[246px] pl-[13px] pr-[202px] pt-7 pb-[150px] bg-[#e1e5eb] flex-col justify-start items-start inline-flex rounded-lg shadow-md"
     >
-      <div class="text-justify text-black text-4xl font-normal font-['Cabin']">
-        Calificación:{{ comentario.calificacion}}/5
+      <div class="text-justify text-black text-[32px] font-normal font-['Cabin']">
+        Calificación:{{ comentario.calificacion }}/5
       </div>
-      <div class="text-justify text-black text-4xl font-normal font-['Cabin']">
+      <div class="text-justify text-black text-2xl font-normal font-['Cabin']">
         {{ comentario.descripcion }}
       </div>
     </div>
   </div>
 </div>
 
-
 </div>
+
+
 </div>

@@ -30,6 +30,11 @@ export class AlojamientosService {
     
   }
 
+  agregarComentario(comentario: { idinmueble: string; calificacion: number; descripcion: string }): Observable<any> {
+    return this.http.post(`${this.apiOpiniones}`, comentario);
+  }
+  
+
    // Método para agendar una visita
    agendarVisita(citaVisita: { idinmuebles: string; fecha: string; hora: string; realizada: boolean }): Observable<any> {
     return this.http.post(`${this.apiUrl}/citas_visitas`, citaVisita);
