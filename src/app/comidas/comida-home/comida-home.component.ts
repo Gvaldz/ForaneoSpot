@@ -11,16 +11,21 @@ import { Router } from '@angular/router';
 export class ComidaHomeComponent implements OnInit {
   comidas: any[] = [];
   userRole: string | null = '';
-  userId: string | null = '';
+  userId!: number | null;
   searchText: string = '';
 
   constructor(private comidaService: ComidaService,
               private loginService: LoginserviceService,
               private router: Router,) {}
 
-  ngOnInit(): void {
-    this.userRole = this.loginService.getUserRole();
+ngOnInit(): void {
+    this.loginService.userRole$.subscribe((role) => {
+      this.userRole = role;
+      this.loadMenusForRole();
+    });
+  }
 
+  private loadMenusForRole(): void {
     this.comidaService.comidas$.subscribe(
       (data) => {
         this.comidas = data;

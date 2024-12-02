@@ -42,6 +42,10 @@ export class VendedorService {
     return this.http.post(`${this.apiUrl}opiniones_comidas/`, data); // Enviar los datos a la API
   }
 
+  obtenerMenusVendedor(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}menus/vendedor/${id}`)
+  }
+
   updateOpinion(opinionId: number, data: {
     calificacion: number,
     descripcion: string
