@@ -306,5 +306,8 @@ export class PerfilComponent {
     });
   }
   
+  navigateVendedoresFavoritos(){
+    this.router.navigate(['/favoritos']);
+  }
   
 }
