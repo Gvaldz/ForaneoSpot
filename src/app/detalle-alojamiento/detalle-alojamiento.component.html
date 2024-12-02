@@ -1,19 +1,92 @@
-<nav></nav>
-<div *ngIf="alojamiento" class="p-6 bg-white shadow-md rounded-lg">
-    <h1 class="text-2xl font-bold mb-4">{{ alojamiento.nombre_inmueble }}</h1>
-    <img 
-      *ngIf="alojamiento.imagenes && alojamiento.imagenes.length > 0"
-      [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[0].file_path"
-      alt="Imagen del alojamiento"
-      class="w-full h-64 object-cover rounded-md mb-4">
+<navbar></navbar>
+
+<!-- Contenedor Principal -->
+<div *ngIf="alojamiento" class="w-full bg-white flex flex-col items-center py-8">
+  <div class="w-[1119px]">
   
-    <p class="text-gray-700 mb-4">{{ alojamiento.descripcion }}</p>
-    <p class="font-semibold mb-2">Precio: ${{ alojamiento.renta }} / Mes</p>
-    <p class="font-semibold mb-2">Tipo: {{ tipoInmueble }}</p>
-    <p class="font-semibold mb-2">Ubicación: {{ alojamiento.ubicacion }}</p>
-  
-    <button (click)="volver()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md">
-      Volver
-    </button>
+  <!-- Encabezado -->
+  <div class="w-[1119px] flex flex-col items-start px-8" style="padding-left: 0; padding-bottom: 32px;">
+    <div class="flex flex-col items-start gap-2">
+      <h1 class="text-4xl font-bold">{{ alojamiento.nombre_inmueble }}</h1>
+      <p class="text-lg text-gray-700">Calificación: {{ alojamiento.calificacion || 'N/A' }}/5</p>
+    </div>
   </div>
- 
+
+  <!-- Galería de Imágenes -->
+  <!-- Sección de Galería de Imágenes -->
+  <div class="w-[1119px] h-[553px] relative">
+    <!-- Imagen principal (0) -->
+    <img *ngIf="alojamiento.imagenes && alojamiento.imagenes.length > 0"
+         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[0].file_path"
+         alt="Imagen principal"
+         class="w-[560px] h-[553px] left-0 top-0 absolute bg-[#dadada] rounded-tl-[31px] rounded-bl-[31px] object-cover" />
+    
+    <!-- Imagen 1 -->
+    <img *ngIf="alojamiento.imagenes.length > 1"
+         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[1].file_path"
+         alt="Imagen 1"
+         class="w-[273px] h-[273px] left-[567px] top-0 absolute bg-[#dadada] object-cover" />
+
+    <!-- Imagen 2 -->
+    <img *ngIf="alojamiento.imagenes.length > 2"
+         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[2].file_path"
+         alt="Imagen 2"
+         class="w-[273px] h-[273px] left-[846px] top-0 absolute bg-[#dadada] rounded-tr-[31px] object-cover" />
+
+    <!-- Imagen 3 -->
+    <img *ngIf="alojamiento.imagenes.length > 3"
+         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[3].file_path"
+         alt="Imagen 3"
+         class="w-[273px] h-[273px] left-[567px] top-[280px] absolute bg-[#dadada] object-cover" />
+
+    <!-- Imagen 4 -->
+    <img *ngIf="alojamiento.imagenes.length > 4"
+         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[4].file_path"
+         alt="Imagen 4"
+         class="w-[273px] h-[273px] left-[846px] top-[280px] absolute bg-[#dadada] rounded-br-[31px] object-cover" />
+  </div>
+
+  <!-- Sección de Descripción -->
+  <div class="w-[1119px] flex mt-12" style="margin-top: 57px;">
+    <!-- Descripción -->
+    <div class="w-[60%] pr-8">
+      <h2 class="text-3xl font-bold mb-4">Descripción</h2>
+      <p class="text-lg leading-7 text-gray-800">{{ alojamiento.descripcion }}</p>
+    </div>
+
+    <!-- Reservación -->
+    <div *ngIf="userRole === 'foraneo'" class="w-[40%] bg-gray-100 p-6 rounded-xl shadow-lg">
+      <p class="text-xl font-semibold mb-4">${{ alojamiento.renta }} MXN / Mes</p>
+      <div class="mb-4">
+        <label for="fecha" class="block text-gray-700">Fecha:</label>
+        <input id="fecha" type="date" [(ngModel)]="fechaVisita" class="w-full p-2 border border-gray-300 rounded-md" />
+      </div>
+      <div class="mb-4">
+        <label for="hora" class="block text-gray-700">Hora:</label>
+        <input id="hora" type="time" [(ngModel)]="horaVisita" class="w-full p-2 border border-gray-300 rounded-md" />
+      </div>
+      <button (click)="agendarVisita()" class="w-full py-2 bg-blue-600 text-white font-semibold rounded-md">Agendar visita</button>
+    </div>
+  </div>
+
+  <!-- Servicios -->
+  <div class="w-[1119px] mt-12">
+    <h2 class="text-3xl font-bold mb-4">Servicios</h2>
+    <ul class="list-disc pl-8 text-lg text-gray-800">
+      <li *ngFor="let servicio of alojamiento.servicios">{{ servicio }}</li>
+    </ul>
+  </div>
+
+  <!-- Comentarios -->
+  <div class="w-[1119px] mt-12">
+    <h2 class="text-3xl font-bold mb-4">Comentarios</h2>
+    <div class="grid grid-cols-2 gap-8">
+      <div *ngFor="let comentario of alojamiento.comentarios" class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <p class="font-semibold">Usuario: {{ comentario.usuario }}</p>
+        <p class="text-yellow-500">Calificación: {{ comentario.calificacion }}/5</p>
+        <p class="text-gray-700">{{ comentario.comentario }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
