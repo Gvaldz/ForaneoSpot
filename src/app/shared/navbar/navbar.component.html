@@ -8,38 +8,176 @@
     <nav class="flex items-center gap-4">
       <button
         *ngIf="userRole === 'foraneo'"
-        (click)="navigateVendedoresFavoritos()" class="rounded-full bg-yellow-500 px-8 py-2 text-blue-950 hover:bg-white/90">
-        Vendedores - Favoritos
+        (click)="navigateVendedoresFavoritos()"
+        class="rounded-full bg-yellow-500 px-8 py-2 text-blue-950 hover:bg-white/90 flex items-center space-x-2"
+      >
+        <span>Vendedores</span>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <path
+              d="M9.15316 5.40838C10.4198 3.13613 11.0531 2 12 2C12.9469 2 13.5802 3.13612 14.8468 5.40837L15.1745 5.99623C15.5345 6.64193 15.7144 6.96479 15.9951 7.17781C16.2757 7.39083 16.6251 7.4699 17.3241 7.62805L17.9605 7.77203C20.4201 8.32856 21.65 8.60682 21.9426 9.54773C22.2352 10.4886 21.3968 11.4691 19.7199 13.4299L19.2861 13.9372C18.8096 14.4944 18.5713 14.773 18.4641 15.1177C18.357 15.4624 18.393 15.8341 18.465 16.5776L18.5306 17.2544C18.7841 19.8706 18.9109 21.1787 18.1449 21.7602C17.3788 22.3417 16.2273 21.8115 13.9243 20.7512L13.3285 20.4768C12.6741 20.1755 12.3469 20.0248 12 20.0248C11.6531 20.0248 11.3259 20.1755 10.6715 20.4768L10.0757 20.7512C7.77268 21.8115 6.62118 22.3417 5.85515 21.7602C5.08912 21.1787 5.21588 19.8706 5.4694 17.2544L5.53498 16.5776C5.60703 15.8341 5.64305 15.4624 5.53586 15.1177C5.42868 14.773 5.19043 14.4944 4.71392 13.9372L4.2801 13.4299C2.60325 11.4691 1.76482 10.4886 2.05742 9.54773C2.35002 8.60682 3.57986 8.32856 6.03954 7.77203L6.67589 7.62805C7.37485 7.4699 7.72433 7.39083 8.00494 7.17781C8.28555 6.96479 8.46553 6.64194 8.82547 5.99623L9.15316 5.40838Z"
+              fill="#172552"
+            ></path>
+          </g>
+        </svg>
       </button>
+
       <button
         *ngIf="userRole === 'foraneo'"
-        (click)="navigateVendedores()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
-        Vendedores
+        (click)="navigateVendedores()"
+        class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90 flex items-center space-x-2"
+      >
+        <span>Vendedores</span>
+        <svg
+          fill="#172552"
+          viewBox="0 0 56 56"
+          xmlns="http://www.w3.org/2000/svg"
+          stroke="#172552"
+          class="w-5 h-5"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <path
+              d="M 13.7851 49.5742 L 42.2382 49.5742 C 47.1366 49.5742 49.5743 47.1367 49.5743 42.3086 L 49.5743 13.6914 C 49.5743 8.8633 47.1366 6.4258 42.2382 6.4258 L 13.7851 6.4258 C 8.9101 6.4258 6.4257 8.8398 6.4257 13.6914 L 6.4257 42.3086 C 6.4257 47.1602 8.9101 49.5742 13.7851 49.5742 Z M 28.0117 35.8164 C 19.6913 35.8164 13.7148 39.8242 11.1835 44.9102 C 10.5507 44.2774 10.1992 43.3633 10.1992 42.1211 L 10.1992 13.8789 C 10.1992 11.4414 11.5117 10.1992 13.8554 10.1992 L 42.1679 10.1992 C 44.4882 10.1992 45.8007 11.4414 45.8007 13.8789 L 45.8007 42.1211 C 45.8007 43.3399 45.4726 44.2774 44.8398 44.8867 C 42.3320 39.8008 36.5429 35.8164 28.0117 35.8164 Z M 28.0117 31.9023 C 32.4882 31.9492 36.0273 28.1289 36.0273 23.1133 C 36.0273 18.4023 32.4882 14.5118 28.0117 14.5118 C 23.5351 14.5118 19.9726 18.4023 19.9960 23.1133 C 20.0429 28.1289 23.5351 31.8320 28.0117 31.9023 Z"
+            ></path>
+          </g>
+        </svg>
       </button>
+
       <button
-      *ngIf="userRole === 'foraneo' || userRole === 'vendedor'"
-      (click)="navigateComida()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
-        Comida
+        *ngIf="userRole === 'foraneo' || userRole === 'vendedor'"
+        (click)="navigateComida()"
+        class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90 flex items-center space-x-2"
+      >
+        <span>Comida</span>
+        <svg
+          fill="#172552"
+          viewBox="0 -3.84 122.88 122.88"
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          style="enable-background:new 0 0 122.88 115.21"
+          xml:space="preserve"
+          stroke="#172552"
+          class="w-6 h-6"
+        >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+      <g>
+        <path
+          d="M29.03,100.46l20.79-25.21l9.51,12.13L41,110.69C33.98,119.61,20.99,110.21,29.03,100.46L29.03,100.46z M53.31,43.05 c1.98-6.46,1.07-11.98-6.37-20.18L28.76,1c-2.58-3.03-8.66,1.42-6.12,5.09L37.18,24c2.75,3.34-2.36,7.76-5.2,4.32L16.94,9.8 c-2.8-3.21-8.59,1.03-5.66,4.7c4.24,5.1,10.8,13.43,15.04,18.53c2.94,2.99-1.53,7.42-4.43,3.69L6.96,18.32 c-2.19-2.38-5.77-0.9-6.72,1.88c-1.02,2.97,1.49,5.14,3.2,7.34L20.1,49.06c5.17,5.99,10.95,9.54,17.67,7.53 c1.03-0.31,2.29-0.94,3.64-1.77l44.76,57.78c2.41,3.11,7.06,3.44,10.08,0.93l0.69-0.57c3.4-2.83,3.95-8,1.04-11.34L50.58,47.16 C51.96,45.62,52.97,44.16,53.31,43.05L53.31,43.05z M65.98,55.65l7.37-8.94C63.87,23.21,99-8.11,116.03,6.29 C136.72,23.8,105.97,66,84.36,55.57l-8.73,11.09L65.98,55.65L65.98,55.65z"
+        ></path>
+      </g>
+    </g>
+  </svg>
       </button>
+
+      <div class="relative inline-block text-left">
+        <!-- Botón principal (Alojamientos) -->
+        <button
+          (click)="toggleDropdown()"
+          class="inline-flex justify-between items-center w-full rounded-full bg-white px-8 py-2 text-black hover:bg-white/90 flex items-center"
+        >
+          <span>Alojamientos</span>
+          <svg
+            fill="#172552"
+            height="20px"
+            width="20px"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            enable-background="new 0 0 512 512"
+            stroke="#172552"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <g>
+                <g>
+                  <path
+                    d="m448.1,11h-384c-11.3,0-20.5,9.1-20.5,20.4v449.2c0,11.3 9.2,20.4 20.5,20.4h384c11.3,0 20.5-9.1 20.5-20.4v-449.2c0-11.3-9.2-20.4-20.5-20.4zm-20.5,115.7h-81.9v-74.9h81.9v74.9zm-343.1,120.8v-80h81.9v80h-81.9zm122.9-80h97.3v80h-97.3v-80zm0-40.8v-74.9h97.3v74.9h-97.3zm138.3,40.8h81.9v80h-81.9v-80zm-179.2-115.7v74.9h-82v-74.9h82zm123.7,408.4h-68.3v-56.2c0-18.8 15.3-34 34.1-34 18.8,0 34.1,15.3 34.1,34v56.2zm41.1,0v-56.2c0-41.3-33.7-74.9-75.1-74.9-41.4,0-75.1,33.6-75.1,74.9v56.1h-96.5v-171.8h343.1v171.8h-96.4z"
+                  ></path>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </button>
+
+        <!-- Opciones del Dropdown -->
+        <div
+          *ngIf="isDropdownOpen"
+          class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+            <!-- Botón Alojamientos dentro del menú -->
+            <button
+              (click)="navigateAlojamientos()"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
+              role="menuitem"
+            >
+              Alojamientos
+            </button>
+            <button
+              (click)="navigateCasas()"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
+              role="menuitem"
+            >
+              Casas
+            </button>
+            <button
+              (click)="navigateEdificios()"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
+              role="menuitem"
+            >
+              Cuartos
+            </button>
+          </div>
+        </div>
+      </div>
+
       <button
-      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'"
-      (click)="navigateAlojamientos()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
-        Alojamientos
+        *ngIf="userRole === 'foraneo'"
+        (click)="navigateFAQ()"
+        class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90 flex items-center space-x-2"
+      >
+        <svg
+          fill="#172552"
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 20 20"
+          enable-background="new 0 0 20 20"
+          xml:space="preserve"
+          stroke="#172552"
+          class="w-5 h-5"
+        >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+      <path d="M18,20H2c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1h5v2H3v16h14V0h2v19C19,19.6,18.6,20,18,20z"></path>
+            <polygon points="15,9 12,7 9,9 9,0 15,0 "></polygon>
+    </g>
+  </svg>
+        <span>FAQ</span>
       </button>
-      <button
-      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'"
-      (click)="navigateCasas()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
-        Casas
-      </button>
-      <button
-      *ngIf="userRole === 'foraneo' || userRole === 'arrendador'"
-      (click)="navigateEdificios()" class="rounded-full bg-white px-8 py-2 text-black hover:bg-white/90">
-        Cuartos
-      </button>
+
+
       <button (click)="toggleUserMenu()" class="ml-1 rounded-full mr-7 h-15 w-15">
         <img src="user.png" alt="USER" width="55px">
       </button>
-      
+
       <div *ngIf="showUserMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
         <ul>
           <li (click)="navigateEditar()" class="px-4 py-2 hover:bg-gray-200 cursor-pointer">
@@ -50,7 +188,7 @@
           </li>
         </ul>
       </div>
-      
+
     </nav>
   </div>
 </header>
