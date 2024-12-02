@@ -1,0 +1,19 @@
+<nav></nav>
+<div *ngIf="alojamiento" class="p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-2xl font-bold mb-4">{{ alojamiento.nombre_inmueble }}</h1>
+    <img 
+      *ngIf="alojamiento.imagenes && alojamiento.imagenes.length > 0"
+      [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[0].file_path"
+      alt="Imagen del alojamiento"
+      class="w-full h-64 object-cover rounded-md mb-4">
+  
+    <p class="text-gray-700 mb-4">{{ alojamiento.descripcion }}</p>
+    <p class="font-semibold mb-2">Precio: ${{ alojamiento.renta }} / Mes</p>
+    <p class="font-semibold mb-2">Tipo: {{ tipoInmueble }}</p>
+    <p class="font-semibold mb-2">Ubicación: {{ alojamiento.ubicacion }}</p>
+  
+    <button (click)="volver()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md">
+      Volver
+    </button>
+  </div>
+ 

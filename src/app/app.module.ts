@@ -17,12 +17,15 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/compiler';
 import {VendedoresFavoritosModule} from './vendedores-favoritos/vendedores-favoritos.module';
 import {OpinionesComidasModule} from './opiniones-comidas/opiniones-comidas.module';
 
+
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     DashboardInicioComponent,
     LoginComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,6 @@ import {OpinionesComidasModule} from './opiniones-comidas/opiniones-comidas.modu
     ServiciosModule,
     VendedoresFavoritosModule,
     ComidasModule,
-    InmueblesModule,
     HttpClientModule,
     OpinionesComidasModule,
     ComidasModule

@@ -26,6 +26,20 @@ export class CardAlojamientoComponent implements OnInit {
     this.router.navigate(["inmueble/editar/", tipo_inmueble, id]); 
   }
 
+  onView(alojamiento: any) {
+    console.log('Método onView llamado', alojamiento);
+  
+    const id = this.alojamiento?.idinmuebles;
+    const tipo_inmueble = this.alojamiento?.tipo_inmueble;
+  
+    if (id && tipo_inmueble) {
+      console.log('Navegando a:', `inmueble/detalle/${tipo_inmueble}/${id}`);
+      this.router.navigate(['inmueble/detalle', tipo_inmueble, id]);
+    } else {
+      console.error('ID o Tipo de inmueble no definidos:', { id, tipo_inmueble });
+    }
+  }  
+
   onDelete() {
     const tipo = this.alojamiento.tipo_inmueble;
     const id = this.alojamiento.idinmuebles;

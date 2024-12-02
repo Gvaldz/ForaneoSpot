@@ -29,6 +29,8 @@ export class AlojamientosService {
     
   }
 
+  
+
   obtenerAlojamientos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/inmuebles`);
   }

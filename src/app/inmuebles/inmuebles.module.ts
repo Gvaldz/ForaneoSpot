@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FormInmueblesComponent } from './form-inmuebles/form-inmuebles.component';
 import { AgregarServiciosComponent } from './agregar-servicios/agregar-servicios.component';
 import { CardAlojamientoComponent } from './card-alojamiento/card-alojamiento.component';
+import { DetalleAlojamientoComponent } from '../detalle-alojamiento/detalle-alojamiento.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CardAlojamientoComponent } from './card-alojamiento/card-alojamiento.co
     MenuCasasComponent,
     FormInmueblesComponent,
     AgregarServiciosComponent,
-    CardAlojamientoComponent
+    CardAlojamientoComponent,
+    DetalleAlojamientoComponent,
   ],
   imports: [
     CommonModule,
