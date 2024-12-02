@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormularioOpinionComponent } from './formulario-opinion/formulario-opinion.component';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 import { OpinionesComidaComponent } from './opiniones-comida/opiniones-comida.component';
 
 
@@ -9,7 +9,7 @@ import { OpinionesComidaComponent } from './opiniones-comida/opiniones-comida.co
 @NgModule({
   declarations: [
     FormularioOpinionComponent,
-    OpinionesComidaComponent
+    OpinionesComidaComponent,
   ],
   exports: [
     FormularioOpinionComponent,
