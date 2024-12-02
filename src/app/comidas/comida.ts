@@ -2,5 +2,6 @@ export interface Comida {
     id: number,
     nombre: string,
     descripcion: string,
-    precio: number
+    precio: number,
+    ubicacion_vendedor: string
 }
