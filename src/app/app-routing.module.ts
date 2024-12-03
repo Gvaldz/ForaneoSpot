@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: 'editarPerfil/:tipoUsuario/:id', component: EditarPerfilComponent },
   { path: 'registrarUsuario', component: RegistrarUsuarioComponent },
   { path: 'menuCasas', component: MenuCasasComponent },
+  { path: 'menuUnidades', component: MenuCuartosComponent },
   { path: 'menuEdificios', component: MenuEdificiosComponent },
   { path: 'inmuebles/agregar', component: FormInmueblesComponent},
   { path: 'inmueble/editar/:tipo_inmueble/:id', component: FormInmueblesComponent, },

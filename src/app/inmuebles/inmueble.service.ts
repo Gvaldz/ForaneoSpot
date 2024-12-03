@@ -65,16 +65,32 @@ export class AlojamientosService {
     return this.http.get<any[]>(`${this.apiUrl}/inmuebles/servicio/${servicioId}`);
   }
 
+  obtenerCasasPorServicio(servicioId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/casas/servicio/${servicioId}`);
+  }
+
+  obtenerEdificiosPorServicio(servicioId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/edificios/servicio/${servicioId}`);
+  }
+
+  obtenerUnidadesPorServicio(servicioId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/unidades/servicio/${servicioId}`);
+  }
+
   addInmueble(tipo: string, datos: any): Observable<any> {
     return this.http.post(this.apiUrls[tipo], datos);
   }
 
   obtenerCasas(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'casas/');
+    return this.http.get<any[]>(this.apiUrl + '/casas');
+  }
+
+  obtenerUnidades(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + '/unidades');
   }
 
   obtenerEdificios(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'edificios/');
+    return this.http.get<any[]>(this.apiUrl + '/edificios');
   }
 
   uploadImages(entity: string, entityId: number, files: File[]): Observable<any> {
