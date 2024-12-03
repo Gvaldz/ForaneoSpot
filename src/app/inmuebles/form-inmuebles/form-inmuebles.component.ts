@@ -23,6 +23,7 @@ export class FormInmueblesComponent implements OnInit {
   selectedInitialImages: string[] = []; 
   removedImageIds: number[] = []; 
   initialImages: any[] = [];
+  isImageCountValid: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -31,59 +32,61 @@ export class FormInmueblesComponent implements OnInit {
     private route: ActivatedRoute 
   ) {}
 
-onFilesSelected(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  if (input.files) {
-    const filesArray = Array.from(input.files);
-    const totalFiles = this.selectedFiles.length + filesArray.length;
-
-    if (totalFiles > 5) {
-      alert('Solo puedes subir un máximo de 5 imágenes.');
-      return;
+  onFilesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      const filesArray = Array.from(input.files);
+  
+      const totalFiles = this.getTotalImages() + filesArray.length;
+      if (totalFiles > 5) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Solo puedes subir exactamente 5 imágenes.',
+          confirmButtonText: 'Aceptar',
+        });
+        return;
+      }
+  
+      filesArray.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.selectedFilePreviews.push(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+  
+        this.selectedFiles.push(file);
+      });
     }
-
-    filesArray.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.selectedFilePreviews.push(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-
-      this.selectedFiles.push(file);
+  }
+  
+  removeFile(index: number): void {
+    const previewToRemove = this.selectedFilePreviews[index];
+  
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción eliminará la imagen seleccionada.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const imageToRemove = this.initialImages.find(img => img.file_path === previewToRemove);
+        if (imageToRemove?.id) {
+          this.removedImageIds.push(imageToRemove.id);
+        } else {
+          this.selectedFiles.splice(index - this.initialImages.length, 1); 
+        }
+        this.selectedFilePreviews.splice(index, 1);
+  
+        Swal.fire('Eliminada', 'La imagen ha sido eliminada.', 'success');
+      }
     });
   }
-}
-
-removeFile(index: number): void {
-  const previewToRemove = this.selectedFilePreviews[index];
-
-  Swal.fire({
-    title: '¿Estás seguro?',
-    text: 'Esta acción eliminará la imagen seleccionada.',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí, eliminar',
-    cancelButtonText: 'Cancelar',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const imageToRemove = this.initialImages.find(img => img.file_path === previewToRemove);
-
-      console.log('Imagen a eliminar:', previewToRemove);
-      console.log('Imagen encontrada:', imageToRemove);
-
-      if (imageToRemove?.id) {
-        this.removeFileById(imageToRemove);
-      } 
-      this.selectedFilePreviews.splice(index, 1);
-      this.selectedFiles.splice(index, 1);
-
-      Swal.fire('Eliminada', 'La imagen ha sido eliminada.', 'success');
-    } 
-  });
-}
-
+  
 
 removeFileById(image: { id: number }): void {
   if (!image || !image.id) {
@@ -175,6 +178,15 @@ removeFileById(image: { id: number }): void {
       });
       return;
     }
+    if (this.selectedFiles.length !== 5) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error en las imágenes',
+        text: 'Debes subir exactamente 5 imágenes para continuar.',
+        confirmButtonText: 'Aceptar',
+      });
+      return;
+    }
   
     Swal.fire({
       title: '¿Estás seguro?',
@@ -192,7 +204,6 @@ removeFileById(image: { id: number }): void {
           this.inmuebleServicio.updateInmueblePorTipo(this.tipo_inmueble, this.inmuebleId, inmuebleData).subscribe(
             () => {
               if (this.removedImageIds.length > 0) {
-                console.log('Imágenes a eliminar:', this.removedImageIds);
                 this.removedImageIds.forEach((imageId) => {
                   this.inmuebleServicio.deleteInmuebleImage(imageId).subscribe(
                     () => console.log(`Imagen ${imageId} eliminada`),
@@ -273,6 +284,10 @@ removeFileById(image: { id: number }): void {
             (error) => console.error('Error al subir imágenes:', error)
         );
     }
+  }
+
+  getTotalImages(): number {
+    return this.initialImages.length - this.removedImageIds.length + this.selectedFiles.length;
   }
 
   cargarInmueble(tipo_inmueble: string, id: number): void {

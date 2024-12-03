@@ -1,15 +1,54 @@
 <div class="min-h-screen bg-white flex flex-col items-center">
   <navbar class="w-full"></navbar>
   <div class="flex flex-wrap gap-8 w-full max-w-6xl justify-between p-14">
-  <div *ngFor="let vendedor of vendedoresFavoritos">
-    <app-card-vendedor [vendedor]="vendedor"></app-card-vendedor>
-    <button (click)="eliminarDeFavoritos(vendedor.favoritoId)">
-      Eliminar de Favoritos
-    </button>
+    <div
+      *ngFor="let vendedor of vendedoresFavoritos"
+      class="rounded overflow-hidden shadow-lg bg-white border border-gray-300 flex h-48 w-5/12"
+    >
+      <div class="flex-shrink-0">
+        <img
+          *ngIf="vendedor.imagenes && vendedor.imagenes.length > 0"
+          [src]="'http://3.213.191.244:8000/' + vendedor.imagenes[0].file_path"
+          class="h-48 w-48 object-cover rounded-l"
+          alt="Imagen del vendedor"
+        />
+      </div>
+
+      <div class="flex-grow px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="font-bold text-xl text-gray-800">{{ vendedor.nombre }}</div>
+          <button
+            (click)="confirmarEliminarFavorito(vendedor)"
+            class="focus:outline-none hover:scale-110 transition-transform"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="gold"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 .587l3.668 7.431 8.214 1.193-5.941 5.787 1.402 8.186L12 18.897l-7.343 3.864 1.402-8.186-5.941-5.787 8.214-1.193z"
+              />
+            </svg>
+          </button>
+        </div>
+        <p class="text-gray-700 text-base mb-2">
+          <span class="font-semibold">Teléfono:</span> {{ vendedor.telefono }}
+        </p>
+        <p class="text-gray-700 text-base">
+          <span class="font-semibold">Ubicación:</span> {{ vendedor.ubicacion }}
+        </p>
+
+        <div class="mt-4">
+          <button
+            (click)="irAVendedor(vendedor)"
+            class="bg-[#0057A0] text-white font-bold py-2 px-10 rounded-xl hover:bg-[#1d3557] focus:outline-none"
+          >
+            Ver
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
-
-
-
 </div>

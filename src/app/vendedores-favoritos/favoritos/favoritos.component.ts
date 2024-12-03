@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VendedorService } from '../../vendedor.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vendedores-favoritos',
@@ -9,7 +11,7 @@ import { VendedorService } from '../../vendedor.service';
 export class FavoritosComponent implements OnInit {
   vendedoresFavoritos: any[] = [];
 
-  constructor(private vendedorService: VendedorService) {}
+  constructor(private vendedorService: VendedorService, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarVendedoresFavoritos();
@@ -20,9 +22,10 @@ export class FavoritosComponent implements OnInit {
       next: (vendedores) => {
         this.vendedorService.obtenerVendedoresFavoritos().subscribe({
           next: (favoritos) => {
+            console.log(favoritos)
             const favoritosIds = favoritos.map((favorito) => ({
               vendedorId: favorito.id_usuario_vendedor,
-              favoritoId: favorito.id,
+              favoritoId: favorito.id
             }));
 
             this.vendedoresFavoritos = vendedores.filter((vendedor) => {
@@ -30,7 +33,7 @@ export class FavoritosComponent implements OnInit {
                 (fav) => fav.vendedorId === vendedor.id
               );
               if (favorito) {
-                vendedor.favoritoId = favorito.favoritoId; // Agregar el ID de favorito a cada vendedor
+                vendedor.favoritoId = favorito.favoritoId;
               }
               return !!favorito;
             });
@@ -46,6 +49,28 @@ export class FavoritosComponent implements OnInit {
     });
   }
 
+  confirmarEliminarFavorito(vendedor: any): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Deseas eliminar a ${vendedor.nombre} de tus favoritos?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eliminarDeFavoritos(vendedor.favoritoId);
+        Swal.fire(
+          'Eliminado',
+          `${vendedor.nombre} ha sido eliminado de tus favoritos.`,
+          'success'
+        );
+      }
+    });
+  }
+  
   eliminarDeFavoritos(favoritoId: number): void {
     this.vendedorService.eliminarVendedorFavorito(favoritoId).subscribe({
       next: () => {
@@ -58,5 +83,9 @@ export class FavoritosComponent implements OnInit {
         console.error('Error al eliminar vendedor favorito:', error);
       },
     });
+  }
+
+  irAVendedor(vendedor: any): void {
+    this.router.navigate([`/vendedor/${vendedor.id}`]);
   }
 }

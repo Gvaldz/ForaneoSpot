@@ -1,4 +1,20 @@
 <div class="bg-gray-100 p-6">
+<div class="relative flex justify-end">
+  <button (click)="toggleMenu()" class="text-xl text-gray-600 ">
+    &#x2022;&#x2022;&#x2022; 
+  </button>
+
+  <div *ngIf="menuVisible" class="absolute right-0 bg-white shadow-lg rounded-md mt-2 w-48 ">
+    <ul class="text-gray-700">
+      <li>
+        <button (click)="verDetallesVendedor(comida.id_usuario_vendedor)" class="px-4 py-2 hover:bg-gray-200 w-full text-left">
+          Ver detalles del vendedor
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
   <h2 class="mb-4 text-xl font-semibold">
     {{ comida.nombre }} {{ comida.precio }} $
   </h2>
@@ -15,6 +31,13 @@
     <div class="flex flex-col justify-between">
       <p class="text-sm leading-relaxed ">
         {{ comida.descripcion }}
+      </p>
+
+      <h3 class=" text-base font-semibold">
+        Ubicación del vendedor:
+      </h3>
+      <p *ngIf="userRole === 'foraneo'" class="text-sm leading-relaxed ">
+        {{ comida.ubicacion_vendedor }}
       </p>
 
 <div *ngIf="showModal" class="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">

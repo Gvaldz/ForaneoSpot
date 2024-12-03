@@ -4,17 +4,18 @@
     <div class="flex items-center"></div>
     <div class="botones">
       <button
-        (click)="marcarFavorito()"
+        (click)="toggleFavorito()"
         class="flex items-center text-gray-400 hover:text-yellow-500 focus:outline-none transition-colors duration-200">
         <svg xmlns="http://www.w3.org/2000/svg"
              class="h-8 w-8 mr-2"
              [attr.fill]="esFavorito ? 'currentColor' : 'none'"
              [attr.stroke]="esFavorito ? 'none' : 'currentColor'"
              stroke-width="2"
-             viewBox="0 0 24 24">
+             viewBox="0 0 24 24"
+             [ngClass]="{'text-yellow-500': esFavorito, 'text-gray-400': !esFavorito}">
           <path d="M12 .587l3.668 7.431 8.214 1.193-5.941 5.787 1.402 8.186L12 18.897l-7.343 3.864 1.402-8.186-5.941-5.787 8.214-1.193z"/>
         </svg>
-        <span class="text-lg font-medium">Añadir a favoritos</span>
+        <span class="text-lg font-medium">{{ esFavorito ? 'Favoritos' : 'Añadir a favoritos' }}</span>
       </button>
     </div>
   </div>
@@ -39,7 +40,6 @@
           <p class="text-gray-700">{{ vendedor.ubicacion }}</p>
         </div>
       </div>
-
       <div class="mt-4 flex justify-center">
         <h2 class="text-2xl mt-2">Opiniones</h2>
       </div>
@@ -48,9 +48,8 @@
         <app-opiniones-comida [vendedorId]="vendedor.id" class="end-0"></app-opiniones-comida>
       </div>
     </div>
-
     <div class="w-full md:w-2/3 p-6 rounded-lg">
-      <h2 class="text-2xl font-bold mb-4 text-center">Menús Disponibles</h2>
+      <h2 class="text-2xl font-bold mb-4 text-center">Menús Subidos</h2>
       
       <div *ngIf="cargando" class="text-center text-gray-500">
         Cargando menús...
