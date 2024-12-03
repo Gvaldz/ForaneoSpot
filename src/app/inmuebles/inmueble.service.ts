@@ -37,8 +37,18 @@ export class AlojamientosService {
   agregarComentario(comentario: { idinmueble: string; calificacion: number; descripcion: string }): Observable<any> {
     return this.http.post(`${this.apiOpiniones}`, comentario);
   }
-  
 
+  editarComentario(idComentario: number, datosActualizados: { calificacion: number; descripcion: string }): Observable<any> {
+    const url = `${this.apiOpiniones}/${idComentario}`;
+    return this.http.put(url, datosActualizados);
+  }
+
+  eliminarComentario(idComentario: number) {
+  const url = `http://3.213.191.244:8000/opiniones_inmuebles/${idComentario}`; // Asegúrate de que el id no esté undefined
+  return this.http.delete(url);
+}
+
+  
    agendarVisita(citaVisita: { idinmuebles: string; fecha: string; hora: string; realizada: boolean }): Observable<any> {
     return this.http.post(`${this.apiUrl}/citas_visitas`, citaVisita);
   }

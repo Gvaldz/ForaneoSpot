@@ -38,18 +38,29 @@ export class CardComidaComponent {
   }
   
   onDelete(menuId: number) {
-    if (confirm('¿Estás seguro de eliminar este menú?')) {
-      this.comidaService.deleteComida(menuId).subscribe(
-        () => {
-          Swal.fire('Eliminado!', 'El menú ha sido eliminado.', 'success');
-          this.router.navigate(['/comida']); 
-        },
-        (error) => {
-          console.error('Error al eliminar el menú:', error);
-          Swal.fire('Error', 'Hubo un problema al eliminar el menú.', 'error');
-        }
-      );
-    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esta acción.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.comidaService.deleteComida(menuId).subscribe(
+          () => {
+            Swal.fire('Eliminado', 'El menú ha sido eliminado correctamente.', 'success');
+            this.router.navigate(['/comida']);
+          },
+          (error) => {
+            console.error('Error al eliminar el menú:', error);
+            Swal.fire('Error', 'No se pudo eliminar el menú.', 'error');
+          }
+        );
+      }
+    });
   }
   
   openModal() {

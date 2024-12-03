@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { VendedorService } from '../../vendedor.service';
 import { Router } from '@angular/router';
+import { LoginserviceService } from '../../login/loginservice.service';
 
 @Component({
   selector: 'app-detalle-vendedor',
@@ -15,15 +16,19 @@ export class DetalleVendedorComponent implements OnInit {
   cargando: boolean = true;
   error: string | null = null;
   esFavorito: boolean = false;
+  userRole: string | null = null
 
   constructor(
     private route: ActivatedRoute,
     private vendedorService: VendedorService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginserviceService
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.userRole = this.loginService.getUserRole();
+
   
     if (id) {
       this.vendedorService.obtenerDetallesVendedor(id).subscribe({

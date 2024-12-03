@@ -154,30 +154,34 @@
 
 
 
+    
+
   <!-- Comentarios -->
-<!-- Comentarios -->
-<div class="w-[1119px] mt-12">
-  <h2 class="text-3xl font-bold mb-4">Comentarios</h2>
-  <button (click)="abrirModalComentario()" class="py-2 px-4 bg-blue-600 text-white rounded-md" style="margin-bottom: 16px;">
-    Dejar un Comentario
-  </button>
-  
-  <div class="grid grid-cols-2 gap-8">
-    <div
-      *ngFor="let comentario of comentarios"
-      class="w-[428px] h-[246px] pl-[13px] pr-[202px] pt-7 pb-[150px] bg-[#e1e5eb] flex-col justify-start items-start inline-flex rounded-lg shadow-md"
-    >
-      <div class="text-justify text-black text-[32px] font-normal font-['Cabin']">
-        Calificación:{{ comentario.calificacion }}/5
+<div class="grid grid-cols-2 gap-8">
+  <div *ngFor="let comentario of comentarios" class="w-[428px] h-[246px] bg-white p-4 shadow-md rounded-lg">
+    <div class="flex justify-between items-center">
+      <h3 class="text-xl font-semibold">{{ comentario.nombreForaneo }}</h3>
+      <!-- Mostrar botones de editar y eliminar solo si el idforaneo coincide con el userId -->
+      <div *ngIf="comentario.idforaneo === userId || userRole === 'admin'" class="flex gap-4">
+        <button (click)="abrirModalEditar(comentario)" class="text-blue-600">Editar</button>
+        <button (click)="eliminarComentario(comentario.idopiniones)" class="text-red-600">Eliminar</button>
       </div>
-      <div class="text-justify text-black text-2xl font-normal font-['Cabin']">
-        {{ comentario.descripcion }}
-      </div>
+    </div>
+    <div class="mt-4">
+      <p class="text-gray-700">Calificación: {{ comentario.calificacion }} / 5</p>
+      <p class="text-gray-800">{{ comentario.descripcion }}</p>
     </div>
   </div>
 </div>
 
+
+</div>
 </div>
 
 
-</div>
+      
+    
+  
+
+
+

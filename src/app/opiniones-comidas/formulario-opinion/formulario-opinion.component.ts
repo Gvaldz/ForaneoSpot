@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {VendedorService} from '../../vendedor.service'; // El servicio que maneja la API
+import { VendedorService } from '../../vendedor.service'; // El servicio que maneja la API
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-opinion',
   templateUrl: './formulario-opinion.component.html',
   styleUrls: ['./formulario-opinion.component.css']
 })
-export class FormularioOpinionComponent implements OnInit{
+export class FormularioOpinionComponent implements OnInit {
   @Input() idusuariovendedor: number = 0;
 
   isModalOpen: boolean = false;
@@ -19,9 +20,7 @@ export class FormularioOpinionComponent implements OnInit{
     private router: Router
   ) {}
 
-  ngOnInit() {
-    console.log('Vendor ID received:', this.idusuariovendedor);
-  }
+  ngOnInit() {}
 
   openModal(): void {
     this.isModalOpen = true;
@@ -32,47 +31,50 @@ export class FormularioOpinionComponent implements OnInit{
   }
 
   submitOpinion(): void {
-    // Enhanced logging for debugging
-    console.log('Submitting Opinion - Validation Check:');
-    console.log('Vendor ID:', this.idusuariovendedor);
-    console.log('Calificacion:', this.calificacion);
-    console.log('Descripcion:', this.descripcion);
-
-    // Adjusted validation
     if (
       this.idusuariovendedor > 0 &&
       this.calificacion !== null &&
       this.calificacion >= 1 &&
-      this.calificacion <= 10 &&
+      this.calificacion <= 5 &&
       this.descripcion.trim().length > 0
     ) {
-      const opinionData = {
-        idusuariovendedor: this.idusuariovendedor,
-        calificacion: this.calificacion,
-        descripcion: this.descripcion
-      };
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Quieres enviar esta opinión?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, enviar',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const opinionData = {
+            idusuariovendedor: this.idusuariovendedor,
+            calificacion: this.calificacion,
+            descripcion: this.descripcion
+          };
 
-      this.vendedorService.submitOpinion(opinionData).subscribe(
-        (response) => {
-          console.log('Opinión enviada correctamente', response);
-          this.closeModal();
-          this.router.navigate(['/vendedor', this.idusuariovendedor])
-            .then(() => {
-              window.location.reload();
-            });
-        },
-        (error) => {
-          console.error('Error al enviar la opinión:', error);
-          alert('Hubo un error al enviar tu opinión');
+          this.vendedorService.submitOpinion(opinionData).subscribe(
+            (response) => {
+              Swal.fire(
+                '¡Éxito!',
+                'Tu opinión ha sido enviada correctamente.',
+                'success'
+              );
+              this.closeModal();
+            },
+            (error) => {
+              Swal.fire(
+                'Error',
+                'Hubo un error al enviar tu opinión.',
+                'error'
+              );
+            }
+          );
         }
-      );
-    } else {
-      console.error('Validation Failed - Details:',{
-        vendorIdValid: this.idusuariovendedor > 0,
-        calificacionValid: this.calificacion !== null && this.calificacion >= 1 && this.calificacion <= 5,
-        descripcionValid: this.descripcion.trim().length > 0
       });
-      alert('Por favor, completa todos los campos correctamente');
+    } else {
+      Swal.fire('Campos incompletos', 'Por favor, ingrese una calificación válida (1-5) y una descripción', 'error');
+
     }
   }
 }

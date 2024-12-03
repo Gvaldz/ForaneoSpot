@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComidaService } from '../comida.service';
 import { Comida } from '../comida';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-menu-form',
@@ -49,33 +48,64 @@ export class MenuFormComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    if (this.menuForm.valid) {
-      const menuData = this.menuForm.value;
+onSubmit(): void {
+  if (this.menuForm.valid) {
+    const menuData = this.menuForm.value;
 
-      if (this.isEditMode) {
-        this.comidaService.updateComida(this.menuId, menuData).subscribe(
-          (updatedMenu) => {
-            if (this.selectedFile) {
-              this.uploadImages('menu', updatedMenu.id);
+    Swal.fire({
+      title: this.isEditMode ? '¿Guardar cambios?' : '¿Guardar nuevo menú?',
+      text: this.isEditMode
+        ? 'Estás a punto de guardar los cambios realizados en este menú.'
+        : 'Estás a punto de guardar un nuevo menú.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.isEditMode) {
+          this.comidaService.updateComida(this.menuId, menuData).subscribe(
+            (updatedMenu) => {
+              if (this.selectedFile) {
+                this.uploadImages('menu', updatedMenu.id);
+              }
+              Swal.fire('Guardado', 'El menú ha sido actualizado correctamente.', 'success');
+              this.router.navigate(['/comida']);
+              this.router.navigate(['/comida']).then(() => {
+                window.location.reload(); 
+              });
+            },
+            (error) => {
+              console.error('Error al actualizar el menú:', error);
+              Swal.fire('Error', 'No se pudo actualizar el menú.', 'error');
             }
-            this.router.navigate(['/comida']);
-          },
-          (error) => console.error('Error al actualizar el menú:', error)
-        );
-      } else {
-        this.comidaService.addComida(menuData).subscribe(
-          (newMenu) => {
-            if (this.selectedFile) {
-              this.uploadImages('menu', newMenu.id);
+          );
+        } else {
+          this.comidaService.addComida(menuData).subscribe(
+            (newMenu) => {
+              if (this.selectedFile) {
+                this.uploadImages('menu', newMenu.id);
+              }
+              Swal.fire('Guardado', 'El nuevo menú ha sido guardado correctamente.', 'success');
+              this.router.navigate(['/comida']).then(() => {
+                window.location.reload(); 
+              });
+            },
+            (error) => {
+              console.error('Error al agregar el menú:', error);
+              Swal.fire('Error', 'No se pudo guardar el nuevo menú.', 'error');
             }
-            this.router.navigate(['/comida']);
-          },
-          (error) => console.error('Error al agregar el menú:', error)
-        );
+          );
+        }
       }
-    }
+    });
+  } else {
+    Swal.fire('Formulario inválido', 'Por favor, completa los campos requeridos.', 'warning');
   }
+}
+
 
   uploadImages(entity: string, entityId: number): void {
     if (this.selectedFile) {

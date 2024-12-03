@@ -26,6 +26,9 @@ export class DetalleAlojamientoComponent implements OnInit {
   modal: boolean = false;
   idusuarioarrendador: number | null = null;
   servicios: any[] = []; // Servicios asociados al inmueble
+  modalEditar: boolean = false;
+comentarioEditado: any = null;
+public userId: number | null = null;
   
   constructor(
     private route: ActivatedRoute, // Para acceder a los parámetros de la ruta
@@ -43,7 +46,10 @@ export class DetalleAlojamientoComponent implements OnInit {
       modal.style.display = 'block'; 
     }
   }
-  
+  getUserId(): number {
+    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+    return usuario?.id || 0;
+  }
   cerrarModalComentario() {
     this.modal = false; 
     const modal = document.getElementById('modalComentario');
@@ -51,6 +57,56 @@ export class DetalleAlojamientoComponent implements OnInit {
       modal.style.display = 'none'; 
     }
   }
+
+  abrirModalEditar(comentario: any) {
+    this.comentarioEditado = { ...comentario }; // Crear una copia para editar
+    this.modalEditar = true;
+  }
+  
+  cerrarModalEditar() {
+    this.modalEditar = false;
+    this.comentarioEditado = null;
+  }
+  
+  guardarEdicion() {
+    if (!this.comentarioEditado || !this.comentarioEditado.id) {
+      alert('Error: No se pudo identificar el comentario para editar.');
+      return;
+    }
+  
+    this.inmuebleService.editarComentario(this.comentarioEditado.id, {
+      calificacion: this.comentarioEditado.calificacion,
+      descripcion: this.comentarioEditado.descripcion,
+    }).subscribe({
+      next: (response) => {
+        console.log('Comentario actualizado:', response);
+        this.obtenerComentarios(parseInt(this.id!, 10));
+        this.cerrarModalEditar();
+      },
+      error: (err) => {
+        console.error('Error al editar el comentario:', err);
+        alert('Hubo un error al editar el comentario. Intenta de nuevo.');
+      },
+    });
+  }
+  
+  eliminarComentario(idComentario: number) {
+    console.log("Eliminando comentario con ID:", idComentario); // Verifica que el id se pasa correctamente
+    if (confirm('¿Estás seguro de que deseas eliminar este comentario?')) {
+      this.inmuebleService.eliminarComentario(idComentario).subscribe({
+        next: (response) => {
+          console.log('Comentario eliminado:', response);
+          this.obtenerComentarios(parseInt(this.id!, 10));
+        },
+        error: (err) => {
+          console.error('Error al eliminar el comentario:', err);
+          alert('Hubo un error al eliminar el comentario. Intenta de nuevo.');
+        },
+      });
+    }
+  }
+  
+  
   
   
   enviarComentario() {
@@ -93,6 +149,7 @@ export class DetalleAlojamientoComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.tipoInmueble = this.route.snapshot.paramMap.get('tipo_inmueble');
     this.userRole = this.loginService.getUserRole();
+    this.userId = this.loginService.getUserId();
   
     if (this.id) {
       this.obtenerComentarios(parseInt(this.id, 10));
