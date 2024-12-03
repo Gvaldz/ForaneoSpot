@@ -1,20 +1,75 @@
-<div class="min-h-screen bg-white flex flex-col items-center">
-  <!-- Navbar -->
+<div class="min-h-screen bg-white flex flex-col items-center mb-10">
   <navbar class="w-full"></navbar>
 
-  <!-- Input de búsqueda -->
-  <input
-    type="text"
-    [(ngModel)]="searchText"
-    placeholder="Buscar Alojamiento..."
-    class="w-full max-w-md mt-6 mb-6 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
-  />
+  <div class="flex flex-wrap items-center justify-center gap-4 mt-6 mb-4 w-full max-w-7xl">
+    <!-- Filtro por servicio -->
+    <select
+      *ngIf="userRole === 'foraneo'"
+      [(ngModel)]="selectedServicio"
+      (change)="filtrarPorServicio()"
+      class="p-3 border border-gray-300 rounded-lg"
+    >
+      <option value="" disabled selected>Selecciona un servicio</option>
+      <option *ngFor="let servicio of servicios" [value]="servicio.idservicios">
+        {{ servicio.descripcion }}
+      </option>
+    </select>
 
-  <!-- Grid de tarjetas -->
-  <div class="grid gap-8 w-full max-w-5xl md:grid-cols-2">
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Buscar Alojamiento..."
+      class="p-3 border border-gray-300 rounded-lg"
+    />
+
+    <div class="flex gap-4">
+      <div>
+        <label for="minPrecio" class="block text-gray-700 text-sm">Precio mínimo:</label>
+        <input
+          type="number"
+          id="minPrecio"
+          [(ngModel)]="minPrecio"
+          placeholder="Mínimo"
+          class="p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+      <div>
+        <label for="maxPrecio" class="block text-gray-700 text-sm">Precio máximo:</label>
+        <input
+          type="number"
+          id="maxPrecio"
+          [(ngModel)]="maxPrecio"
+          placeholder="Máximo"
+          class="p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full flex justify-end">
+    <button
+      *ngIf="userRole === 'arrendador'"
+      (click)="agregar()"
+      class="rounded-2xl bg-[#04232B] px-6 py-3 text-white hover:bg-[#182e48] mb-8 mr-28"
+    >
+      Agregar Inmueble
+    </button>
+  </div>
+
+  <div 
+    class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-7xl" 
+    *ngIf="filteredAlojamientos.length > 0; else noAlojamientos"
+  >
     <app-card-alojamiento
-      *ngFor="let edificio of filteredEdificios"
-      [alojamiento]="edificio"
+      *ngFor="let alojamiento of filteredAlojamientos"
+      [alojamiento]="alojamiento"
+      (inmuebleEliminado)="onInmuebleEliminado()"
     ></app-card-alojamiento>
   </div>
+  
+  <ng-template #noAlojamientos>
+    <p class="text-center text-gray-500 mt-6">
+      No se encontraron alojamientos para el servicio seleccionado.
+    </p>
+  </ng-template>
 </div>

@@ -15,6 +15,8 @@ export class MenusAlojamientosComponent implements OnInit {
   userRole: string | null = '';
   searchText: string = '';
   selectedServicio: string = '';
+  minPrecio: number | null = null; 
+  maxPrecio: number | null = null; 
 
   constructor(
     private alojamientoService: AlojamientosService,
@@ -53,13 +55,23 @@ export class MenusAlojamientosComponent implements OnInit {
 
   get filteredAlojamientos() {
     let resultados = this.alojamientos;
-    if (this.searchText.trim()) {
+  
+    if (this.searchText?.trim()) {
       resultados = resultados.filter((data) =>
         data.nombre_inmueble.toLowerCase().includes(this.searchText.toLowerCase())
       );
     }
+  
+    if (this.minPrecio !== null) {
+      resultados = resultados.filter((data) => data.renta >= this.minPrecio!);
+    }
+    if (this.maxPrecio !== null) {
+      resultados = resultados.filter((data) => data.renta <= this.maxPrecio!);
+    }
+  
     return resultados;
   }
+  
 
   filtrarPorServicio() {
     if (this.selectedServicio) {
