@@ -33,12 +33,10 @@ export class CardVendedorComponent {
   agregarFavorito(id: number): void {
     this.vendedorService.agregarVendedorFavorito(id).subscribe({
       next: (response) => {
-        console.log('Vendedor añadido a favoritos:', response);
-        alert('Vendedor añadido a favoritos exitosamente');
+
       },
       error: (error) => {
-        console.error('Error al añadir vendedor a favoritos:', error);
-        alert('No se pudo añadir el vendedor a favoritos. Intenta de nuevo.');
+
       },
     });
   }
