@@ -19,6 +19,7 @@ export class MenuFormComponent implements OnInit {
   idopinion: number = 0;
   selectedFile: File | null = null;
   selectedFilePreview: string | null = null;
+  comidas: any [] = []
 
   constructor(
     private fb: FormBuilder,
@@ -48,64 +49,58 @@ export class MenuFormComponent implements OnInit {
     }
   }
 
-onSubmit(): void {
-  if (this.menuForm.valid) {
-    const menuData = this.menuForm.value;
-
-    Swal.fire({
-      title: this.isEditMode ? '¿Guardar cambios?' : '¿Guardar nuevo menú?',
-      text: this.isEditMode
-        ? 'Estás a punto de guardar los cambios realizados en este menú.'
-        : 'Estás a punto de guardar un nuevo menú.',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, guardar',
-      cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        if (this.isEditMode) {
-          this.comidaService.updateComida(this.menuId, menuData).subscribe(
-            (updatedMenu) => {
-              if (this.selectedFile) {
-                this.uploadImages('menu', updatedMenu.id);
+  onSubmit(): void {
+    if (this.menuForm.valid) {
+      const menuData = this.menuForm.value;
+  
+      Swal.fire({
+        title: this.isEditMode ? '¿Guardar cambios?' : '¿Guardar nuevo menú?',
+        text: this.isEditMode
+          ? 'Estás a punto de guardar los cambios realizados en este menú.'
+          : 'Estás a punto de guardar un nuevo menú.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, guardar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (this.isEditMode) {
+            this.comidaService.updateComida(this.menuId, menuData).subscribe(
+              (updatedMenu) => {
+                if (this.selectedFile) {
+                  this.uploadImages('menu', updatedMenu.id);
+                }
+                Swal.fire('Guardado', 'El menú ha sido actualizado correctamente.', 'success');
+                this.router.navigate(['/comida']);
+              },
+              (error) => {
+                console.error('Error al actualizar el menú:', error);
+                Swal.fire('Error', 'No se pudo actualizar el menú.', 'error');
               }
-              Swal.fire('Guardado', 'El menú ha sido actualizado correctamente.', 'success');
-              this.router.navigate(['/comida']);
-              this.router.navigate(['/comida']).then(() => {
-                window.location.reload(); 
-              });
-            },
-            (error) => {
-              console.error('Error al actualizar el menú:', error);
-              Swal.fire('Error', 'No se pudo actualizar el menú.', 'error');
-            }
-          );
-        } else {
-          this.comidaService.addComida(menuData).subscribe(
-            (newMenu) => {
-              if (this.selectedFile) {
-                this.uploadImages('menu', newMenu.id);
+            );
+          } else {
+            this.comidaService.addComida(menuData).subscribe(
+              (newMenu) => {
+                if (this.selectedFile) {
+                  this.uploadImages('menu', newMenu.id);
+                }
+                Swal.fire('Guardado', 'El nuevo menú ha sido guardado correctamente.', 'success');
+                this.router.navigate(['/comida']);
+              },
+              (error) => {
+                console.error('Error al agregar el menú:', error);
+                Swal.fire('Error', 'No se pudo guardar el nuevo menú.', 'error');
               }
-              Swal.fire('Guardado', 'El nuevo menú ha sido guardado correctamente.', 'success');
-              this.router.navigate(['/comida']).then(() => {
-                window.location.reload(); 
-              });
-            },
-            (error) => {
-              console.error('Error al agregar el menú:', error);
-              Swal.fire('Error', 'No se pudo guardar el nuevo menú.', 'error');
-            }
-          );
+            );
+          }
         }
-      }
-    });
-  } else {
-    Swal.fire('Formulario inválido', 'Por favor, completa los campos requeridos.', 'warning');
+      });
+    } else {
+      Swal.fire('Formulario inválido', 'Por favor, completa los campos requeridos.', 'warning');
+    }
   }
-}
-
 
   uploadImages(entity: string, entityId: number): void {
     if (this.selectedFile) {
@@ -115,7 +110,6 @@ onSubmit(): void {
       );
     }
   }
-
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -127,6 +121,11 @@ onSubmit(): void {
       };
       reader.readAsDataURL(this.selectedFile);
     }
+  }
+  loadMenus() {
+    this.comidaService.getComidas().subscribe((menus: Comida[]) => {
+      this.comidas = menus;
+    });
   }
 
   onCancel(): void {
