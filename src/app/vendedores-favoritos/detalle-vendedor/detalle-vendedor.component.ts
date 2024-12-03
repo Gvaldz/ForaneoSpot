@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import Swal from 'sweetalert2';
 import { VendedorService } from '../../vendedor.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-vendedor',
@@ -15,6 +14,7 @@ export class DetalleVendedorComponent implements OnInit {
   vendedor: any;
   cargando: boolean = true;
   error: string | null = null;
+  esFavorito: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +30,7 @@ export class DetalleVendedorComponent implements OnInit {
         next: (data) => {
           this.vendedor = data;
           this.cargando = false;
+          this.obtenerEstadoFavorito(id);
         },
         error: (err) => {
           console.error('Error al obtener los detalles del vendedor:', err);
@@ -37,7 +38,7 @@ export class DetalleVendedorComponent implements OnInit {
           this.cargando = false;
         },
       });
-        this.vendedorService.obtenerMenusVendedor(id).subscribe({
+      this.vendedorService.obtenerMenusVendedor(id).subscribe({
         next: (data) => {
           this.menus = data;
         },
@@ -51,51 +52,32 @@ export class DetalleVendedorComponent implements OnInit {
       this.cargando = false;
     }
   }
-  
+
+  obtenerEstadoFavorito(id: number): void {
+    this.vendedorService.obtenerVendedoresFavoritos().subscribe({
+      next: (favoritos) => {
+        this.esFavorito = favoritos.some(fav => fav.id_usuario_vendedor === id);
+      },
+      error: (err) => {
+        console.error('Error al obtener los favoritos:', err);
+      }
+    });
+  }
+
+  toggleFavorito(): void {
+    this.marcarFavorito();
+  }
 
   marcarFavorito(): void {
-    this.alerta();
-
-    this.agregarFavorito(this.vendedor.id);
-  }
-
-  alerta() {
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Vendedor Guardado Como Favorito :)',
-      showConfirmButton: false,
-      timer: 1700,
-    });
-  }
-
-  agregarFavorito(id: number): void {
-    this.vendedorService.agregarVendedorFavorito(id).subscribe({
-      next: (response) => {
-        console.log('Vendedor añadido a favoritos:', response);
+    this.vendedorService.agregarVendedorFavorito(this.vendedor.id).subscribe({
+      next: () => {
+        this.esFavorito = true;
+        Swal.fire('¡Vendedor añadido a favoritos!', '', 'success');
       },
-      error: (error) => {
-        console.error('Error al añadir vendedor a favoritos:', error);
-        alert('No se pudo añadir el vendedor a favoritos. Intenta de nuevo.');
-      },
+      error: () => {
+        Swal.fire('Error', 'No se pudo agregar a favoritos', 'error');
+      }
     });
   }
 
-  volver(): void {
-    window.history.back();
-  }
-
-
-  esFavorito: boolean = false;
-
-  toggleFavorito() {
-    this.esFavorito = !this.esFavorito;
-    this.marcarFavorito()
-  }
-
-  editOpinion(opinionId: number) {
-    this.router.navigate(['/current-route'], {
-      queryParams: { editOpinionId: opinionId }
-    });
-  }
 }
