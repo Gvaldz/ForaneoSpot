@@ -3,185 +3,182 @@
 <!-- Contenedor Principal -->
 <div *ngIf="alojamiento" class="w-full bg-white flex flex-col items-center py-8">
   <div class="w-[1119px]">
-  
-  <!-- Encabezado -->
-  <div class="w-[1119px] flex flex-col items-start px-8" style="padding-left: 0; padding-bottom: 32px;">
-    <div class="flex flex-col items-start gap-2">
-      <h1 class="text-4xl font-bold">{{ alojamiento.nombre_inmueble }}</h1>
-      <p class="text-lg text-gray-700">Calificación: {{ alojamiento.calificacion || 'N/A' }}/5</p>
-    </div>
-  </div>
 
-  
-
-  <!-- Galería de Imágenes -->
-  <!-- Sección de Galería de Imágenes -->
-  <div class="w-[1119px] h-[553px] relative">
-    <!-- Imagen principal (0) -->
-    <img *ngIf="alojamiento.imagenes && alojamiento.imagenes.length > 0"
-         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[0].file_path"
-         alt="Imagen principal"
-         class="w-[560px] h-[553px] left-0 top-0 absolute bg-[#dadada] rounded-tl-[31px] rounded-bl-[31px] object-cover" />
-    
-    <!-- Imagen 1 -->
-    <img *ngIf="alojamiento.imagenes.length > 1"
-         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[1].file_path"
-         alt="Imagen 1"
-         class="w-[273px] h-[273px] left-[567px] top-0 absolute bg-[#dadada] object-cover" />
-
-    <!-- Imagen 2 -->
-    <img *ngIf="alojamiento.imagenes.length > 2"
-         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[2].file_path"
-         alt="Imagen 2"
-         class="w-[273px] h-[273px] left-[846px] top-0 absolute bg-[#dadada] rounded-tr-[31px] object-cover" />
-
-    <!-- Imagen 3 -->
-    <img *ngIf="alojamiento.imagenes.length > 3"
-         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[3].file_path"
-         alt="Imagen 3"
-         class="w-[273px] h-[273px] left-[567px] top-[280px] absolute bg-[#dadada] object-cover" />
-
-    <!-- Imagen 4 -->
-    <img *ngIf="alojamiento.imagenes.length > 4"
-         [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[4].file_path"
-         alt="Imagen 4"
-         class="w-[273px] h-[273px] left-[846px] top-[280px] absolute bg-[#dadada] rounded-br-[31px] object-cover" />
-  </div>
- 
-
-  <div *ngIf="alojamiento.ubicacion" class="w-[1119px] mt-6">
-    <h2 class="text-3xl font-bold mb-4">Ubicación: {{ alojamiento.ubicacion }}</h2>
-    <p class="text-lg text-gray-700"></p>
-  </div>
-
-  <!-- Sección de Descripción -->
-  <div class="w-[1119px] flex mt-12" style="margin-top: 57px;">
-    <!-- Descripción -->
-    <div class="w-[60%] pr-8">
-      <h2 class="text-3xl font-bold mb-4">Descripción</h2>
-      <p class="text-lg leading-7 text-gray-800">{{ alojamiento.descripcion }}</p>
-    </div>
-
-    <!-- Reservación -->
-    <div *ngIf="userRole === 'foraneo'" class="w-[40%] bg-gray-100 p-6 rounded-xl shadow-lg">
-      <p class="text-xl font-semibold mb-4">${{ alojamiento.renta }} MXN / Mes</p>
-      <div class="mb-4">
-        <label for="fecha" class="block text-gray-700">Fecha:</label>
-        <input id="fecha" type="date" [(ngModel)]="fechaVisita" class="w-full p-2 border border-gray-300 rounded-md" />
-      </div>
-      <div class="mb-4">
-        <label for="hora" class="block text-gray-700">Hora:</label>
-        <input id="hora" type="time" [(ngModel)]="horaVisita" class="w-full p-2 border border-gray-300 rounded-md" />
-      </div>
-      <button (click)="agendarVisita()" class="w-full py-2 bg-blue-600 text-white font-semibold rounded-md">Agendar visita</button>
-    </div>
-  </div>
-
-<!-- Contenedor principal con Flexbox -->
-<div class="w-[1119px] flex justify-between items-start mt-12 space-x-8">
-  <!-- Sección de Servicios -->
-  <div class="w-[60%]">
-    <h2 class="text-3xl font-bold mb-4">Servicios</h2>
-      <div *ngFor="let servicio of servicios">
-        <label class="flex items-center space-x-3">
-          <input
-            type="checkbox"
-            [checked]="true"
-            disabled
-            class="appearance-none h-5 w-5 border-2 border-gray-300 rounded-md checked:bg-blue-500 checked:border-blue-500 checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:justify-center checked:before:items-center"
-            />
-          <span class="text-gray-700">{{ servicio.descripcion }}</span>
-        </label>
-      </div>
-  </div>
-  
-  <div class="w-[40%] bg-gray-100 p-6 rounded-xl shadow-lg" *ngIf="alojamiento?.arrendador">
-    <h3 class="text-2xl font-semibold mb-4">Datos del Arrendador</h3>
-    <div class="flex items-center mb-4">
-      <img *ngIf="alojamiento.arrendador.imagenes && alojamiento.arrendador.imagenes.length > 0"       
-           [src]="'http://3.213.191.244:8000/' + alojamiento.arrendador.imagenes[0].file_path"
-           alt="Imagen del arrendador" class="w-16 h-16 rounded-full mr-4">
-      <div>
-        <p class="text-xl font-semibold">{{ alojamiento.arrendador.nombre || 'Nombre no disponible' }}</p>
-        <p class="text-gray-600">{{ alojamiento.arrendador.descripcion || 'Descripción no disponible' }}</p>
+    <!-- Encabezado -->
+    <div class="w-[1119px] flex flex-col items-start px-8" style="padding-left: 0; padding-bottom: 32px;">
+      <div class="flex flex-col items-start gap-2">
+        <h1 class="text-4xl font-bold">{{ alojamiento.nombre_inmueble }}</h1>
+        <p class="text-lg text-gray-700">Calificación: {{ alojamiento.calificacion || 'N/A' }}/5</p>
       </div>
     </div>
-  </div>
-</div>
 
+    <!-- Galería de Imágenes -->
+    <div class="w-[1119px] h-[553px] relative">
+      <img *ngIf="alojamiento.imagenes && alojamiento.imagenes.length > 0"
+           [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[0].file_path"
+           alt="Imagen principal"
+           class="w-[560px] h-[553px] left-0 top-0 absolute bg-[#dadada] rounded-tl-[31px] rounded-bl-[31px] object-cover" />
+      <img *ngIf="alojamiento.imagenes.length > 1"
+           [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[1].file_path"
+           alt="Imagen 1"
+           class="w-[273px] h-[273px] left-[567px] top-0 absolute bg-[#dadada] object-cover" />
+      <img *ngIf="alojamiento.imagenes.length > 2"
+           [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[2].file_path"
+           alt="Imagen 2"
+           class="w-[273px] h-[273px] left-[846px] top-0 absolute bg-[#dadada] rounded-tr-[31px] object-cover" />
+      <img *ngIf="alojamiento.imagenes.length > 3"
+           [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[3].file_path"
+           alt="Imagen 3"
+           class="w-[273px] h-[273px] left-[567px] top-[280px] absolute bg-[#dadada] object-cover" />
+      <img *ngIf="alojamiento.imagenes.length > 4"
+           [src]="'http://3.213.191.244:8000/' + alojamiento.imagenes[4].file_path"
+           alt="Imagen 4"
+           class="w-[273px] h-[273px] left-[846px] top-[280px] absolute bg-[#dadada] rounded-br-[31px] object-cover" />
+    </div>
 
-<div *ngIf="modal" id="modalComentario" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-  <div class="bg-white w-[500px] p-6 rounded-lg shadow-lg">
-    <h2 class="text-xl font-bold mb-4">Publicar Comentario</h2>
-    <form (ngSubmit)="enviarComentario()">
-      <div class="mb-4">
-        <label class="block text-gray-700 mb-2">Calificación (1-5):</label>
-        <input
-          type="number"
-          min="1"
-          max="5"
-          [(ngModel)]="calificacion"
-          name="calificacion"
-          class="w-full p-2 border border-gray-300 rounded-md"
-          required
-        />
+    <!-- Ubicación -->
+    <div *ngIf="alojamiento.ubicacion" class="w-[1119px] mt-6">
+      <h2 class="text-3xl font-bold mb-4">Ubicación: {{ alojamiento.ubicacion }}</h2>
+    </div>
+
+    <!-- Descripción y Reservación -->
+    <div class="w-[1119px] flex mt-12" style="margin-top: 57px;">
+      <div class="w-[60%] pr-8">
+        <h2 class="text-3xl font-bold mb-4">Descripción</h2>
+        <p class="text-lg leading-7 text-gray-800">{{ alojamiento.descripcion }}</p>
       </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 mb-2">Comentario:</label>
-        <textarea
-          [(ngModel)]="descripcionComentario"
-          name="descripcionComentario"
-          rows="4"
-          class="w-full p-2 border border-gray-300 rounded-md"
-          required
-        ></textarea>
-      </div>
-      <div class="flex justify-end gap-4">
-        <button
-          type="button"
-          (click)="cerrarModalComentario()"
-          class="py-2 px-4 bg-gray-500 text-white rounded-md"
-        >
-          Cancelar
-        </button>
-        <button type="submit" class="py-2 px-4 bg-blue-600 text-white rounded-md">
-          Publicar
+      <div *ngIf="userRole === 'foraneo'" class="w-[40%] bg-gray-100 p-6 rounded-xl shadow-lg">
+        <p class="text-xl font-semibold mb-4">${{ alojamiento.renta }} MXN / Mes</p>
+        <div class="mb-4">
+          <label for="fecha" class="block text-gray-700">Fecha:</label>
+          <input id="fecha" type="date" [(ngModel)]="fechaVisita" class="w-full p-2 border border-gray-300 rounded-md" />
+        </div>
+        <div class="mb-4">
+          <label for="hora" class="block text-gray-700">Hora: (De 8 am a 6 pm)</label>
+          <input id="hora" type="time" [(ngModel)]="horaVisita" class="w-full p-2 border border-gray-300 rounded-md" />
+        </div>
+        <button (click)="agendarVisita()" class="w-full py-2 bg-blue-600 text-white font-semibold rounded-md">
+          Agendar visita
         </button>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
 
-
-
-    
-
-  <!-- Comentarios -->
-<div class="grid grid-cols-2 gap-8">
-  <div *ngFor="let comentario of comentarios" class="w-[428px] h-[246px] bg-white p-4 shadow-md rounded-lg">
-    <div class="flex justify-between items-center">
-      <h3 class="text-xl font-semibold">{{ comentario.nombreForaneo }}</h3>
-      <!-- Mostrar botones de editar y eliminar solo si el idforaneo coincide con el userId -->
-      <div *ngIf="comentario.idforaneo === userId || userRole === 'admin'" class="flex gap-4">
-        <button (click)="abrirModalEditar(comentario)" class="text-blue-600">Editar</button>
-        <button (click)="eliminarComentario(comentario.idopiniones)" class="text-red-600">Eliminar</button>
+    <!-- Servicios y Arrendador -->
+    <div class="w-[1119px] flex justify-between items-start mt-12 space-x-8">
+      <div class="w-[60%]">
+        <h2 class="text-3xl font-bold mb-4">Servicios</h2>
+        <div *ngFor="let servicio of alojamiento.servicios">
+          <label class="flex items-center space-x-3">
+            <input type="checkbox" [checked]="true" disabled
+                   class="appearance-none h-5 w-5 border-2 border-gray-300 rounded-md checked:bg-blue-500" />
+            <span class="text-gray-700">{{ servicio }}</span>
+          </label>
+        </div>
+      </div>
+      <div class="w-[40%] bg-gray-100 p-6 rounded-xl shadow-lg" *ngIf="alojamiento?.arrendador">
+        <h3 class="text-2xl font-semibold mb-4">Datos del Arrendador</h3>
+        <div class="flex items-center mb-4">
+          <img *ngIf="alojamiento.arrendador.imagenes && alojamiento.arrendador.imagenes.length > 0"
+               [src]="'http://3.213.191.244:8000/' + alojamiento.arrendador.imagenes[0].file_path"
+               alt="Imagen del arrendador" class="w-16 h-16 rounded-full mr-4">
+          <div>
+            <p class="text-xl font-semibold">{{ alojamiento.arrendador.nombre || 'Nombre no disponible' }}</p>
+            <p class="text-gray-600">{{ alojamiento.arrendador.descripcion || 'Descripción no disponible' }}</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="mt-4">
-      <p class="text-gray-700">Calificación: {{ comentario.calificacion }} / 5</p>
-      <p class="text-gray-800">{{ comentario.descripcion }}</p>
+
+<!-- Modal para Editar Comentario -->
+<div *ngIf="modalEditar" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <h2 class="text-2xl font-semibold mb-4">Editar Comentario</h2>
+
+    <!-- Calificación -->
+    <div class="mb-4">
+      <label for="calificacion" class="block text-sm font-medium text-gray-700">Calificación:</label>
+      <input [(ngModel)]="comentarioEditado.calificacion" type="number" min="1" max="5" id="calificacion"
+             class="mt-2 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+
+    <!-- Comentario -->
+    <div class="mb-4">
+      <label for="comentario" class="block text-sm font-medium text-gray-700">Comentario:</label>
+      <textarea [(ngModel)]="comentarioEditado.descripcion" id="comentario"
+                class="mt-2 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-between mt-4">
+      <button (click)="guardarEdicion(comentarioEditado)" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none">
+        Guardar
+      </button>
+      <button (click)="cerrarModalEditar()" class="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-500 focus:outline-none">
+        Cancelar
+      </button>
     </div>
   </div>
 </div>
 
 
+    <!-- Comentarios -->
+    <div class="grid grid-cols-2 gap-8 mt-12">
+      <div *ngFor="let comentario of comentarios" class="w-[428px] h-[246px] bg-white p-4 shadow-md rounded-lg">
+        <div class="flex justify-between items-center">
+          <h3 class="text-xl font-semibold">{{ comentario.nombreForaneo }}</h3>
+          <div *ngIf="comentario.idforaneo === userId || userRole === 'admin'" class="flex gap-4">
+            <button (click)="abrirModalEditar(comentario)" class="text-blue-600">Editar</button>
+            <button (click)="eliminarComentario(comentario.idopiniones)" class="text-red-600">Eliminar</button>
+          </div>
+        </div>
+        <div class="mt-4">
+          <p class="text-gray-700">Calificación: {{ comentario.calificacion }} / 5</p>
+          <p class="text-gray-800">{{ comentario.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón Agregar Comentario -->
+    <div *ngIf="userRole === 'foraneo' || userRole === 'admin'" class="mt-8 flex justify-start">
+      <button 
+        class="px-4 py-2 bg-blue-600 text-white rounded-md font-semibold"
+        (click)="abrirModalComentario()">
+        Agregar Comentario
+      </button>
+    </div>
+
+    <!-- Modal Agregar Comentario -->
+    <div *ngIf="modal" id="modalComentario" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+      <div class="bg-white p-8 rounded-md w-[400px] shadow-lg">
+        <h2 class="text-2xl font-bold mb-4">Agregar Comentario</h2>
+        <label class="block mb-2 text-gray-700">Calificación (1-5):</label>
+        <input 
+          type="number" 
+          [(ngModel)]="calificacion" 
+          min="1" 
+          max="5" 
+          class="w-full p-2 border border-gray-300 rounded-md mb-4" />
+
+        <label class="block mb-2 text-gray-700">Comentario:</label>
+        <textarea 
+          [(ngModel)]="descripcionComentario" 
+          rows="4" 
+          class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+        <div class="flex justify-end mt-4 gap-2">
+          <button 
+            class="px-4 py-2 bg-red-600 text-white rounded-md" 
+            (click)="cerrarModalComentario()">
+            Cancelar
+          </button>
+          <button 
+            class="px-4 py-2 bg-blue-600 text-white rounded-md" 
+            (click)="enviarComentario()">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
-</div>
-
-
-      
-    
-  
-
-
-

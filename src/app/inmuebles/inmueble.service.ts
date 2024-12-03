@@ -40,11 +40,11 @@ export class AlojamientosService {
 
   editarComentario(idComentario: number, datosActualizados: { calificacion: number; descripcion: string }): Observable<any> {
     const url = `${this.apiOpiniones}/${idComentario}`;
-    return this.http.put(url, datosActualizados);
+    return this.http.put(url, datosActualizados); 
   }
 
   eliminarComentario(idComentario: number) {
-  const url = `http://3.213.191.244:8000/opiniones_inmuebles/${idComentario}`; // Asegúrate de que el id no esté undefined
+  const url = `http://3.213.191.244:8000/opiniones_inmuebles/${idComentario}`; 
   return this.http.delete(url);
 }
 
