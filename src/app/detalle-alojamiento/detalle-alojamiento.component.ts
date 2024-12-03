@@ -22,7 +22,9 @@ export class DetalleAlojamientoComponent implements OnInit {
   nuevoComentario: any
   calificacion: number | null = null;
   descripcionComentario: string = '';
-
+  modal: boolean = false;
+  idusuarioarrendador: number | null = null;
+  
   constructor(
     private route: ActivatedRoute, // Para acceder a los parámetros de la ruta
     private inmuebleService: AlojamientosService, // Para obtener los detalles del alojamiento
@@ -32,14 +34,21 @@ export class DetalleAlojamientoComponent implements OnInit {
   ) {}
 
   abrirModalComentario() {
+    this.modal = true; 
     const modal = document.getElementById('modalComentario');
-    if (modal) modal.style.display = 'block';
+    if (modal) {
+      modal.style.display = 'block'; 
+    }
   }
   
   cerrarModalComentario() {
+    this.modal = false; 
     const modal = document.getElementById('modalComentario');
-    if (modal) modal.style.display = 'none';
+    if (modal) {
+      modal.style.display = 'none'; 
+    }
   }
+  
   
   enviarComentario() {
     if (!this.calificacion || this.calificacion < 1 || this.calificacion > 5) {
@@ -78,32 +87,41 @@ export class DetalleAlojamientoComponent implements OnInit {
   
   
   ngOnInit(): void {
-    // Obtener el ID del alojamiento y el tipo de inmueble desde la URL
     this.id = this.route.snapshot.paramMap.get('id');
     this.tipoInmueble = this.route.snapshot.paramMap.get('tipo_inmueble');
     this.userRole = this.loginService.getUserRole();
+  
     if (this.id) {
       this.obtenerComentarios(parseInt(this.id, 10));
     }
-    
-    // Verificar que tenemos ambos parámetros antes de hacer la solicitud al servicio
+  
     if (this.id && this.tipoInmueble) {
       this.inmuebleService.getInmueblePorId(this.tipoInmueble, parseInt(this.id, 10)).subscribe({
         next: (data) => {
-          // Si la solicitud es exitosa, asignamos los datos del alojamiento
           this.alojamiento = data;
+          this.idusuarioarrendador = this.alojamiento.idusuarioarrendador;
+  
+          if (this.idusuarioarrendador) {
+            this.inmuebleService.obtenerArrendador(this.idusuarioarrendador).subscribe({
+              next: (arrendadorData) => {
+                this.alojamiento.arrendador = arrendadorData; 
+                console.log(arrendadorData)
+              },
+              error: (err) => {
+                console.error('Error al obtener datos del arrendador:', err);
+              }
+            });
+          }
         },
         error: (err) => {
-          // Manejo de errores si ocurre algo en la solicitud
           console.error('Error al obtener detalles del alojamiento:', err);
         },
       });
     } else {
       console.error('No se encontraron los parámetros necesarios (id o tipo).');
-      // Redirigir o mostrar un mensaje si no tenemos los parámetros
       this.router.navigate(['/alojamientos']);
     }
-  }
+  }  
 
   obtenerComentarios(idInmueble: number) {
     this.inmuebleService.obtenerComentarios(idInmueble).subscribe({
@@ -144,4 +162,3 @@ export class DetalleAlojamientoComponent implements OnInit {
     this.router.navigate(['/alojamientos']);
   }
 }
-

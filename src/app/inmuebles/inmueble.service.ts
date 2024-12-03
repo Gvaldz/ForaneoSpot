@@ -24,6 +24,10 @@ export class AlojamientosService {
   constructor(private http: HttpClient) {
   }
 
+  obtenerArrendador(idarrendador: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/arrendadores/${idarrendador}`);
+  }
+
   getInmueblePorId(tipo: string, id: number) {
     const url = this.apiUrls[tipo];
     return this.http.get<any>(`${url}/${id}`);
@@ -35,12 +39,10 @@ export class AlojamientosService {
   }
   
 
-   // Método para agendar una visita
    agendarVisita(citaVisita: { idinmuebles: string; fecha: string; hora: string; realizada: boolean }): Observable<any> {
     return this.http.post(`${this.apiUrl}/citas_visitas`, citaVisita);
   }
 
-  // Método para obtener comentarios
   obtenerComentarios(idInmueble: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiOpiniones}/inmuebles/${idInmueble}`);
   }
