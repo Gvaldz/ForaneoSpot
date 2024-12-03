@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginserviceService } from './loginservice.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,27 +30,49 @@ export class LoginComponent implements OnInit {
     this.userRole = this.loginService.getUserRole();
    }
 
-  onSubmit(): void {
+   onSubmit(): void {
     if (this.loginForm.valid) {
       const { correo, contrasena } = this.loginForm.value;
-
+  
       this.loginService.login(correo, contrasena).subscribe(
         (response) => {
-          if(this.userRole == "vendedor" || this.userRole == "foraneo"){
-            this.navigateComida()
-          }else{
-          this.navigateInmuebles()
-        }
+          this.userRole = this.loginService.getUserRole();
+          if (this.userRole === "vendedor") {
+            Swal.fire({
+              icon: 'success',
+              title: '¡Bienvenido!',
+              text: 'Acceso correcto, redirigiendo a la sección de comida...',
+            }).then(() => {
+              this.navigateComida();
+            });
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: '¡Bienvenido!',
+              text: 'Acceso correcto, redirigiendo a la sección de inmuebles...',
+            }).then(() => {
+              this.navigateInmuebles();
+            });
+          }
         },
         (error) => {
-          console.error('Error en el login:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Credenciales incorrectas',
+            text: 'Correo o contraseña incorrectos. Por favor, inténtalo de nuevo.',
+          });
         }
       );
-      
+  
     } else {
-      this.errorMessage = 'Por favor, completa el formulario correctamente.';
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario Incompleto',
+        text: 'Por favor, completa todos los campos correctamente antes de enviar.',
+      });
     }
   }
+  
 
   navigateComida(): void {
     this.router.navigate(['/comida']);

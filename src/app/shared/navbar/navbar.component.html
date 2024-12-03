@@ -64,6 +64,7 @@
       <div class="relative inline-block text-left">
         <!-- Botón principal (Alojamientos) -->
         <button
+        *ngIf="userRole === 'foraneo' || userRole === 'arrendador'"
           (click)="toggleDropdown()"
           class="inline-flex justify-between items-center w-full rounded-full bg-white px-8 py-2 text-black hover:bg-white/90 flex items-center"
         >

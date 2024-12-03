@@ -82,12 +82,19 @@
   <!-- Sección de Servicios -->
   <div class="w-[60%]">
     <h2 class="text-3xl font-bold mb-4">Servicios</h2>
-    <ul class="list-disc pl-8 text-lg text-gray-800">
-      <li *ngFor="let servicio of alojamiento?.servicios">{{ servicio }}</li>
-    </ul>
+      <div *ngFor="let servicio of servicios">
+        <label class="flex items-center space-x-3">
+          <input
+            type="checkbox"
+            [checked]="true"
+            disabled
+            class="appearance-none h-5 w-5 border-2 border-gray-300 rounded-md checked:bg-blue-500 checked:border-blue-500 checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:justify-center checked:before:items-center"
+            />
+          <span class="text-gray-700">{{ servicio.descripcion }}</span>
+        </label>
+      </div>
   </div>
-
-  <!-- Sección de Datos del Arrendador -->
+  
   <div class="w-[40%] bg-gray-100 p-6 rounded-xl shadow-lg" *ngIf="alojamiento?.arrendador">
     <h3 class="text-2xl font-semibold mb-4">Datos del Arrendador</h3>
     <div class="flex items-center mb-4">
@@ -95,9 +102,7 @@
            [src]="'http://3.213.191.244:8000/' + alojamiento.arrendador.imagenes[0].file_path"
            alt="Imagen del arrendador" class="w-16 h-16 rounded-full mr-4">
       <div>
-        <!-- Nombre del arrendador -->
         <p class="text-xl font-semibold">{{ alojamiento.arrendador.nombre || 'Nombre no disponible' }}</p>
-        <!-- Descripción del arrendador -->
         <p class="text-gray-600">{{ alojamiento.arrendador.descripcion || 'Descripción no disponible' }}</p>
       </div>
     </div>
@@ -105,10 +110,6 @@
 </div>
 
 
-    
-
-  <!-- Modal para publicar comentario -->
-<!-- Modal para publicar comentario -->
 <div *ngIf="modal" id="modalComentario" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
   <div class="bg-white w-[500px] p-6 rounded-lg shadow-lg">
     <h2 class="text-xl font-bold mb-4">Publicar Comentario</h2>

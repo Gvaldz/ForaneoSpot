@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlojamientosService } from '../inmuebles/inmueble.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginserviceService } from '../login/loginservice.service';
+import { CaracteristicasService } from '../inmuebles/caracteristicas.service';
 
 @Component({
   selector: 'app-detalle-alojamiento',
@@ -24,6 +25,7 @@ export class DetalleAlojamientoComponent implements OnInit {
   descripcionComentario: string = '';
   modal: boolean = false;
   idusuarioarrendador: number | null = null;
+  servicios: any[] = []; // Servicios asociados al inmueble
   
   constructor(
     private route: ActivatedRoute, // Para acceder a los parámetros de la ruta
@@ -31,6 +33,7 @@ export class DetalleAlojamientoComponent implements OnInit {
     private router: Router, // Para la navegación entre páginas
     private http: HttpClient, // Inyectamos HttpClient para hacer la solicitud POST
     private loginService: LoginserviceService,
+    private caracteristicasService: CaracteristicasService
   ) {}
 
   abrirModalComentario() {
@@ -96,6 +99,7 @@ export class DetalleAlojamientoComponent implements OnInit {
     }
   
     if (this.id && this.tipoInmueble) {
+      this.obtenerServicios(parseInt(this.id, 10));
       this.inmuebleService.getInmueblePorId(this.tipoInmueble, parseInt(this.id, 10)).subscribe({
         next: (data) => {
           this.alojamiento = data;
@@ -105,7 +109,6 @@ export class DetalleAlojamientoComponent implements OnInit {
             this.inmuebleService.obtenerArrendador(this.idusuarioarrendador).subscribe({
               next: (arrendadorData) => {
                 this.alojamiento.arrendador = arrendadorData; 
-                console.log(arrendadorData)
               },
               error: (err) => {
                 console.error('Error al obtener datos del arrendador:', err);
@@ -122,6 +125,33 @@ export class DetalleAlojamientoComponent implements OnInit {
       this.router.navigate(['/alojamientos']);
     }
   }  
+
+  obtenerServicios(idInmueble: number): void {
+    this.caracteristicasService.getServiciosInmueble(idInmueble).subscribe({
+      next: (serviciosInmueble) => {
+        this.caracteristicasService.getServicios().subscribe({
+          next: (todosLosServicios) => {
+            this.servicios = serviciosInmueble.map((servicioInmueble) => {
+              const servicio = todosLosServicios.find(
+                (s) => s.idservicios === servicioInmueble.idservicio
+              );
+              return {
+                ...servicioInmueble,
+                descripcion: servicio ? servicio.descripcion : 'Descripción no disponible',
+              };
+            });
+          },
+          error: (err) => {
+            console.error('Error al obtener la lista general de servicios:', err);
+          },
+        });
+      },
+      error: (err) => {
+        console.error('Error al obtener servicios del inmueble:', err);
+      },
+    });
+  }
+    
 
   obtenerComentarios(idInmueble: number) {
     this.inmuebleService.obtenerComentarios(idInmueble).subscribe({
