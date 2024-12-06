@@ -154,7 +154,7 @@ removeFileById(image: { id: number }): void {
     });
   
     if (tipo_inmueble === 'Edificio') {
-      this.inmuebleForm.addControl('rentamax', this.fb.control('', Validators.min(0)));
+      this.inmuebleForm.addControl('rentamax', this.fb.control(0, Validators.min(0)));
       this.inmuebleForm.addControl('tipo_unidad', this.fb.control('', Validators.required));
       this.inmuebleForm.addControl('cantidad_unidades', this.fb.control('', [Validators.required, Validators.min(1)]));
       this.inmuebleForm.addControl('unidades_disponibles', this.fb.control('', [Validators.required, Validators.min(0)]));
@@ -224,6 +224,7 @@ removeFileById(image: { id: number }): void {
               }).then(() => this.router.navigate(['/inmuebles/agregar/servicios', this.inmuebleId]));
             },
             (error) => {
+              console.log()
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -233,6 +234,7 @@ removeFileById(image: { id: number }): void {
             }
           );
         } else {
+          console.log('Datos enviados:', inmuebleData)
           this.inmuebleServicio.addInmueble(this.tipo_inmueble, inmuebleData).subscribe(
             (newInmueble) => {
               if (newInmueble && newInmueble.idinmuebles) {
